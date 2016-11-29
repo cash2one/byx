@@ -1,0 +1,380 @@
+
+body {
+	min-width: 1258px;
+	margin: 0 auto;
+}
+.myboder {
+	border: 1px solid white;
+	border-radius: 4px;
+}
+.myboder-1 {
+	border: 1px solid red;
+	border-radius: 4px;
+}
+.customer-visible {
+	/*visibility: hidden;*/
+	display: none;
+}
+.customer-width {
+	width: 1258px;
+}
+.customer-nav-height {
+	height: 40px;
+	width: 500px;
+}
+.customer-nav-positoin {
+	position: absolute;
+	top: 30px;
+	left: 270px;
+}
+.customer-nav-submenu {
+	padding: 9px 25px;
+	position: absolute;
+	top: 70px;
+	left: 121.5px;
+	height: 30px;
+	width: 1015px;
+	font-size: 12px;
+}
+.customer-nav-menutip {
+	position: absolute;
+	top: 100px;
+	left: 101px;
+	padding-top: 38px;
+	margin-bottom: 11px;
+	height: 48px;
+	width: 1056px;
+}
+.customer-footer-height {
+	height: 179px;
+	font-size: 12px;
+}
+.customer-footer-padding {
+	padding: 32px 0;
+}
+.customer-footer-div-left {
+	width: 813px;
+	padding-left: 111px;
+	border-right: 1px solid #787878;
+}
+.customer-footer-div-right {
+	width: 440px;
+	padding-left: 126px;
+}
+.customer-scroll-height {
+	height: 183px;
+	margin: 6px -15px 7px -15px;
+}
+.customer-position-absolute {
+	position: absolute;
+	z-index: 100;
+}
+.customer-logo {
+	position: absolute;
+	top: 19px;
+	left: 131px;
+	width: 75px;
+	height: 20px;
+}
+.customer-sublogo {
+	position: absolute;
+	top: 44px;
+	left: 124px;
+}
+.customer-column-margin {
+	margin: 0 -12px;
+}
+.customer-column-margin-left {
+	margin-left: -3px;
+}
+.customer-letter-spacing {
+	letter-spacing: 1px;
+}
+.customer-nva-li-padding {
+	padding: 5px;
+}
+.customer-search {
+	position: absolute;
+	height: 32px;
+	width: 311px;
+	left: 853px;
+	top: 271px;
+	z-index: 99;
+}
+.customer-about-search {
+	position: absolute;
+	left: 838px;
+	top: 18px;
+	z-index: 9999;
+	height: 32px;
+	width: 311px;
+	border: 1px solid grey;
+	border-radius: 4px;
+}
+.customer-search-form {
+	height: 30px;
+}
+.customer-search-select-div {
+	margin-left: 11px;
+	margin-top: -1px;
+	border-color: white;
+}
+.customer-other-search-select-div {
+	margin-left: 11px;
+	margin-top: -1px;
+	border-color: #82735f;
+}
+.customer-search-select {
+	background: url("../images/select_icon_black.png") no-repeat 95% 50%;
+	padding-left: 2px;
+	padding-right: 2px;
+	width: 80px;
+	height: 32px;
+	color: white;
+	font-size: 12px;
+}
+.customer-other-search-icon-size {
+	display: block;
+	margin-top: 1px;
+	border-right: 1px solid #82735f;
+	height: 28px;
+}
+.customer-search-icon-size {
+	display: block;
+	margin-top: 1px;
+	border-right: 1px solid white;
+	height: 28px;
+}
+.customer-search-icon-size a img,
+.customer-other-search-icon-size a img {
+	padding-top: 3.5px;
+}
+.customer-search-icon {
+	margin: auto 11px;
+	height: 25px;
+	width: 27px;
+}
+.customer-email {
+	color: black;
+	text-decoration: none;
+}
+#byx_submenu ul li {
+	float: left;
+	list-style: none;
+	margin: auto 25px;
+}
+.customer-other-a {
+	color: black;
+}
+.container a {
+	color: black;
+}
+.customer-about-container {
+	position: absolute;
+	top: 159px;	
+}
+#byx_about_container h1 {
+	font-size: 18px;
+}
+.customer-description {
+	margin: 0 114px;
+	/*height: 500px;*/
+}
+.customer-about-text-format {
+	line-height: 20px;
+	font-size: 12px;
+	letter-spacing: 2px;
+}
+#byx_about_container p {
+	text-indent: 2em;
+	margin: 15px 0;
+}
+#byx_search-select {
+	border-color: grey;
+}
+.customer-about-margin-top {
+	margin-top: 168px;
+}
+.customer-process-container {
+	position: absolute;
+	top: 159px;	
+	width: 1258px;
+	margin-bottom: 9px;
+}
+.customer-process-container div {
+	/*margin-bottom: 6px;*/
+	margin: 0 auto 10px -1px;
+}
+.customer-watermark {
+	position: absolute;
+	top: 217px;
+	height: 120px;
+	text-align: center;
+}
+.customer-artist-container {
+	width: 1030px;
+	margin: 0 114px 10px 114px;
+}
+.customer-artist-first-col {
+	margin-right: 10px;
+}
+.customer-artist-container-col {
+	width: 510px;
+}
+.customer-artist-container-col-sink {
+	width: 510px;
+	padding-top: 168px;
+}
+.customer-artist-container-col a img,
+.customer-artist-container-col-sink a img {
+	margin-bottom: 10px;
+}
+.customer-need-more {
+	text-align: center;
+	margin-top: 90px;
+}
+.customer-artist-pic {
+	width: 182px;
+	height: 164px;
+}
+.customer-mid-container {
+	position: absolute;
+	top: 159px;	
+}
+#customer-artist-introduce {
+	width: 318px;
+	padding: 0 0 0 20px;
+}
+#customer-artist-introduce h1 {
+	font-size: 18px;
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+.customer-artist-introduce-p {
+	font-size: 10px;
+	letter-spacing: 1px;
+	text-align: left;
+	margin: 2px 0 9px 0;
+}
+.customer-artist-tip-p {
+	text-indent: 2em;
+	font-size: 12px;
+	letter-spacing: 1px;
+	margin: 0;
+}
+.customer-exhibition {
+	width: 780px;
+	margin: 0 239px;
+	font-size: 12px;
+	line-height: 20px;
+}
+.customer-exhibition p {
+	text-indent: 2em;
+	letter-spacing: 1px;
+}
+.customer-exhibition h1 {
+	text-align: center;
+}
+.customer-exhibition h1,h2,
+.customer-artshow-author-tip h1,
+.customer-no-margin h2 {
+	font-size: 18px;
+	margin: 0;
+}
+.customer-exhibition-title {
+	padding: 31px 0;
+}
+.customer-text-center {
+	display: block;
+	margin-top: 36px;
+	margin-bottom: 24px;
+	text-align: center;
+}
+.customer-exhibition-pic p {
+	margin-top: 10px;
+	/*text-align: center;*/
+}
+.customer-exhibition-content {
+	margin-top: 81px;
+}
+.customer-exhibition-content h2 {
+	margin: 14px 0;
+}
+.customer-artshow-pic {
+	margin: 0 -7px 68px -7px; 
+}
+.customer-artshow-author {
+	height: 164px;
+	width: 182px;
+	padding: 0;
+	margin: 0;
+}
+.customer-artshow-author-tip {
+	width: 519px;
+	margin: 0;
+	padding: 20px 130px 0 38px;
+}
+.customer-artshow-discription {
+	width: 701px;
+	margin: 32px 0 28px 0;
+}
+.customer-artshow-content {
+	margin: 0 111px;
+}
+.customer-no-margin {
+	margin-left: -10px;
+	margin-right: -10px;
+}
+#customer-artshow-discription-title {
+	height: 18px;
+	width: 188px;
+	border-right: 1px solid black;
+	margin: 0;
+	padding: 0 0 0 12px;
+}
+#customer-artshow-discription-sub-title {
+	height: 18px;
+	width: 519px;
+	margin: 0;
+}
+#customer-artshow-discription-title h2 {
+	display: block;
+	float: left;
+	letter-spacing: 12px;
+}
+.customer-artshow-discription p {
+	margin-top: 25px;
+	padding-right: 46px;
+}
+.customer-artshow-discription-price {
+	height: 164px;
+	width: 330px;
+	border-left: 1px solid black;
+	padding-left: 55px;
+	padding-top: 25px;
+}
+.customer-artshow-discription-price table {
+	font-size: 12px;
+}
+.customer-artshow-discription-price table tr td {
+	margin-bottom: 8px;
+}
+.customer-artshow-discription-price table tr td a {
+	color: red;
+}
+.customer-text-align-right {
+	text-align: right;
+}
+.customer-text-align-justify {
+	text-align: justify;
+}
+.customer-artshow-discription-kline {
+	width: 330px;
+	height: 330px;
+}
+.customer-sub-title {
+	display: block;
+	float: left;
+	padding-left: 38px;
+	letter-spacing: 2px;
+}
