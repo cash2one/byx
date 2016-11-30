@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>    <!-- , user-scalable:no"/> -->
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="百雅轩">
+    <meta name="description" content="艺术品投资收藏,中外文化交流,丝网版画,铜版画,石版画,木板水印版画,综合版画,珂罗版画,艺术微喷画,艺术衍生品">
+    <title>百雅轩-艺术走进生活</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/byxcss.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.bxslider.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jQuery-3.1.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.bxslider.js') }}"></script>
+
+    <script type="text/javascript">    <!-- 需动态加载 -->
+    $(function () {
+      $('#byx_k_chart').highcharts({
+        title: {
+            text: null,
+        },
+        xAxis: {
+            categories: ['1月', '2月', '3月', '4月', '5月', '6月',
+                '7月', '8月', '9月', '10月', '11月', '12月']
+        },
+        yAxis: {
+            title: {
+                text: '2016年价格(RMB)'
+            },
+            plotLines: [{
+                value: 0,
+                width: 500,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: 'RMB'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0,
+            enabled: false
+        },
+        credits: {
+        	enabled: false
+		},
+		exporting: {
+			enabled: false
+		},
+        series: [{
+            name: '九月',
+            data: [2500, 2750, 2500, 3200, 3600, 4800, 4950, 4300, 4850, 5750, 7250, 7400]
+        }]
+    });
+});
+
+
+
+
+
+
+
+    </script>
+</head>
+<body>
+<div class="container customer-width">
+    <div class="row customer-width customer-position-absolute clearfix">
+        <div class="col-md-3 column customer-nav-height">
+            <a href="#"><img class="customer-logo" src="{{ url_for('static', filename='images/logo_black.png') }}" alt="百雅轩"></a>
+            <img class="customer-sublogo" src="{{ url_for('static', filename='images/subLogo_black.png') }}" alt="让艺术走进|寻常百姓家">
+        </div>
+        <div class="col-md-9 column customer-nav-height customer-nav-positoin" id="byx_menu">
+            <ul class="nav nav-pills">
+                <li>
+                    <a href="#">首页</a>
+                </li>
+                <li>
+                    <a href="#">动态</a>
+                    <ul class="customer-visible">
+                        <li><a href="#">百雅轩动态</a></li>
+                        <li><a href="#">艺术家资讯</a></li>
+                        <li><a href="#">其他</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">艺术</a>
+                    <ul class="customer-visible">
+                        <li><a href="#">珂罗版</a></li>
+                        <li><a href="#">丝网版</a></li>
+                        <li><a href="#">木版</a></li>
+                        <li><a href="#">铜版</a></li>
+                        <li><a href="#">石版</a></li>
+                        <li><a href="#">综合版</a></li>
+                        <li><a href="#">艺术微喷</a></li>
+                        <li><a href="#">艺术家</a></li>
+                        <li><a href="#">艺术衍生品</a></li>
+                        <li><a href="#">艺术走进生活</a></li>
+                        <li><a href="#">其他</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">活动</a>
+                    <ul class="customer-visible">
+                        <li><a href="#">展览资讯</a></li>
+                        <li><a href="#">相关活动</a></li>
+                        <li><a href="#">其他</a></li>
+                    </ul>
+                </li>
+                <li class="active">
+                    <a href="#">关于我们</a>
+                    <ul class="customer-visible">
+                        <li><a href="#">版画制作工艺</a></li>
+                        <li><a href="#">关于百雅轩</a></li>
+                        <li><a href="#">艺术家与百雅轩</a></li>
+                    </ul>
+                </li>
+                <li class="disabled">
+                    <a href="#">...</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-12 colum customer-nav-submenu clearfix" id="byx_submenu">
+        </div>
+        <div class="col-md-12 column customer-nav-menutip clearfix">
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">首页</a>
+                </li>
+                <li>
+                    <a href="#">艺术</a>
+                </li>
+                <li class="active">
+                    艺术走进生活
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="customer-about-search clearfix">
+        <form class="bs-example bs-example-form customer-search-form" role="form">
+            <div class="row">
+                <div class="col-lg-11">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button"
+                                    class="btn btn-default dropdown-toggle customer-search-select customer-other-search-select-div"
+                                    data-toggle="dropdown" id="byx_search-selected" data-id="_engraving">
+                                版画作品
+                            </button>
+                            <ul class="dropdown-menu" id="byx_search-select">
+                                <li><a href="#" data-id="_arts">艺术品</a></li>
+                                <li><a href="#" data-id="_artists">艺术家</a></li>
+                                <li><a href="#" data-id="_engraving">版画作品</a></li>
+                                <li><a href="#" data-id="_original">艺术家原作</a></li>
+                                <li><a href="#" data-id="_activity">活动</a></li>
+                                <li><a href="#" data-id="_developments">动态</a></li>
+                            </ul>
+                        </div><!-- /btn-group -->
+                        <input type="text" class="form-control">
+                        <span class="input-group-addon customer-other-search-icon-size"><a href="#"><img
+                                class="customer-search-icon" src="{{ url_for('static', filename='images/search_icon.png') }}"></a></span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 --><br>
+            </div>
+        </form>
+    </div>
+    <div class="row customer-mid-container customer-width clearfix" id="byx_mid_container">
+        <div class="col-md-12 column">
+            <div class="row clearfix customer-artshow-pic">
+                <div class="col-md-12 column">
+                    <img src="{{ url_for('static', filename='images/artshow/sep_show.png') }}" alt="九月">
+                </div>
+            </div>
+            <div class="row clearfix customer-artshow-content">
+                <div class="col-md-12">
+                    <div class="row clearfix customer-no-margin">
+                        <div class="col-md-3 column customer-artshow-author">
+                            <img src="{{ url_for('static', filename='images/artshow/lec.png') }}" alt="罗尔纯">
+                        </div>
+                        <div class="col-md-6 column customer-artshow-author-tip">
+                            <h1>罗尔纯</h1>
+                            <p class="customer-artist-introduce-p">中国 江苏宜兴人</p>
+                            <p class="customer-artist-tip-p">
+                                吴冠中在50～70年代，致力于风景油画创作，并进行油画民族化的探索。他力图把欧洲油画描绘自然的直观生动性、油画色彩的丰富细腻性与中国传统艺术精神、审美理想融合到一起。从70年代起，吴冠中渐渐兼事中国画创作。他力图运用中国传统材料工具表现现代精神，并探求中国画的革新。</p>
+                        </div>
+                        <div class="col-md-3 column customer-artshow-discription-price">
+                            <table class="table">
+                                <tr>
+                                    <td class="customer-text-align-justify">签字丝网版平均交易价：</td>
+                                    <td class="customer-text-align-right"><a href="#" id="byx_contact_price">珍贵限量
+                                        点此询问客服</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="customer-text-align-justify">盖章丝网版平均交易价：</td>
+                                    <td class="customer-text-align-right"><a href="#" id="byx_contact_price">珍贵限量
+                                        点此询问客服</a></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class="customer-text-align-justify">珂罗版平均交易价：</td>
+                                    <td class="customer-text-align-right"></td>
+                                </tr>
+                                <tr>
+                                    <td class="customer-text-align-justify">综合版平均交易价：</td>
+                                    <td class="customer-text-align-right"></td>
+                                </tr>
+                                <tr>
+                                    <td class="customer-text-align-justify">艺术微喷：</td>
+                                    <td class="customer-text-align-right"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row customer-no-margin clearfix">
+                        <div class="col-md-9 column customer-artshow-discription">
+                            <div class="row customer-no-margin clearfix">
+                                <div class="col-md-3 column" id="customer-artshow-discription-title">
+                                    <h2>小胖西餐厅</h2>
+                                </div>
+                                <div class="col-md-6 column" id="customer-artshow-discription-sub-title">
+                                    <span class="customer-sub-title">九月-</span>
+                                    <span class="customer-sub-title">September</span>
+                                </div>
+                            </div>
+                            <p class="customer-artist-tip-p">
+                                吴冠中，1919年7月出生于江苏省宜兴县。1942年，毕业于国立杭州艺术专科学校。1943年，在四川重庆沙坪坝青年宫举办第一次个展。1947年，入法国巴黎国立高等美术学院研习油画，受教于苏弗尔皮教授。1948年，作品参加巴黎春季沙龙展和秋季沙龙展。1950年，为寻根毅然回国。1951年，任教于中央美术学院。1953年，因教学观点不同而被调往清华大学建筑系任教，从此以画风景画为主。1956年，任教于北京艺术学院。1964年，任教于中央工艺美术学院。1978年，中央工艺美院主办“吴冠中作品展”，在北京和全国各地巡回展出。1979年，中国美术馆主办“吴冠中绘画作品展”。当选为中国美协常务理事。1981年，出访西非三国并至巴黎访旧友。1985年，中国美术家协会主办“吴冠中新作展”。任全国政协委员。1987年，香港艺术中心主办“吴冠中回顾展”。1988年，参加新加坡、日本、澳门主办的“吴冠中画展”开幕式并讲学。1989年，赴巴黎写生，在东京举办“吴冠中画巴黎”展。在美国举办作品巡回展。1990年，赴香港、新加坡、泰国展画讲学并写生。1991年，接受“法国文艺最高勋位”。“吴冠中师生展”在北京举行。1992年，大英博物馆首次破例举办“吴冠中-20世纪的中国画家”画展。1993年，巴黎塞纽奇博物馆举办“走向世界-吴冠中油画水墨速写展”。</p>
+                        </div>
+                        <div class="col-md-3 column customer-artshow-discription-kline" id="byx_k_chart">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row clearfix customer-no-margin">
+                <div class="col-md-12 column" id="byx_artshow_scroll">
+                    <div><a href="#"><img src="{{ url_for('static', filename='images/artshow/artshow_10.png') }}"></a></div>
+                    <div><a href="#"><img src="{{ url_for('static', filename='images/artshow/artshow_12.png') }}"></a></div>
+                    <div><a href="#"><img src="{{ url_for('static', filename='images/artshow/artshow_14.png') }}"></a></div>
+                    <div><a href="#"><img src="{{ url_for('static', filename='images/artshow/artshow_16.png') }}"></a></div>
+                </div>
+            </div>
+            <div class="row customer-footer-height customer-footer-padding customer-no-margin clearfix">
+                <div class="col-md-8 column customer-footer-div-left clearfix">
+                    <table class="table">
+                        <tr>
+                            <td><h5 class="customer-letter-spacing">联系与合作</h5></td>
+                        </tr>
+                        <tr>
+                            <td>联 系 我 们：</td>
+                        </tr>
+                        <tr>
+                            <td>建 议 反 馈：<strong><a class="customer-email"
+                                                   href="mailto:admin@baiyaxuan.com?subject=意见与建议">admin@baiyaxuan.com</a></strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>合 作 热 线：<strong>010-57626236</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong class="customer-letter-spacing">北京百雅轩文化传播有限公司 版权所有 京ICP备14004157号</strong></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-4 column customer-footer-div-right">
+                    <table class="table">
+                        <tr>
+                            <td><h5 class="customer-letter-spacing">关注我们</h5></td>
+                        </tr>
+                        <tr>
+                            <td>新 浪 微 博：</td>
+                        </tr>
+                        <tr>
+                            <td>淘宝官方拍场：</td>
+                        </tr>
+                        <tr>
+                            <td>官 方 Q Q：</td>
+                        </tr>
+                        <tr>
+                            <td>官 方 微 信：</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript" src="{{ url_for('static', filename='js/highcharts.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/exporting.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/grid-light.js') }}"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#byx_artshow_scroll').bxSlider({
+      slideWidth: 800,
+      minSlides: 2,
+      maxSlides: 4,
+	  moveSlides: 1,
+      slideMargin: 6,
+      pager:false,
+      slideWidth: 310
+    });
+  })
+
+
+</script>
+</body>
+</html>

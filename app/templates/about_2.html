@@ -1,0 +1,33 @@
+{% extends "about_base.html" %}
+
+{% block about_type %}版画制作工艺{% endblock %}
+
+{%  block body %}
+
+<div class="col-md-12 column">
+    <div class="row clearfix">
+        <a href="#"><img src="{{ url_for('static', filename='images/index-4_02.png') }}" alt="珂罗版的制作工艺"></a>
+        <div class="row customer-watermark clearfix">
+            <!--<span>珂罗版的制作工艺</span>-->
+            <span></span>
+            <!--<span>Collotype Process</span>-->
+        </div>
+    </div>
+    <div class="row clearfix">
+        <a href="#"><img src="{{ url_for('static', filename='images/index-4_04.png') }}" alt="丝网版的制作工艺"></a>
+        <div class="row customer-watermark clearfix">
+            <!--<span>丝网版的制作工艺</span>-->
+            <span></span>
+            <!--<span>Silk Screen Version Of The Producttion Process</span>-->
+        </div>
+    </div>
+    <div class="row clearfix">
+        <a href="#"><img src="{{ url_for('static', filename='images/index-4_06.png') }}" alt="艺术微喷的制作工艺"></a>
+        <div class="row customer-watermark clearfix">
+            <!--<span>艺术微喷的制作工艺</span>-->
+            <span></span>
+            <!--<span>Glciee Process</span>-->
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "about_base.html" %}
+
+{% block title %}百雅轩-艺术走进生活{% endblock %}
+
+{% block type %}艺术{% endblock %}
+
+{% block about_type %}艺术走进生活{% endblock %}
+
+{% block body %}
+<div class="row customer-artist-container clearfix">
+    <div class="col-md-3 customer-artist-pic column">
+        <img src="{{ url_for('static', filename='images/artlive/sep_title.png') }}" alt="九月">
+    </div>
+    <div class="col-md-3 column" id="customer-artist-introduce">
+        <h1>九月</h1>
+        <p class="customer-artist-introduce-p">罗尔纯</p>
+        <p class="customer-artist-tip-p">
+            九月介绍--->。他力图把欧洲油画描绘自然的直观生动性、油画色彩的丰富细腻性与中国传统艺术精神、审美理想融合到一起。从70年代起，吴冠中渐渐兼事中国画创作。他力图运用中国传统材料工具表现现代精神，并探求中国画的革新。</p>
+    </div>
+</div>
+<div class="row customer-artist-container clearfix">
+    <div class="col-md-6 column customer-artist-container-col customer-artist-first-col">
+        <a href="#"><img src="{{ url_for('static', filename='images/artlive/sep_06.png') }}" alt="盛和大厦办公室"></a>
+        <a href="#"><img src="{{ url_for('static', filename='images/artlive/sep_12.png') }}" alt="西嘴湾小区家装"></a>
+    </div>
+    <div class="col-md-6 column customer-artist-container-col-sink">
+        <a href="#"><img src="{{ url_for('static', filename='images/artlive/sep_09.png') }}" alt="小胖西餐厅"></a>
+        <a href="#"><img src="{{ url_for('static', filename='images/artlive/sep_14.png') }}" alt="仁明有限公司办公室"></a>
+    </div>
+</div>
+{% endblock %}

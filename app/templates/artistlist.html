@@ -1,0 +1,25 @@
+{% extends "about_base.html" %}
+
+{% block title %}百雅轩-艺术家{% endblock %}
+
+{% block type %}艺术{% endblock %}
+
+{% block about_type %}艺术家{% endblock %}
+
+
+{% block body %}
+<div class="row customer-artist-container clearfix">
+    <div class="col-md-6 column customer-artist-container-col customer-artist-first-col">
+        <a href="#"><img src="{{ url_for('static', filename='images/artist/bjs_18.png') }}" alt="毕加索"></a>
+        <a href="#"><img src="{{ url_for('static', filename='images/artist/cdq_17.png') }}" alt="陈丹青"></a>
+        <a href="#"><img src="{{ url_for('static', filename='images/artist/hmz_13.png') }}" alt="黄苗子"></a>
+        <a href="#"><img src="{{ url_for('static', filename='images/artist/lec_05.png') }}" alt="罗尔纯"></a>
+    </div>
+    <div class="col-md-6 column customer-artist-container-col">
+        <a href="#"><img src="{{ url_for('static', filename='images/artist/sjk_10.png') }}" alt="邵晶坤"></a>
+        <a href="#"><img src="{{ url_for('static', filename='images/artist/wgz_03.png') }}" alt="吴冠中"></a>
+        <a href="#"><img src="{{ url_for('static', filename='images/artist/yyp_14.png') }}" alt="袁运甫"></a>
+        <a href="#"><img src="{{ url_for('static', filename='images/artist/zdn_09.png') }}" alt="祝大年"></a>
+    </div>
+</div>
+{% endblock %}
