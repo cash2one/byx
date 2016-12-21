@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>    <!-- , user-scalable:no"/> -->
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="百雅轩">
+    <meta name="description" content="艺术品投资收藏,中外文化交流,丝网版画,铜版画,石版画,木板水印版画,综合版画,珂罗版画,艺术微喷画,艺术衍生品">
+    <title>百雅轩-网站数据维护</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/byxcss2.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.9.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</head>
+<body>
+<div class="container customer-update-container">
+    <div class="col-md-12 column">
+        <div class="row customer-update-title clearfix">
+            <div class="col-md-3 column text-center">
+                <img class="customer-update-logo" src="{{ url_for('static', filename='images/logo_2.png') }}">
+            </div>
+            <div class="col-md-9 column">
+                <div class="row customer-update-title-name clearfix">
+                    <h1 class="text-center">网站数据维护系统</h1>
+                    <span class="customer-update-splite"></span>
+                </div>
+                <div class="row customer-update-title-tip clearfix">
+                    <div class="col-md-7 column text-right">
+                        <span>日 期：</span><span class="customer-update-date"></span>
+                    </div>
+                    <div class="col-md-3 column text-right">
+                        <span>时 间：</span><span class="customer-update-time"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-3 column customer-update-menu well well-sm">
+                <span>管理菜单</span>
+                <div class="panel-group" id="accordion">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title glyphicon glyphicon-transfer">
+                                <a class="customer-letter-spacing" data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseOne">
+                                    <span class="badge pull-right">5</span>
+                                    数据维护
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body customer-update-menu-left">
+                                <p><a class="customer-letter-spacing" href="#">首页轮播</a></p>
+                                <p><a class="customer-letter-spacing" href="#">艺术家</a></p>
+                                <p><a class="customer-letter-spacing" href="#">作品</a></p>
+                                <p><a class="customer-letter-spacing" href="#">动态信息及展览</a></p>
+                                <p><a class="customer-letter-spacing" href="#">作品价格更新</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title glyphicon glyphicon-cog">
+                                <a class="customer-letter-spacing" data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseTwo">
+                                    <span class="badge pull-right">1</span>
+                                    系统设置
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse">
+                            <div class="panel-body customer-update-menu-left">
+                                <p><a class="customer-letter-spacing" href="#">修改密码</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 column customer-update-items" id="itemsContainer">
+                <!-- update items -->
+                <iframe src="" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+      var mydate = new Date();
+      var strDate = "" + mydate.getFullYear() + "年";
+      strDate += (mydate.getMonth()+1) + "月";
+      strDate += mydate.getDate() + "日";
+      $('.customer-update-date').html(strDate);
+      showTime();
+    });
+    function showTime(){
+      var mydate = new Date();
+      var strTime = "" + mydate.getHours()+'时';
+      strTime += mydate.getMinutes()+'分';
+      strTime += mydate.getSeconds()+'秒';
+      $('.customer-update-time').html(strTime);
+      setTimeout('showTime()',1000);
+    }
+    $('.panel-body p a').click(function(){
+      var menutext = $(this).text();
+      switch (menutext){
+        case("首页轮播"):
+          $("#itemsContainer iframe").attr("src","{{ url_for('main.sliderpic') }}");
+          break;
+        case("艺术家"):
+          $("#itemsContainer iframe").attr("src","{{ url_for('main.artistupdate') }}");
+          break;
+        case("作品"):
+          $("#itemsContainer iframe").attr("src","{{ url_for('main.artupdate') }}");
+          break;
+        case("动态信息及展览"):
+          $("#itemsContainer iframe").attr("src","{{ url_for('main.artupdate2') }}");
+          break;
+        case("作品价格更新"):
+          $("#itemsContainer iframe").attr("src","{{ url_for('main.priceupdate') }}");
+          break;
+        case("修改密码"):
+          $("#itemsContainer iframe").attr("src","{{ url_for('main.changepwd') }}");
+          break;
+      }
+    });
+
+</script>
+</body>
+</html>

@@ -5,6 +5,7 @@
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
+  -pie-load-path: "../../PIE-2/";
   font-family: "simsun",sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
@@ -5164,6 +5165,8 @@ a.thumbnail.active {
   background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
   -webkit-background-size: 40px 40px;
           background-size: 40px 40px;
+  -pie-background: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+  behavior: url(../../PIE-2/PIE.htc);
 }
 .progress.active .progress-bar,
 .progress-bar.active {

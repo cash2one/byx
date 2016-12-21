@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link href="{{ url_for('static', filename='css/fileinput.min.css') }}" media="all" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.9.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <style type="text/css">
+        .update-container {
+            width: 820px;
+            margin: 10px;
+        }
+        .tab-pane {
+            margin-top: 20px;
+        }
+        hr {
+            border-top: 2px dotted #b4131f;
+        }
+        h4,p {
+          margin: 3px;
+        }
+        p {
+          text-indent: 2em;
+        }
+        .customer-update-art-pic {
+            height: 53px;
+            width: 100px;
+        }
+        .customer-update-input-border {
+          border-radius: 4px;
+        }
+        #byx_price_btn_filter {
+          margin-left: 90px;
+        }
+    </style>
+</head>
+<body>
+<div class="update-container">
+  <ul id="byx_index_pic_tab" class="nav nav-tabs">
+    <li class="active">
+      <a class="customer-letter-spacing" href="#add" data-toggle="tab">
+        添加 | 作品售价
+      </a>
+    </li>
+    <li><a class="customer-letter-spacing" href="#edit" data-toggle="tab">
+        维护 | 作品售价
+    </a></li>
+  </ul>
+  <div id="byx_index_pic_tab_content" class="tab-content">
+    <div class="tab-pane fade in active" id="add">
+	    <label class="control-label customer-letter-spacing">作品筛选</label>
+	    <div> <!--筛选条件-->
+        <label class="control-label customer-letter-spacing">艺术家&nbsp;</label>
+        <input class="customer-update-input-border" type="text" id="byx_update_artist_filter"><br/><br/>
+        <label class="control-label">请选择作品类型</label>
+        <div>
+          <label class="checkbox-inline">
+            <input type="radio" name="byx_art_type_collo">珂罗版
+          </label>
+          <label class="checkbox-inline">
+            <input type="radio" name="byx_art_type_silk">丝网版
+          </label>
+          <label class="checkbox-inline">
+            <input type="radio" name="byx_art_type_wood">木版
+          </label>
+          <label class="checkbox-inline">
+            <input type="radio" name="byx_art_type_drypoint">铜版
+          </label>
+          <label class="checkbox-inline">
+            <input type="radio" name="byx_art_type_stone">石版
+          </label>
+          <label class="checkbox-inline">
+            <input type="radio" name="byx_art_type_collagraph">综合版
+          </label><br/><br/>
+          <label class="checkbox-inline">
+            <input type="radio" name="byx_art_type_glciee">艺术微喷
+          </label>
+          <label class="checkbox-inline">
+            <input type="radio" name="byx_art_type_derivatives">艺术衍生品
+          </label>
+          <label class="checkbox-inline">
+            <input type="radio" name="byx_art_type_live">艺术走进生活
+          </label>
+          <label class="checkbox-inline">
+            <input type="radio" name="byx_art_type_other">其他
+          </label>
+        </div><br/>
+        <label class="control-label customer-letter-spacing">作品名称&nbsp;</label>
+        <input class="customer-update-input-border" type="text" id="byx_update_art_filter">
+        <button class="btn btn-default glyphicon glyphicon-filter" type="button" id="byx_price_btn_filter">点击筛选</button>
+      </div>
+  	  <hr>  <!--筛选结果-->
+      <div clas="row clearfix">
+        <div class="col-sm-6 col-md-3">
+          <div class="thumbnail">
+            <img src="{{ url_for('static', filename='images/art/wgz_hh.png') }}" alt="缩略图">
+            <div class="caption">
+              <h4>洪荒</h4> <!--作品名称-->
+              <p>吴冠中</p> <!--艺术家-->
+              <p>珂罗版</p> <!--作品分类-->
+              <p>
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="byx_art_select">选取
+                </label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="thumbnail">
+            <img src="{{ url_for('static', filename='images/art/wgz_mzl.png') }}" alt="缩略图">
+            <div class="caption">
+              <h4>马鬃岭</h4>
+              <p>吴冠中</p>
+              <p>珂罗版</p>
+              <p>
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="byx_art_select">选取
+                </label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="thumbnail">
+            <img src="{{ url_for('static', filename='images/art/wgz_xshy.png') }}" alt="缩略图">
+            <div class="caption">
+              <h4>香山红叶</h4>
+              <p>吴冠中</p>
+              <p>珂罗版</p>
+              <p>
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="byx_art_select">选取
+                </label>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="thumbnail">
+            <img src="{{ url_for('static', filename='images/art/wgz_yj.png') }}" alt="缩略图">
+            <div class="caption">
+              <h4>野菊</h4>
+              <p>吴冠中</p>
+              <p>珂罗版</p>
+              <p>
+                <label class="checkbox-inline">
+                  <input type="checkbox" name="byx_art_select">选取
+                </label>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <hr>
+      <label class="control-label customer-letter-spacing">作品售价信息</label><br/>
+      <label clas="control-label customer-letter-spacing">售卖日期：&nbsp;<input class="customer-update-input-border" type="date"></label><br/>
+      <label clas="control-label customer-letter-spacing">售卖单价：&nbsp;<input class="customer-update-input-border" type="text"></label>
+      <button class="btn btn-default glyphicon glyphicon-floppy-disk pull-right" type="button" id="byx_price_save">点击保存</button>
+  	</div>
+    <div class="tab-pane fade" id="edit">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>作品名称</th>
+            <th>类别</th>
+            <th>艺术家</th>
+            <th>缩略图</th>
+            <th>日期</th>
+            <th>售价</th>
+            <th>编辑</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span class="customer-letter-spacing">洪荒</span>
+            </td>
+            <td>
+              <span class="customer-letter-spacing">珂罗版</span>
+            </td>
+            <td>
+              <span class="customer-letter-spacing">吴冠中</span>
+            </td>
+            <td>
+              <img class="customer-update-art-pic" src="{{ url_for('static', filename='images/art/wgz_hh.png') }}" alt="作品">
+            </td>
+            <td>
+              <span class="customer-letter-spacing">2016-12-5</span>
+            </td>
+            <td>
+              <span class="customer-letter-spacing">36,000.00元</span>
+            </td>
+            <td>
+              <button type="button" class="btn btn-default btn-sm">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).on("ready",function(){
+    $('#byx_update_artist_filter').autocomplete({
+        source:function(query,process){
+
+        },
+        setValue:function(item){
+
+        }
+    });
+  $('#byx_update_art_filter').autocomplete({
+        source:function(query,process){
+
+        },
+        setValue:function(item){
+
+        }
+    });
+  });
+</script>
+</body>
+</html>

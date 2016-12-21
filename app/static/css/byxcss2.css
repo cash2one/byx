@@ -7,55 +7,105 @@ body {
 	border: 1px solid white;
 	border-radius: 4px;
 }
-.myboder-1 {
-	border: 1px solid red;
-	border-radius: 4px;
-}
 .customer-visible {
 	position: absolute;
     visibility: hidden;
 }
-.customer-submenu {
-	display: block;
-	line-height: 30px;
-	top: 70px;
-	left: 121.5px;
-	font-size: 12px;
-}
-#byx_submenu ul li {
-	float: left;
-	list-style: none;
-	margin: auto 25px;
-}
-/*#byx_submenu ul li {
-	display: block;
-	float: left;
-}*/
-.customer-submenu li {
-	list-style: none;
-	float: left;
-	padding-left: 27.5px;
-}
-.customer-nav-submenu {
-	padding: 9px 25px;
+/*首页菜单CSS开始*/
+.customer-index-nav {
 	position: absolute;
-	top: 70px;
-	left: 121.5px;
-	height: 30px;
-	width: 1015px;
-	font-size: 12px;
+	top: 10px;
+	left: 198px;
+	height: 38px;
+	width: 600px;
+	vertical-align: middle;
 }
+.customer-index-nav ul li {
+	float: left;
+	height: 38px;
+	padding-top: 14px;
+	list-style: none;
+}
+.customer-index-nav ul li a {
+	display: block;
+	line-height: 18px;
+	color: white;
+	list-style: none;
+	margin: 0 16.5px;
+	padding: 3px 12px;
+}
+.customer-index-nav ul li a:hover {
+	color: #b4131f;
+	text-decoration: none;
+	border-bottom: 1px solid #b4131f;
+}
+.customer-index-submenu {
+	position: absolute;
+	display: none;
+	padding-top: 20px;
+	top: 36px;
+	left: -77.5px;
+	height: 60px;
+	width: 1100px;
+	line-height: 30px;
+	vertical-align: middle;
+}
+.customer-index-submenu a {
+	display: block;
+	float: left;
+	font-size: 12px;
+	margin: 0 27.5px;
+}
+/*首页菜单CSS结束*/
+/*除首页外菜单CSS开始*/
+.customer-nav {
+	position: absolute;
+	top: 10px;
+	left: 198px;
+	height: 38px;
+	width: 600px;
+	vertical-align: middle;
+}
+.customer-nav ul li {
+	float: left;
+	height: 38px;
+	padding-top: 14px;
+	list-style: none;
+}
+.customer-nav ul li a {
+	display: block;
+	line-height: 18px;
+	color: black;
+	list-style: none;
+	margin: 0 16.5px;
+	padding: 3px 12px;
+}
+.customer-nav ul li a:hover {
+	color: #b4131f;
+	text-decoration: none;
+	border-bottom: 1px solid #b4131f;
+}
+.customer-submenu {
+	position: absolute;
+	display: none;
+	padding-top: 20px;
+	top: 36px;
+	left: -77.5px;
+	height: 60px;
+	width: 1100px;
+	line-height: 30px;
+	vertical-align: middle;
+	text-align: center;
+}
+.customer-submenu a {
+	display: block;
+	float: left;
+	font-size: 12px;
+	margin: 0 27.5px;
+}
+/*除首页外菜单CSS结束*/
 .customer-width {
 	width: 1258px;
-}
-.customer-nav-height {
-	height: 40px;
-	width: 500px;
-}
-.customer-nav-positoin {
-	position: absolute;
-	top: 30px;
-	left: 270px;
 }
 .customer-nav-menutip {
 	position: absolute;
@@ -153,6 +203,18 @@ body {
 	height: 32px;
 	color: white;
 	font-size: 12px;
+}
+.customer-o-search-select {
+	background: url("../images/select_icon_black.png") no-repeat 95% 50%;
+	padding-left: 2px;
+	padding-right: 2px;
+	width: 80px;
+	height: 32px;
+	color: black;
+	font-size: 12px;
+}
+#byx_search {
+	color: black;
 }
 .customer-other-search-icon-size {
 	display: block;
@@ -389,6 +451,10 @@ body {
 	width: 330px;
 	height: 330px;
 }
+.customer-artshow-other-art-text {
+	text-align: left;
+    padding: 6px 114px;
+}
 .customer-sub-title {
 	display: block;
 	float: left;
@@ -425,4 +491,59 @@ table tr td {
 }
 .customer-search-right a img {
 	margin: 10px 0;
+}
+.customer-update-container {
+	width: 1158px;
+	margin: 0 50px;
+}
+.customer-update-container div {
+	margin-left: 0;
+}
+.customer-update-title {
+	/*width: 100%;*/
+    height: 90px;
+}
+.customer-update-logo {
+	width: 90px;
+	margin-top: 30px;
+}
+.customer-update-title-name {
+	height: 60px;
+}
+.customer-update-title-name h1 {
+	letter-spacing: 2px;
+	font-size: 20px;
+}
+.customer-update-splite {
+	display: block;
+	width: 500px;
+	height: 0;
+	margin-left: 280px;
+	border: 2px solid #b4131f;
+}
+.customer-update-title-tip {
+	height: 30px;
+}
+.customer-update-menu {
+	padding: 5px;
+	height: 550px;
+	border: 1px solid grey;
+	border-radius: 4px;
+}
+.customer-update-items {
+	padding: 5px;
+	height: 550px;
+	border: 1px solid grey;
+	border-radius: 4px;	
+}
+.customer-update-menu-left {
+	padding-left: 50px;
+}
+.panel-title a span {
+	display: block;
+	margin-left: 100px;
+}
+#itemsContainer iframe {
+	width: 100%;
+	height: 100%;
 }

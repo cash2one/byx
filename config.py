@@ -13,7 +13,7 @@ class Config(object):
 
 class DevelopConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:1@127.0.0.1/byx'
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:1@127.0.0.1/spider'
 
 config = {
     'default': DevelopConfig,
