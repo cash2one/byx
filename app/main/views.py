@@ -1,11 +1,15 @@
 # coding:utf8
 from . import main
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, current_app
 from ..models import News, User
 from flask_login import current_user, login_user, login_required, logout_user
-from .forms import LoginForm, RegisterForm, ChangePasswordForm
+from .forms import LoginForm, RegisterForm, ChangePasswordForm, SlidePicForm
 from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
 from .. import db
+import os
+import string
+import random
 
 
 # todo
@@ -58,33 +62,51 @@ def exhibition():
         print 'liebiao'
 
 
-@main.route('/update.html')
+@main.route('/update.html', methods=['GET', 'POST'])
 @login_required
 def update():
     return render_template('update.html')
 
 
-@main.route('/sliderpic.html')
+@main.route('/sliderpic.html', methods=['GET', 'POST'])
+@login_required
 def sliderpic():
-    return render_template('sliderpic.html')
+    form = SlidePicForm()
+    if form.validate_on_submit():
+        filename1 = ''.join([random.choice(string.letters + string.digits) for i in range(14)])
+
+        filename2 = ''.join([random.choice(string.letters + string.digits) for i in range(14)])
+        file_path1 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename1)
+        file_path2 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename2)
+        form.slider.data.save(file_path1)
+        form.slider_live.data.save(file_path2)
+        # pass
+        pass
+    else:
+        flash_errors(form)
+    return render_template('sliderpic.html', form=form)
 
 
 @main.route('/artistupdate.html')
+@login_required
 def artistupdate():
     return render_template('artistupdate.html')
 
 
 @main.route('/artupdate.html')
+@login_required
 def artupdate():
     return render_template('artupdate.html')
 
 
-@main.route('/artupdate2.html')
-def artupdate2():
-    return render_template('artupdate.html')
+@main.route('/newsupdate.html')
+@login_required
+def newsupdate():
+    return render_template('newsupdate.html')
 
 
 @main.route('/priceupdate.html')
+@login_required
 def priceupdate():
     return render_template('priceupdate.html')
 
@@ -98,6 +120,7 @@ def changepwd():
             current_user.password = generate_password_hash(form.new_password.data)
             db.session.add(current_user)
             db.session.commit()
+            logout_user()
             return redirect(url_for('main.login'))
         else:
             flash(u'原密码错误')
@@ -116,7 +139,6 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and check_password_hash(user.password, form.password.data):
             login_user(user)
-            print(request.values.get('next'))
             return redirect(request.values.get('next') or url_for('main.update'))
         else:
             flash(u'用户名或密码错误!')
@@ -128,13 +150,13 @@ def login():
 
 @main.route('/register.html', methods=['GET', 'POST'])
 def register():
-    print(request.args)
     form = RegisterForm()
     if form.validate_on_submit():
         user = User(username=form.username.data,
                     password=generate_password_hash(form.password.data))
         db.session.add(user)
         db.session.commit()
+
         return redirect(url_for('main.login'))
     else:
         flash_errors(form)
@@ -156,4 +178,5 @@ def logout():
 def flash_errors(form):
     for field, errors in form.errors.items():
         for error in errors:
+            print(getattr(form, field).label.text, error)
             flash(u'%s - %s' % (getattr(form, field).label.text, error), 'error')

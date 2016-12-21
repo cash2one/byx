@@ -1,3 +1,4 @@
+# coding:utf8
 from . import db
 from werkzeug.security import check_password_hash
 from flask_login import UserMixin
@@ -15,6 +16,9 @@ class News(db.Model):
 
 
 class Art(db.Model):
+    """
+    作品
+    """
     __tablename__ = 'art'
     id = db.Column(db.Integer, primary_key=True)
     artist_id = db.Column(db.Integer)
@@ -24,17 +28,25 @@ class Art(db.Model):
 
 
 class Artist(db.Model):
+    """
+    艺术家
+    """
     __tablename__ = 'artist'
     id = db.Column(db.Integer, primary_key=True)
     country = db.Column(db.Text)
     location = db.Column(db.Text)
     introduction = db.Column(db.Text)
     image = db.Column(db.Text)
+    pinyin = db.Column(db.Text)
+    name = db.Column(db.Text)
+    avatar = db.Column(db.Text)
+
+
 
 
 class User(UserMixin, db.Model):
     __tablename__ = "user"
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(128))
     password = db.Column(db.String(128))
 

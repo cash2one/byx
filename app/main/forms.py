@@ -2,7 +2,7 @@
 # coding:utf8
 
 from flask_wtf import Form
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, FileField
 from wtforms.validators import DataRequired, EqualTo
 
 
@@ -25,3 +25,9 @@ class ChangePasswordForm(Form):
                                  validators=[DataRequired(), EqualTo('new_password_confirm', message=u'两次密码不匹配')])
     new_password_confirm = PasswordField(u'新密码(确认)', validators=[DataRequired()])
     submit = SubmitField(u'保存改动')
+
+
+class SlidePicForm(Form):
+    slider = FileField(u'轮播图片', validators=[DataRequired()])
+    slider_live = FileField(u'走进生活图片', validators=[DataRequired()])
+    submit = SubmitField(u'点击保存')
