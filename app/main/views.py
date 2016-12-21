@@ -1,6 +1,11 @@
+# coding:utf8
 from . import main
-from flask import render_template, request
-from ..models import News
+from flask import render_template, request, redirect, url_for, flash
+from ..models import News, User
+from flask_login import current_user, login_user, login_required, logout_user
+from .forms import LoginForm, RegisterForm
+from werkzeug.security import check_password_hash, generate_password_hash
+from .. import db
 
 
 # todo
@@ -52,7 +57,9 @@ def exhibition():
     else:
         print 'liebiao'
 
+
 @main.route('/update.html')
+@login_required
 def update():
     return render_template('update.html')
 
@@ -85,3 +92,53 @@ def priceupdate():
 @main.route('/changepwd.html')
 def changepwd():
     return render_template('changepwd.html')
+
+
+@main.route('/login.html', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.update'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and check_password_hash(user.password, form.password.data):
+            login_user(user)
+            return redirect(request.args.get('next') or url_for('main.update'))
+        else:
+            flash(u'用户名或密码错误!')
+    else:
+        flash_errors(form)
+
+    return render_template('login.html', form=form)
+
+
+@main.route('/register.html', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data,
+                    password=generate_password_hash(form.password.data))
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('main.login'))
+    else:
+        flash_errors(form)
+    return render_template('register.html', form=form)
+
+
+@main.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('main.login'))
+
+
+@main.app_errorhandler(404)
+def page_not_found(e):
+    return render_template('error.html'), 404
+
+
+def flash_errors(form):
+    for field, errors in form.errors.items():
+        for error in errors:
+            flash(u'%s - %s' % (getattr(form, field).label.text, error), 'error')

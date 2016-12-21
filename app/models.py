@@ -1,4 +1,7 @@
 from . import db
+from werkzeug.security import check_password_hash
+from flask_login import UserMixin
+from . import login_manager
 
 
 class News(db.Model):
@@ -27,3 +30,24 @@ class Artist(db.Model):
     location = db.Column(db.Text)
     introduction = db.Column(db.Text)
     image = db.Column(db.Text)
+
+
+class User(UserMixin, db.Model):
+    __tablename__ = "user"
+    id = db.Column(db.Integer, primary_key = True)
+    username = db.Column(db.String(128))
+    password = db.Column(db.String(128))
+
+    def verify_password(self, passwd):
+        return check_password_hash(self.password, passwd)
+
+    def get_id(self):
+        try:
+            return unicode(self.id)
+        except AttributeError:
+            raise NotImplementedError("No `id` attribute - override get_id")
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))

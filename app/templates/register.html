@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en" class="login-content" data-ng-app="materialAdmin">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" , user-scalable:no
+    "/>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.9.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="百雅轩">
+    <meta name="description" content="艺术品投资收藏,中外文化交流,丝网版画,铜版画,石版画,木板水印版画,综合版画,珂罗版画,艺术微喷画,艺术衍生品">
+    <title>百雅轩-管理员登录</title>
+    <link href="{{ url_for('static', filename='css/material-design-iconic-font.min.css') }}" rel="stylesheet"
+          type="text/css">
+    <!-- CSS -->
+    <link href="{{ url_for('static', filename='css/app.min.1.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body class="login-content" data-ng-controller="loginCtrl as lctrl">
+<div class="lc-block" id="l-login" data-ng-class="{'toggled':lctrl.login === 1}">
+    <h1 class="lean">
+        <img src="{{ url_for('static', filename='images/logo_2.png') }}" alt="logo">
+    </h1>
+    <form method="post" action="{{ url_for('main.register') }}">
+        {{ form.hidden_tag() }}
+
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+
+        <div class="input-group m-b-20">
+    		<span class="input-group-addon">
+    			<i class="zmdi zmdi-account"></i>
+    		</span>
+            <div class="fg-line">
+                {{ form.username(class='form-control',placeholder='Username') }}
+            </div>
+        </div>
+        <div class="input-group m-b-20">
+    		<span class="input-group-addon">
+    			<i class="zmdi zmdi-male"></i>
+    		</span>
+            <div class="fg-line">
+                {{ form.password(class='form-control',placeholder='Password') }}
+            </div>
+
+        </div>
+        <div class="input-group m-b-20">
+    		<span class="input-group-addon">
+    			<i class="zmdi zmdi-male"></i>
+    		</span>
+            <div class="fg-line">
+                {{ form.password_confirm(class='form-control',placeholder='ConfirmPassword') }}
+            </div>
+
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+
+
+</div>
+</body>
+
+
+<script src="{{ url_for('static', filename='js/jquery-1.9.1.min.js') }}"></script>
+<!-- Angular -->
+<script src="{{ url_for('static', filename='js/angular/angular.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/angular/angular-resource.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/angular/angular-animate.min.js') }}"></script>
+
+
+<!-- Angular Modules -->
+
+
+<script src="{{ url_for('static', filename='js/angular/angular-ui-router.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/angular/loading-bar.js') }}"></script>
+<script src="{{ url_for('static', filename='js/angular/ocLazyLoad.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/angular/ui-bootstrap-tpls.min.js') }}"></script>
+
+<!-- Common js -->
+
+<script src="{{ url_for('static', filename='js/angular/nouislider.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/angular/ng-table.min.js') }}"></script>
+
+<!-- Placeholder for IE9 -->
+<!--[if IE 9 ]>
+    <!--<script src="js/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>-->
+<![endif]-->
+<!-- App level -->
+
+<script src="{{ url_for('static', filename='js/angular/app.js') }}"></script>
+<script src="{{ url_for('static', filename='js/angular/main.js') }}"></script>
+
+<!--<script src="js/cangular/ui-bootstrap.js"></script>-->
+
+
+<!-- Template Modules -->
+<!--<script src="js/angular/form.js"></script>-->
+</html>
