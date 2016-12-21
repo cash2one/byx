@@ -1,20 +1,18 @@
 # coding:utf8
 from . import main
 from flask import render_template, request, redirect, url_for, flash, current_app
-from ..models import News, User
+from ..models import News, User, Artist, Art
 from flask_login import current_user, login_user, login_required, logout_user
-from .forms import LoginForm, RegisterForm, ChangePasswordForm, SlidePicForm
+from .forms import LoginForm, RegisterForm, ChangePasswordForm, SlidePicForm, ArtistForm, ArtForm
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 from .. import db
 import os
-import string
-import random
 
 
 # todo
 # http://stackoverflow.com/questions/18600031/changing-the-active-class-of-a-link-with-the-twitter-bootstrap-css-in-python-fla
-
+# 图片格式判断
 
 
 @main.route('/')
@@ -73,30 +71,83 @@ def update():
 def sliderpic():
     form = SlidePicForm()
     if form.validate_on_submit():
-        filename1 = ''.join([random.choice(string.letters + string.digits) for i in range(14)])
-
-        filename2 = ''.join([random.choice(string.letters + string.digits) for i in range(14)])
+        filename1 = secure_filename(form.slider.data.filename)
+        filename2 = secure_filename(form.slider_live.data.filename)
         file_path1 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename1)
         file_path2 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename2)
         form.slider.data.save(file_path1)
         form.slider_live.data.save(file_path2)
+        return redirect(url_for("main.sliderpic"))
         # pass
-        pass
     else:
         flash_errors(form)
     return render_template('sliderpic.html', form=form)
 
 
-@main.route('/artistupdate.html')
+@main.route('/artistupdate.html', methods=['GET', 'POST'])
 @login_required
 def artistupdate():
-    return render_template('artistupdate.html')
+    form = ArtistForm()
+    if form.validate_on_submit():
+        # todo
+        # 如何保存图片路径
+
+        location = form.location.data
+        name = form.name.data
+        introduction = form.introduction.data
+        pinyin = form.pinyin.data
+        filename1 = secure_filename(form.avatar.data.filename)
+        filename2 = secure_filename(form.slide_image.data.filename)
+        filename3 = secure_filename(form.list_image.data.filename)
+
+        file_path1 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename1)
+        file_path2 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename2)
+        file_path3 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename3)
+
+        form.avatar.data.save(file_path1)
+        form.slide_image.data.save(file_path2)
+        form.list_image.data.save(file_path3)
+
+        artist = Artist(location=location, name=name, pinyin=pinyin,
+                        avatar=filename1, introduction=introduction,
+                        slide_image=filename2,
+                        list_image=filename3)
+        db.session.add(artist)
+        db.session.commit()
+        return redirect(url_for("main.artistupdate"))
+
+    else:
+        flash_errors(form)
+    return render_template('artistupdate.html', form=form)
 
 
-@main.route('/artupdate.html')
+@main.route('/artupdate.html', methods=["GET", "POST"])
 @login_required
 def artupdate():
-    return render_template('artupdate.html')
+    form = ArtForm()
+    if form.validate_on_submit():
+
+        name = form.name.data
+        iintroduction = form.introdution.data
+        subtitle = form.subtitle.data
+
+        filename1 = secure_filename(form.art_list_image.data.filename)
+        filename2 = secure_filename(form.art_enlarge_image.data.filename)
+        filename3 = secure_filename(form.art_slide_image.data.filename)
+
+        file_path1 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename1)
+        file_path2 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename2)
+        file_path3 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename3)
+
+        form.art_list_image.data.save(file_path1)
+        form.art_enlarge_image.data.save(file_path2)
+        form.art_slide_image.data.save(file_path3)
+
+        # art = Art()
+
+    else:
+        flash_errors(form)
+    return render_template('artupdate.html', form=form)
 
 
 @main.route('/newsupdate.html')

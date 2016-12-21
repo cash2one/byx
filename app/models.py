@@ -23,9 +23,13 @@ class Art(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     artist_id = db.Column(db.Integer)
     name = db.Column(db.Text)
-    taobao_id = db.Column(db.Integer)
-    image = db.Column(db.Text)
-
+    # taobao_id = db.Column(db.Integer)
+    type = db.Column(db.Integer)
+    art_list_image = db.Column(db.Text)
+    art_enlarge_iamge = db.Column(db.Text)
+    art_slide_image = db.Column(db.Text)
+    subtitle = db.Column(db.Text)
+    introduction = db.Column(db.Text)
 
 class Artist(db.Model):
     """
@@ -33,15 +37,15 @@ class Artist(db.Model):
     """
     __tablename__ = 'artist'
     id = db.Column(db.Integer, primary_key=True)
-    country = db.Column(db.Text)
+    # country = db.Column(db.Text)
     location = db.Column(db.Text)
     introduction = db.Column(db.Text)
-    image = db.Column(db.Text)
+    # image = db.Column(db.Text)
     pinyin = db.Column(db.Text)
     name = db.Column(db.Text)
-    avatar = db.Column(db.Text)
-
-
+    avatar = db.Column(db.Text)  # 艺术家头像
+    slide_image = db.Column(db.Text)  # 艺术家幻灯片用图
+    list_image = db.Column(db.Text)  # 艺术家列表用图
 
 
 class User(UserMixin, db.Model):

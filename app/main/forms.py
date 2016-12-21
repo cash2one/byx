@@ -2,8 +2,9 @@
 # coding:utf8
 
 from flask_wtf import Form
-from wtforms import StringField, PasswordField, SubmitField, FileField
+from wtforms import StringField, PasswordField, SubmitField, FileField, TextAreaField, SelectField, RadioField
 from wtforms.validators import DataRequired, EqualTo
+from ..models import Artist
 
 
 class LoginForm(Form):
@@ -31,3 +32,32 @@ class SlidePicForm(Form):
     slider = FileField(u'轮播图片', validators=[DataRequired()])
     slider_live = FileField(u'走进生活图片', validators=[DataRequired()])
     submit = SubmitField(u'点击保存')
+
+
+class ArtistForm(Form):
+    location = StringField(u'籍贯', validators=[DataRequired()])
+    pinyin = StringField(u'拼音', validators=[DataRequired()])
+    name = StringField(u'姓名', validators=[DataRequired()])
+    avatar = FileField(u'头像', validators=[DataRequired()])
+    list_image = FileField(u'艺术家幻灯片用图', validators=[DataRequired()])
+    slide_image = FileField(u'艺术家列表用图', validators=[DataRequired()])
+    introduction = TextAreaField(u'简介', validators=[DataRequired()])
+    submit = SubmitField(u'点击保存')
+
+
+class ArtForm(Form):
+    artist_id = SelectField(u'艺术家', coerce=int)
+    type = RadioField(u'作品类型', coerce=int)
+    art_list_image = FileField(u'作品列表图片', validators=[DataRequired()])
+    art_enlarge_image = FileField(u'作品放大图片', validators=[DataRequired()])
+    art_slide_image = FileField(u'作品幻灯图片', validators=[DataRequired()])
+    name = StringField(u'名称', validators=[DataRequired()])
+    subtitle = StringField(u'副标题', validators=[DataRequired()])
+    introdution = TextAreaField(u'简介', validators=[DataRequired()])
+    submit = SubmitField(u'点击保存')
+
+    def __init__(self, *args, **kwargs):
+        super(ArtForm, self).__init__(*args, **kwargs)
+        self.artist_id.choices = [(i.id, i.name) for i in Artist.query.all()]
+        self.type.choices = [(0, u'珂罗版'), (1, u'丝网版'), (2, u'木版'), (3, u'铜版'), (4, u'石版'), (5, u'综合版'),
+                     (6, u'艺术微喷'), (7, u'艺术衍生品'), (8, u'艺术走进生活'), (99, u'其他')]

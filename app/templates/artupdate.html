@@ -44,6 +44,8 @@
         }
 
 
+
+
     </style>
 </head>
 <body>
@@ -59,82 +61,88 @@
         </a></li>
     </ul>
     <div id="byx_index_pic_tab_content" class="tab-content">
-        <div class="tab-pane fade in active" id="add">
-            <label class="control-label customer-letter-spacing">请选择艺术家</label>
-            <div class="input-group-btn">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                        id="byx_update_art_artist">请选择……
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="#">吴冠中</a>
-                    </li>
-                    <li>
-                        <a href="#">罗尔纯</a>
-                    </li>
-                    <li>
-                        <a href="#">毕加索</a>
-                    </li>
-                    <li>
-                        <a href="#">陈丹青</a>
-                    </li>
-                </ul>
+        <form method="post" action="" enctype="multipart/form-data">
+
+            {{ form.hidden_tag() }}
+
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
             </div>
-            <br/>
-            <label class="control-label">请选择作品类型</label>
-            <div>
-                <label class="checkbox-inline">
-                    <input type="radio" name="byx_art_type_collo">珂罗版
+            {% endfor %}
+
+            <div class="tab-pane fade in active" id="add">
+                <label class="control-label customer-letter-spacing">请选择艺术家</label>
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            id="byx_update_art_artist">请选择……
+                    </button>
+                    <!--<ul class="dropdown-menu">-->
+                        <!--<li>-->
+                            <!--<a href="#">吴冠中</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a href="#">罗尔纯</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a href="#">毕加索</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a href="#">陈丹青</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                    {{ form.artist_id(class="dropdown-menu") }}
+                </div>
+                <br/>
+                <label class="control-label">请选择作品类型</label>
+                <div>
+                    {% for subfield in form.type %}
+                    <label class="checkbox-inline">
+                        {{ subfield }}{{ subfield.label }}
+                        {% if loop.index > 6 %}
+                        <br/>
+                        {% endif %}
+                        <!--<input type="radio" name="byx_art_type_collo">珂罗版-->
+                    </label>
+                    {% endfor %}
+
+                </div>
+                <hr>
+                <label class="control-label customer-letter-spacing">作品列表图片</label>
+                <input id="byx_art" type="file" accept="image/*" class="file-loading">
+                {{ form.art_list_image(id='byx_art',class='file-loading') }}
+                <hr>
+                <label class="control-label customer-letter-spacing">作品放大图片</label>
+                <!--<input id="byx_art_zoomin" type="file" accept="image/*" class="file-loading">-->
+                {{ form.art_enlarge_image(id='byx_art_zoomin',class='file-loading') }}
+                <hr>
+                <label class="control-label customer-letter-spacing">作品幻灯图片</label>
+                <!--<input id="byx_art_slide" type="file" accept="image/*" class="file-loading">-->
+                {{ form.art_slide_image(id='byx_art_slide',class='file-loading') }}
+                <br/>
+                <label class="control-label customer-letter-spacing">作品介绍</label><br/>
+                <label class="customer-letter-spacing">作品名称:
+                    <!--<input class="customer-update-input-border" type="text" id="byx_art_name">-->
+                    {{ form.name(id='byx_art_name',class='customer-update-input-border') }}
+                </label><br/>
+                <label class="customer-letter-spacing">作品副标:&nbsp;
+                    <!--<input class="customer-update-input-border" type="text" id="byx_art_PY">-->
+                    {{ form.subtitle(id='byx_art_PY',class='customer-update-input-border') }}
+                </label><span
+                    class="customer-letter-spacing">用于水印副标题</span><br/>
+                <label class="customer-letter-spacing text-top">作品简介:
+                    <!--<textarea class="customer-update-input-border" id="byx_art_note"></textarea>-->
+                    {{ form.introdution(id='byx_art_note',class='customer-update-input-border') }}
                 </label>
-                <label class="checkbox-inline">
-                    <input type="radio" name="byx_art_type_silk">丝网版
-                </label>
-                <label class="checkbox-inline">
-                    <input type="radio" name="byx_art_type_wood">木版
-                </label>
-                <label class="checkbox-inline">
-                    <input type="radio" name="byx_art_type_drypoint">铜版
-                </label>
-                <label class="checkbox-inline">
-                    <input type="radio" name="byx_art_type_stone">石版
-                </label>
-                <label class="checkbox-inline">
-                    <input type="radio" name="byx_art_type_collagraph">综合版
-                </label><br/><br/>
-                <label class="checkbox-inline">
-                    <input type="radio" name="byx_art_type_glciee">艺术微喷
-                </label>
-                <label class="checkbox-inline">
-                    <input type="radio" name="byx_art_type_derivatives">艺术衍生品
-                </label>
-                <label class="checkbox-inline">
-                    <input type="radio" name="byx_art_type_live">艺术走进生活
-                </label>
-                <label class="checkbox-inline">
-                    <input type="radio" name="byx_art_type_other">其他
-                </label>
+                <br/>
+                <!--<button type="button" class="btn btn-default glyphicon glyphicon-floppy-disk pull-right"-->
+                        <!--id="byx_art_save">-->
+                    <!--点击保存-->
+                <!--</button>-->
+                {{ form.submit(id='byx_art_save',class='btn btn-default glyphicon glyphicon-floppy-disk pull-right') }}
             </div>
-            <hr>
-            <label class="control-label customer-letter-spacing">作品列表图片</label>
-            <input id="byx_art" type="file" accept="image/*" class="file-loading">
-            <hr>
-            <label class="control-label customer-letter-spacing">作品放大图片</label>
-            <input id="byx_art_zoomin" type="file" accept="image/*" class="file-loading">
-            <hr>
-            <label class="control-label customer-letter-spacing">作品幻灯图片</label>
-            <input id="byx_art_slide" type="file" accept="image/*" class="file-loading"><br/>
-            <label class="control-label customer-letter-spacing">作品介绍</label><br/>
-            <label class="customer-letter-spacing">作品名称:&nbsp;<input class="customer-update-input-border" type="text"
-                                                                     id="byx_art_name"></label><br/>
-            <label class="customer-letter-spacing">作品副标:&nbsp;<input class="customer-update-input-border" type="text"
-                                                                     id="byx_art_PY"></label><span
-                class="customer-letter-spacing">用于水印副标题</span><br/>
-            <label class="customer-letter-spacing text-top">作品简介:&nbsp;<textarea class="customer-update-input-border"
-                                                                                 id="byx_art_note"></textarea></label><br/>
-            <button type="button" class="btn btn-default glyphicon glyphicon-floppy-disk pull-right" id="byx_art_save">
-                点击保存
-            </button>
-        </div>
+        </form>
         <div class="tab-pane fade" id="edit">
             <table class="table">
                 <thead>
@@ -157,18 +165,24 @@
                         <span class="customer-letter-spacing">珂罗版</span>
                     </td>
                     <td>
-                        <img class="customer-update-art-pic" src="{{ url_for('static', filename='images/art/wgz_hh.png') }}" alt="九月走进生活">
+                        <img class="customer-update-art-pic"
+                             src="{{ url_for('static', filename='images/art/wgz_hh.png') }}" alt="九月走进生活">
                     </td>
                     <td>
-                        <img class="customer-update-art-pic-zoomin" src="{{ url_for('static', filename='images/art/wgz_hh.png') }}" alt="九月走进生活">
+                        <img class="customer-update-art-pic-zoomin"
+                             src="{{ url_for('static', filename='images/art/wgz_hh.png') }}" alt="九月走进生活">
                     </td>
                     <td>
-                        <img class="customer-update-art-pic-slide" src="{{ url_for('static', filename='images/art/wgz_hh.png') }}" alt="九月走进生活">
+                        <img class="customer-update-art-pic-slide"
+                             src="{{ url_for('static', filename='images/art/wgz_hh.png') }}" alt="九月走进生活">
                     </td>
                     <td>
-                        <label class="customer-letter-spacing">作品名称:&nbsp;</label><span class="customer-letter-spacing">吴冠中</span><br/>
-                        <label class="customer-letter-spacing">作品副标:&nbsp;</label><span class="customer-letter-spacing">WU GUANZHONG</span><br/>
-                        <label class="customer-letter-spacing">作品简介:&nbsp;</label><span class="customer-letter-spacing">中国&nbsp;江苏宜兴人</span><br/>
+                        <label class="customer-letter-spacing">作品名称:&nbsp;</label><span
+                            class="customer-letter-spacing">吴冠中</span><br/>
+                        <label class="customer-letter-spacing">作品副标:&nbsp;</label><span
+                            class="customer-letter-spacing">WU GUANZHONG</span><br/>
+                        <label class="customer-letter-spacing">作品简介:&nbsp;</label><span
+                            class="customer-letter-spacing">中国&nbsp;江苏宜兴人</span><br/>
                     </td>
                     <td>
                         <button type="button" class="btn btn-default btn-sm">Delete</button>
@@ -215,6 +229,8 @@ $(document).on('ready', function() {
         initialCaption: "请选择作品幻灯图片……"
     });
 });
+
+
 
 
 </script>

@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <link href="{{ url_for('static', filename='css/fileinput.min.css') }}" media="all" rel="stylesheet" type="text/css"/>
+    <link href="{{ url_for('static', filename='css/fileinput.min.css') }}" media="all" rel="stylesheet"
+          type="text/css"/>
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.9.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/fileinput.min.js') }}" type="text/javascript"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
@@ -52,6 +53,9 @@
           width: 50px;
         }
 
+
+
+
     </style>
 </head>
 <body>
@@ -67,29 +71,45 @@
         </a></li>
     </ul>
     <div id="byx_index_pic_tab_content" class="tab-content">
-        <div class="tab-pane fade in active" id="add">
-            <label class="control-label customer-letter-spacing">艺术家头像</label>
-            <input id="byx_artist_photo" type="file" accept="image/*" class="file-loading"><br/>
-            <label class="customer-letter-spacing">艺术家介绍</label><br/>
-            <label class="customer-letter-spacing">艺术家姓名:&nbsp;<input class="customer-update-input-border" type="text"
-                                                                      id="byx_artist_name"></label><br/>
-            <label class="customer-letter-spacing">艺术家拼音:&nbsp;<input class="customer-update-input-border" type="text"
-                                                                      id="byx_artist_PY"></label><span
-                class="customer-letter-spacing">中文名拼音或英文名，用于列表页水印。</span><br/>
-            <label class="customer-letter-spacing">艺术家籍贯:&nbsp;<input class="customer-update-input-border" type="text"
-                                                                      id="byx_artist_native"></label><br/>
-            <label class="customer-letter-spacing text-top">艺术家简介:&nbsp;<textarea class="customer-update-input-border"
-                                                                                  id="byx_artist_note"></textarea></label>
-            <hr>
-            <label class="control-label customer-letter-spacing">艺术家列表用图</label>
-            <input id="byx_artist_list" type="file" accept="image/*" class="file-loading">
-            <hr>
-            <label class="control-label customer-letter-spacing">艺术家幻灯片用图</label>
-            <input id="byx_artist_slide" type="file" accept="image/*" class="file-loading"><br/>
-            <button type="button" class="btn btn-default glyphicon glyphicon-floppy-disk pull-right"
-                    id="byx_artist_save">点击保存
-            </button>
-        </div>
+        <form method="post" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+            {% endfor %}
+
+            <div class="tab-pane fade in active" id="add">
+                <label class="control-label customer-letter-spacing">艺术家头像</label>
+                {{ form.avatar(id='byx_artist_photo',class='file-loading') }}
+                <br/>
+                <label class="customer-letter-spacing">艺术家介绍</label><br/>
+                <label class="customer-letter-spacing">艺术家姓名:&nbsp;
+                    {{ form.name(id='byx_artist_name',class='customer-update-input-border') }}
+                </label><br/>
+                <label class="customer-letter-spacing">艺术家拼音:&nbsp;
+                    {{ form.pinyin(id='byx_artist_PY',class='customer-update-input-border') }}
+                </label><span
+                    class="customer-letter-spacing">中文名拼音或英文名，用于列表页水印。</span><br/>
+                <label class="customer-letter-spacing">艺术家籍贯:&nbsp;
+                    {{ form.location(id='byx_artist_native',class='customer-update-input-border') }}
+                </label>
+                <br/>
+                <label class="customer-letter-spacing text-top">艺术家简介:&nbsp;
+                    {{ form.introduction(id='byx_artist_note',class='customer-update-input-border') }}
+                </label>
+                <hr>
+                <label class="control-label customer-letter-spacing">艺术家列表用图</label>
+                    {{ form.list_image(id='byx_artist_list',class='file-loading') }}
+                <hr>
+                <label class="control-label customer-letter-spacing">艺术家幻灯片用图</label>
+                    {{ form.slide_image(id='byx_artist_slide',class='file-loading') }}
+                <br/>
+                    {{ form.submit(id='byx_artist_save',class='btn btn-default glyphicon glyphicon-floppy-disk pull-right') }}
+            </div>
+        </form>
         <div class="tab-pane fade" id="edit">
             <table class="table">
                 <thead>
@@ -119,10 +139,12 @@
                         </div>
                     </td>
                     <td>
-                        <img class="customer-update-artist-list" src="{{ url_for('static', filename='images/artist/wgz_03.png') }}" alt="wgz">
+                        <img class="customer-update-artist-list"
+                             src="{{ url_for('static', filename='images/artist/wgz_03.png') }}" alt="wgz">
                     </td>
                     <td>
-                        <img class="customer-update-artist-slide" src="{{ url_for('static', filename='images/index_06.png') }}" alt="wgz">
+                        <img class="customer-update-artist-slide"
+                             src="{{ url_for('static', filename='images/index_06.png') }}" alt="wgz">
                     </td>
                     <td>
                         <button type="button" class="btn btn-default btn-sm">Delete</button>
@@ -169,6 +191,9 @@ $(document).on('ready', function() {
         initialCaption: "请选择艺术幻灯图片……"
     });
 });
+
+
+
 
 </script>
 </body>
