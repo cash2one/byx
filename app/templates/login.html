@@ -22,7 +22,7 @@
     <h1 class="lean">
         <img src="{{ url_for('static', filename='images/logo_2.png') }}" alt="logo">
     </h1>
-    <form method="post" action="{{ url_for('main.login') }}">
+    <form method="post" action="">
         {{ form.hidden_tag() }}
         {% for message in get_flashed_messages() %}
         <div class="alert alert-warning">

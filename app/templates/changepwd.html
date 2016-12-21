@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" , user-scalable:no
     "/>
     <meta name="renderer" content="webkit">
-    <link href="{{ url_for('static', filename='css/material-design-iconic-font.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/material-design-iconic-font.min.css') }}" rel="stylesheet"
+          type="text/css">
     <!-- CSS -->
     <link href="{{ url_for('static', filename='css/app.min.1.css') }}" rel="stylesheet" type="text/css">
 </head>
@@ -16,33 +17,46 @@
     <h1 class="lean">
         <img src="{{ url_for('static', filename='images/logo_2.png') }}" alt="logo">
     </h1>
-    <div class="input-group m-b-20">
+    <form method="post" action="">
+        {{ form.hidden_tag() }}
+
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+        <div class="input-group m-b-20">
     		<span class="input-group-addon">
     			<i class="glyphicon glyphicon-lock"></i>
     		</span>
-        <div class="fg-line">
-            <input type="text" class="form-control" placeholder="输入原密码" regex="^\w{3,16}$"/>
+            <div class="fg-line">
+                <!--<input type="text" class="form-control" placeholder="输入原密码" regex="^\w{3,16}$"/>-->
+                {{ form.current_password(class='form-control',placeholder='输入原密码') }}
+            </div>
         </div>
-    </div>
-    <div class="input-group m-b-20">
+        <div class="input-group m-b-20">
     		<span class="input-group-addon">
     			<i class="glyphicon glyphicon-edit"></i>
     		</span>
-        <div class="fg-line">
-            <input type="password" class="form-control" placeholder="输入新密码" regex="^\w+"/>
+            <div class="fg-line">
+                <!--<input type="password" class="form-control" placeholder="输入新密码" regex="^\w+"/>-->
+                {{ form.new_password(class='form-control',placeholder='输入新密码') }}
+            </div>
         </div>
-    </div>
-    <div class="input-group m-b-20">
+        <div class="input-group m-b-20">
     		<span class="input-group-addon">
     			<i class="glyphicon glyphicon-check"></i>
     		</span>
-        <div class="fg-line">
-            <input type="password" class="form-control" placeholder="再次输入新密码" regex="^\w+"/>
+            <div class="fg-line">
+                <!--<input type="password" class="form-control" placeholder="再次输入新密码" regex="^\w+"/>-->
+                {{ form.new_password_confirm(class='form-control',placeholder='再次输入新密码') }}
+            </div>
         </div>
-    </div>
-    <a href="" class="btn btn-login btn-danger btn-float">
-        <i class="zmdi zmdi-arrow-forward"></i>
-    </a>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
 </div>
 </body>
 <script src="{{ url_for('static', filename='js/jquery-1.9.1.min.js') }}"></script>

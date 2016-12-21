@@ -3,7 +3,7 @@ from . import main
 from flask import render_template, request, redirect, url_for, flash
 from ..models import News, User
 from flask_login import current_user, login_user, login_required, logout_user
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, ChangePasswordForm
 from werkzeug.security import check_password_hash, generate_password_hash
 from .. import db
 
@@ -89,9 +89,22 @@ def priceupdate():
     return render_template('priceupdate.html')
 
 
-@main.route('/changepwd.html')
+@main.route('/changepwd.html', methods=['GET', 'POST'])
+@login_required
 def changepwd():
-    return render_template('changepwd.html')
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        if current_user.verify_password(form.current_password.data):
+            current_user.password = generate_password_hash(form.new_password.data)
+            db.session.add(current_user)
+            db.session.commit()
+            return redirect(url_for('main.login'))
+        else:
+            flash(u'原密码错误')
+
+    else:
+        flash_errors(form)
+    return render_template('changepwd.html', form=form)
 
 
 @main.route('/login.html', methods=['GET', 'POST'])
@@ -103,7 +116,8 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and check_password_hash(user.password, form.password.data):
             login_user(user)
-            return redirect(request.args.get('next') or url_for('main.update'))
+            print(request.values.get('next'))
+            return redirect(request.values.get('next') or url_for('main.update'))
         else:
             flash(u'用户名或密码错误!')
     else:
@@ -114,6 +128,7 @@ def login():
 
 @main.route('/register.html', methods=['GET', 'POST'])
 def register():
+    print(request.args)
     form = RegisterForm()
     if form.validate_on_submit():
         user = User(username=form.username.data,
@@ -133,9 +148,9 @@ def logout():
     return redirect(url_for('main.login'))
 
 
-@main.app_errorhandler(404)
-def page_not_found(e):
-    return render_template('error.html'), 404
+# @main.app_errorhandler(404)
+# def page_not_found(e):
+#     return render_template('error.html'), 404
 
 
 def flash_errors(form):
