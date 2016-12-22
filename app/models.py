@@ -8,11 +8,17 @@ from . import login_manager
 class News(db.Model):
     __tablename__ = 'news'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.Text)
-    content = db.Column(db.Text)
-    author = db.Column(db.Text)
-    created = db.Column(db.DateTime, nullable=True)
-    source = db.Column(db.Text)
+    category = db.Column(db.Integer)  # 所属分类
+    news_list_image = db.Column(db.Text)  # 列表图片
+    news_detail_image = db.Column(db.Text)  # 详情页图片
+    title = db.Column(db.Text)  # 标题
+    overview = db.Column(db.Text)  # 概述
+    content = db.Column(db.Text)  # 内容
+    # author = db.Column(db.Text)
+    source = db.Column(db.Text)  # 来源
+    created = db.Column(db.DateTime)
+    image_illustrate = db.Column(db.Text)  # 图片概述
+    template_content = db.Column(db.Text)  # 模版内容
 
 
 class Art(db.Model):
@@ -26,10 +32,12 @@ class Art(db.Model):
     # taobao_id = db.Column(db.Integer)
     type = db.Column(db.Integer)
     art_list_image = db.Column(db.Text)
-    art_enlarge_iamge = db.Column(db.Text)
+    art_enlarge_image = db.Column(db.Text)
     art_slide_image = db.Column(db.Text)
     subtitle = db.Column(db.Text)
     introduction = db.Column(db.Text)
+    created = db.Column(db.DateTime)
+
 
 class Artist(db.Model):
     """
@@ -46,6 +54,7 @@ class Artist(db.Model):
     avatar = db.Column(db.Text)  # 艺术家头像
     slide_image = db.Column(db.Text)  # 艺术家幻灯片用图
     list_image = db.Column(db.Text)  # 艺术家列表用图
+    created = db.Column(db.DateTime)
 
 
 class User(UserMixin, db.Model):
@@ -53,6 +62,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(128))
     password = db.Column(db.String(128))
+    created = db.Column(db.DateTime)
 
     def verify_password(self, passwd):
         return check_password_hash(self.password, passwd)

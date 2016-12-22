@@ -56,6 +56,7 @@
 
 
 
+
     </style>
 </head>
 <body>
@@ -71,17 +72,18 @@
         </a></li>
     </ul>
     <div id="byx_index_pic_tab_content" class="tab-content">
-        <form method="post" action="" enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
 
-            {% for message in get_flashed_messages() %}
-            <div class="alert alert-warning">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                {{ message }}
-            </div>
-            {% endfor %}
 
-            <div class="tab-pane fade in active" id="add">
+        <div class="tab-pane fade in active" id="add">
+            <form method="post" action="" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+
+                {% for message in get_flashed_messages() %}
+                <div class="alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
+                </div>
+                {% endfor %}
                 <label class="control-label customer-letter-spacing">艺术家头像</label>
                 {{ form.avatar(id='byx_artist_photo',class='file-loading') }}
                 <br/>
@@ -102,14 +104,15 @@
                 </label>
                 <hr>
                 <label class="control-label customer-letter-spacing">艺术家列表用图</label>
-                    {{ form.list_image(id='byx_artist_list',class='file-loading') }}
+                {{ form.list_image(id='byx_artist_list',class='file-loading') }}
                 <hr>
                 <label class="control-label customer-letter-spacing">艺术家幻灯片用图</label>
-                    {{ form.slide_image(id='byx_artist_slide',class='file-loading') }}
+                {{ form.slide_image(id='byx_artist_slide',class='file-loading') }}
                 <br/>
-                    {{ form.submit(id='byx_artist_save',class='btn btn-default glyphicon glyphicon-floppy-disk pull-right') }}
-            </div>
-        </form>
+                {{ form.submit(id='byx_artist_save',class='btn btn-default glyphicon glyphicon-floppy-disk pull-right')}}
+            </form>
+        </div>
+
         <div class="tab-pane fade" id="edit">
             <table class="table">
                 <thead>
@@ -121,21 +124,23 @@
                 </tr>
                 </thead>
                 <tbody>
+
+                {% for artist in artistlist %}
                 <tr>
                     <td>
                         <div class="customer-update-artist-photo">
-                            <img src="images/wgz_07.png" alt="wgz">
+                            <img src="{{ url_for('static', filename='images/wgz_07.png') }}" alt="wgz">
                         </div>
                         <div class="">
                             <label class="customer-letter-spacing">艺术家介绍</label><br/>
                             <label class="customer-letter-spacing">艺术家姓名:&nbsp;</label><span
-                                class="customer-letter-spacing">吴冠中</span><br/>
+                                class="customer-letter-spacing">{{ artist.name }}</span><br/>
                             <label class="customer-letter-spacing">艺术家拼音:&nbsp;</label><span
-                                class="customer-letter-spacing">WU GUANZHONG</span><br/>
+                                class="customer-letter-spacing">{{ artist.pinyin }}</span><br/>
                             <label class="customer-letter-spacing">艺术家籍贯:&nbsp;</label><span
-                                class="customer-letter-spacing">中国&nbsp;江苏宜兴人</span><br/>
+                                class="customer-letter-spacing">{{ artist.location }}</span><br/>
                             <label class="customer-letter-spacing text-top">艺术家简介:&nbsp;</label><span
-                                class="customer-letter-spacing">吴冠中在50〜70年代，致力于风景油画创作，并进行没画民族……</span>
+                                class="customer-letter-spacing">{{ artist.introduction }}</span>
                         </div>
                     </td>
                     <td>
@@ -150,6 +155,7 @@
                         <button type="button" class="btn btn-default btn-sm">Delete</button>
                     </td>
                 </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -191,6 +197,7 @@ $(document).on('ready', function() {
         initialCaption: "请选择艺术幻灯图片……"
     });
 });
+
 
 
 

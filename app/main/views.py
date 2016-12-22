@@ -3,11 +3,12 @@ from . import main
 from flask import render_template, request, redirect, url_for, flash, current_app
 from ..models import News, User, Artist, Art
 from flask_login import current_user, login_user, login_required, logout_user
-from .forms import LoginForm, RegisterForm, ChangePasswordForm, SlidePicForm, ArtistForm, ArtForm
+from .forms import LoginForm, RegisterForm, ChangePasswordForm, SlidePicForm, ArtistForm, ArtForm, NewsForm
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 from .. import db
 import os
+import time
 
 
 # todo
@@ -118,7 +119,9 @@ def artistupdate():
 
     else:
         flash_errors(form)
-    return render_template('artistupdate.html', form=form)
+
+    artistlist = Artist.query.all()
+    return render_template('artistupdate.html', form=form, artistlist=artistlist)
 
 
 @main.route('/artupdate.html', methods=["GET", "POST"])
@@ -128,8 +131,10 @@ def artupdate():
     if form.validate_on_submit():
 
         name = form.name.data
-        iintroduction = form.introdution.data
+        introduction = form.introdution.data
         subtitle = form.subtitle.data
+        type = form.type.data
+        artist_id = form.artist_id.data
 
         filename1 = secure_filename(form.art_list_image.data.filename)
         filename2 = secure_filename(form.art_enlarge_image.data.filename)
@@ -142,18 +147,57 @@ def artupdate():
         form.art_list_image.data.save(file_path1)
         form.art_enlarge_image.data.save(file_path2)
         form.art_slide_image.data.save(file_path3)
+        created = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
-        # art = Art()
+        art = Art(name=name, introduction=introduction, subtitle=subtitle,
+                  art_list_image=filename1, art_enlarge_image=filename2, art_slide_image=filename3,
+                  type=type, created=created, artist_id=artist_id)
+        db.session.add(art)
+        db.session.commit()
+        return redirect(url_for("main.artupdate"))
 
     else:
         flash_errors(form)
-    return render_template('artupdate.html', form=form)
+    artlist = Art.query.join(Artist, Art.artist_id == Artist.id).add_columns(Artist.name).order_by(
+        Art.created.desc()).all()
+    return render_template('artupdate.html', form=form, artlist=artlist)
 
 
 @main.route('/newsupdate.html')
 @login_required
 def newsupdate():
-    return render_template('newsupdate.html')
+    form = NewsForm()
+    if form.validate_on_submit():
+        category = form.category.data
+        title = form.title.data
+        source = form.source.data
+        overview = form.overview.data
+        image_illustrate = form.image_illustrate.data
+        content = form.content.data
+        template_content = form.template_content.data
+
+        filename1 = secure_filename(form.news_list_image.data.filename)
+        filename2 = secure_filename(form.news_detail_image.data.filename)
+
+        file_path1 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename1)
+        file_path2 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename2)
+
+        form.news_list_image.data.save(file_path1)
+        form.news_detail_image.data.save(file_path2)
+        created = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
+
+        news = News(category=category, title=title, source=source,
+                    overview=overview, news_list_image=filename1,
+                    news_detail_image=filename2, image_illustrate=image_illustrate,
+                    content=content, template_content=template_content, created=created)
+        db.session.add(news)
+        db.session.commit()
+        return redirect(url_for("main.newsupdate"))
+
+
+    else:
+        flash_errors(form)
+    return render_template('newsupdate.html', form=form)
 
 
 @main.route('/priceupdate.html')

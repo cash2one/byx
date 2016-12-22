@@ -46,8 +46,8 @@ class ArtistForm(Form):
 
 
 class ArtForm(Form):
-    artist_id = SelectField(u'艺术家', coerce=int)
-    type = RadioField(u'作品类型', coerce=int)
+    artist_id = SelectField(u'艺术家', coerce=int, validators=[DataRequired()])
+    type = RadioField(u'作品类型', coerce=int, validators=[DataRequired()])
     art_list_image = FileField(u'作品列表图片', validators=[DataRequired()])
     art_enlarge_image = FileField(u'作品放大图片', validators=[DataRequired()])
     art_slide_image = FileField(u'作品幻灯图片', validators=[DataRequired()])
@@ -60,4 +60,23 @@ class ArtForm(Form):
         super(ArtForm, self).__init__(*args, **kwargs)
         self.artist_id.choices = [(i.id, i.name) for i in Artist.query.all()]
         self.type.choices = [(0, u'珂罗版'), (1, u'丝网版'), (2, u'木版'), (3, u'铜版'), (4, u'石版'), (5, u'综合版'),
-                     (6, u'艺术微喷'), (7, u'艺术衍生品'), (8, u'艺术走进生活'), (99, u'其他')]
+                             (6, u'艺术微喷'), (7, u'艺术衍生品'), (8, u'艺术走进生活'), (99, u'其他')]
+
+
+class NewsForm(Form):
+    category = SelectField(u'所属分类', coerce=int, validators=[DataRequired()])
+    news_list_image = FileField(u'动态列表图片', validators=[DataRequired()])
+    news_detail_image = FileField(u'动态列表图片', validators=[DataRequired()])
+    title = StringField(u'标题', validators=[DataRequired()])
+    source = StringField(u'来源', validators=[DataRequired()])
+    overview = TextAreaField(u'概述', validators=[DataRequired()])
+    image_illustrate = StringField(u'图片说明', validators=[DataRequired()])
+    content = TextAreaField(u'详细内容', validators=[DataRequired()])
+    template_content = TextAreaField(u'模版内容', validators=[DataRequired()])
+    submit = SubmitField(u'点击保存')
+
+    def __init__(self, *args, **kwargs):
+        super(NewsForm, self).__init__(*args, **kwargs)
+        self.category.choices = [(0, u'动态-百雅轩动态'), (1, u'动态-艺术家资讯'), (2, u'动态-其他'),
+                                 (3, u'活动-展览资讯'), (4, u'活动-相关活动'), (5, u'活动-其他'),
+                                 (6, u'关于我们-版画制作工艺'), (7, u'关于我们-艺术家与百雅轩')]
