@@ -156,35 +156,40 @@
                 </tr>
                 </thead>
                 <tbody>
+
+                {% set category_list = {0: '动态-百雅轩动态', 1: '动态-艺术家资讯', 2: '动态-其他', 3: '活动-展览资讯', 4: '活动-相关活动', 5: '活动-其他', 6: '关于我们-版画制作工艺', 7: '关于我们-艺术家与百雅轩'} %}
+
+                {% for each in news_list %}
                 <tr>
                     <td>
-                        <span class="customer-letter-spacing">动态 | 展览资讯</span>
+                        <span class="customer-letter-spacing">{{ category_list.get(each.category, '') }}</span>
                     </td>
                     <td>
                         <img class="customer-news-list-pic"
-                             src="{{ url_for('static', filename='images/exhibition/wgz_exhibition.png') }}" alt="wgz">
+                             src="{{ url_for('static', filename='upload/' + each.news_list_image) }}" alt="wgz">
                     </td>
                     <td>
                         <img class="customer-news-mark-pic" src="{{ url_for('static', filename='images/mark_1.png') }}"
                              alt="wgz-mark">
-                        <span class="customer-letter-spacing">标题：吴冠中</span><br/>
-                        <span class="customer-letter-spacing">副标：WU GUANZHONG</span>
+                        <span class="customer-letter-spacing">标题：{{ each.title }}</span><br/>
+                        <!--<span class="customer-letter-spacing"></span>-->
                     </td>
                     <td>
                         <img class="customer-news-content-pic"
-                             src="{{ url_for('static', filename='images/exhibition/wgz_exhibition.png') }}" alt="wgz">
+                             src="{{ url_for('static', filename='upload/' + each.news_detail_image) }}" alt="wgz">
                     </td>
                     <td>
-                        <span class="customer-letter-spacing">信息标题：百雅轩入驻宁波……</span><br/>
-                        <span class="customer-letter-spacing">信息来源：百雅轩</span><br/>
-                        <span class="customer-letter-spacing">信息概述：百雅轩是中国领先……</span><br/>
-                        <span class="customer-letter-spacing">图片说明：2000年4月，吴冠中先生在太湖湖畔写生</span><br/>
-                        <span class="customer-letter-spacing">详细内容：百雅轩与艺术家的合作<br/>百雅轩成立以来陆续与吴冠中、罗尔纯……</span>
+                        <span class="customer-letter-spacing">信息标题：{{ each.title | truncate(10, end="...") }}</span><br/>
+                        <span class="customer-letter-spacing">信息来源：{{ each.source }}</span><br/>
+                        <span class="customer-letter-spacing">信息概述：{{ each.overview | truncate(10, end="...") }}</span><br/>
+                        <span class="customer-letter-spacing">图片说明：{{ each.image_illustrate | truncate(10, end="...") }}</span><br/>
+                        <span class="customer-letter-spacing">详细内容：{{ each.content | truncate(10, end="...") }}</span>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-default btn-sm">Delete</button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="if (confirm('确定要删除此资讯？')) { location.href = '{{ url_for('main.delete_news', id=each.id) }}'; }" >Delete</button>
                     </td>
                 </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>

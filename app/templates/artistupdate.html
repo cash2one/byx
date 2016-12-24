@@ -153,7 +153,7 @@
                              src="{{ url_for('static', filename='upload/'+artist.slide_image) }}" alt="wgz">
                     </td>
                     <td>
-                        <button type="button" class="btn btn-default btn-sm">Delete</button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="if (confirm('确定要删除此艺术家吗？')) { location.href = '{{ url_for('main.delete_artist', id=artist.id) }}'; }">Delete</button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -198,11 +198,6 @@ $(document).on('ready', function() {
         initialCaption: "请选择艺术幻灯图片……"
     });
 });
-
-
-
-
-
 </script>
 </body>
 </html>

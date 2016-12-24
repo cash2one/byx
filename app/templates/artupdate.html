@@ -182,7 +182,7 @@
                             class="customer-letter-spacing">{{ art.Art.introduction }}</span><br/>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-default btn-sm">Delete</button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="if (confirm('确定要删除此作品？')) { location.href = '{{ url_for('main.delete_art', id=art.Art.id) }}'; }">Delete</button>
                     </td>
                 </tr>
                 {% endfor %}

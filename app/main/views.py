@@ -37,7 +37,7 @@ def artist():
     return render_template('artistlist.html', artistlist=artistlist)
 
 
-@main.route('/artistlive/<id>.html')
+@main.route('/artistlive/<int:id>.html')
 def artistlive(id):
     artistlist = Artist.query.filter(Artist.id == id).join(Art, Artist.id == Art.artist_id).add_columns(
         Art.art_list_image, Art.id, Art.name).all()
@@ -47,11 +47,12 @@ def artistlive(id):
 
 @main.route('/artlist.html')
 def artlist():
+    type_id = request.args.get('type', 1, type=int)
+    artlist = Art.query.filter(Art.type == type_id).all()
+    return render_template('artlist.html', artlist=artlist)
 
-    return render_template('artlist.html')
 
-
-@main.route('/artlive/<id>.html')
+@main.route('/artlive/<int:id>.html')
 def artlive(id):
     artlive = Art.query.filter(Art.id == id).filter(Art.index_life_image != '').join(Artist,
                                                                                      Art.artist_id == Artist.id).add_columns(
@@ -60,7 +61,7 @@ def artlive(id):
     return render_template('artlive.html', artlive=artlive, life_images=life_images)
 
 
-@main.route('/artshow/<id>.html')
+@main.route('/artshow/<int:id>.html')
 def artshow(id):
     art_detail = Art.query.filter(Art.id == id).join(Artist, Art.artist_id == Artist.id).add_columns(Artist.name,
                                                                                                      Artist.location,
@@ -152,6 +153,15 @@ def artistupdate():
     return render_template('artistupdate.html', form=form, artistlist=artistlist)
 
 
+@main.route('/artist/delete/<int:id>', methods=['GET', 'POST'])
+def delete_artist(id):
+    have_artist = Artist.query.filter_by(id=id).first_or_404()
+    db.session.delete(have_artist)
+    db.session.commit()
+    return redirect(request.referrer or url_for('main.artistupdate'))
+
+
+
 @main.route('/artupdate.html', methods=["GET", "POST"])
 @login_required
 def artupdate():
@@ -164,18 +174,18 @@ def artupdate():
         type = form.type.data
         artist_id = form.artist_id.data
 
-        # filename1 = random_file_name(form.art_list_image.data.filename)
+        filename1 = random_file_name(form.art_list_image.data.filename)
         filename2 = random_file_name(form.art_enlarge_image.data.filename)
 
-        list_filename = ''
-        list_image = request.files.getlist('art_list_image')
-        if list_image:
-            for each in list_image:
-                list_image_filename = random_file_name(each.filename)
-                list_image_file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], list_image_filename)
-                each.save(list_image_file_path)
-                list_image_filename_s = list_image_filename + ';'
-                list_filename += list_image_filename_s
+        # list_filename = ''
+        # list_image = request.files.getlist('art_list_image')
+        # if list_image:
+        #     for each in list_image:
+        #         list_image_filename = random_file_name(each.filename)
+        #         list_image_file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], list_image_filename)
+        #         each.save(list_image_file_path)
+        #         list_image_filename_s = list_image_filename + ';'
+        #         list_filename += list_image_filename_s
 
 
         filename_list = ''
@@ -209,7 +219,7 @@ def artupdate():
             index_filename = ''
             index_life_image_filename = ''
 
-        # file_path1 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename1)
+        file_path1 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename1)
         file_path2 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename2)
         # file_path3 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename3)
 
@@ -220,13 +230,13 @@ def artupdate():
         else:
             filename4 = ''
 
-        # form.art_list_image.data.save(file_path1)
+        form.art_list_image.data.save(file_path1)
         form.art_enlarge_image.data.save(file_path2)
         # form.art_slide_image.data.save(file_path3)
         created = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
         art = Art(name=name, introduction=introduction, subtitle=subtitle,
-                  art_list_image=list_filename, art_enlarge_image=filename2, art_slide_image=filename_list,
+                  art_list_image=filename1, art_enlarge_image=filename2, art_slide_image=filename_list,
                   type=type, created=created, artist_id=artist_id,
                   index_slider_image=filename4, life_image=index_filename, index_life_image=index_life_image_filename)
         db.session.add(art)
@@ -240,7 +250,17 @@ def artupdate():
     return render_template('artupdate.html', form=form, artlist=artlist)
 
 
-@main.route('/newsupdate.html')
+
+@main.route('/art/delete/<int:id>', methods=['GET', 'POST'])
+def delete_art(id):
+    have_art = Art.query.filter_by(id=id).first_or_404()
+    db.session.delete(have_art)
+    db.session.commit()
+    return redirect(request.referrer or url_for('main.artupdate'))
+
+
+
+@main.route('/newsupdate.html', methods=['GET', 'POST'])
 @login_required
 def newsupdate():
     form = NewsForm()
@@ -274,7 +294,17 @@ def newsupdate():
         flash_errors(form)
     # todo
     # 管理界面
-    return render_template('newsupdate.html', form=form)
+
+    news_list = News.query.all()
+    return render_template('newsupdate.html', form=form, news_list=news_list)
+
+
+@main.route('/news/delete/<int:id>', methods=['GET', 'POST'])
+def delete_news(id):
+    have_news = News.query.filter_by(id=id).first_or_404()
+    db.session.delete(have_news)
+    db.session.commit()
+    return redirect(request.referrer or url_for('main.newsupdate'))
 
 
 @main.route('/priceupdate.html')
