@@ -54,6 +54,10 @@ class ArtForm(Form):
     name = StringField(u'名称', validators=[DataRequired()])
     subtitle = StringField(u'副标题', validators=[DataRequired()])
     introdution = TextAreaField(u'简介', validators=[DataRequired()])
+
+    index_slider_image = FileField(u'首页轮播图片', validators=[DataRequired()])
+    life_image = FileField(u'走进生活图片', validators=[DataRequired()])
+
     submit = SubmitField(u'点击保存')
 
     def __init__(self, *args, **kwargs):

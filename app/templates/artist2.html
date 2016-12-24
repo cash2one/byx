@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>    <!-- , user-scalable:no"/> -->
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="百雅轩">
+    <meta name="description" content="艺术品投资收藏,中外文化交流,丝网版画,铜版画,石版画,木板水印版画,综合版画,珂罗版画,艺术微喷画,艺术衍生品">
+    <title>百雅轩-艺术家</title>
+
+    <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/byxcss.css') }}">-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.9.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <!--<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.bxslider.js') }}"></script>-->
+    <style>
+
+body {
+	min-width: 1258px;
+	margin: 0 auto;
+}
+.myboder {
+	border: 1px solid white;
+	border-radius: 4px;
+}
+.customer-visible {
+	position: absolute;
+    visibility: hidden;
+}
+/*首页菜单CSS开始*/
+.customer-index-nav {
+	position: absolute;
+	top: 10px;
+	left: 198px;
+	height: 38px;
+	width: 600px;
+	vertical-align: middle;
+}
+.customer-index-nav ul li {
+	float: left;
+	height: 38px;
+	padding-top: 14px;
+	list-style: none;
+}
+.customer-index-nav ul li a {
+	display: block;
+	line-height: 18px;
+	color: white;
+	list-style: none;
+	margin: 0 16.5px;
+	padding: 3px 12px;
+}
+.customer-index-nav ul li a:hover {
+	color: #b4131f;
+	text-decoration: none;
+	border-bottom: 1px solid #b4131f;
+}
+.customer-index-submenu {
+	position: absolute;
+	display: none;
+	padding-top: 20px;
+	top: 36px;
+	left: -77.5px;
+	height: 60px;
+	width: 1100px;
+	line-height: 30px;
+	vertical-align: middle;
+}
+.customer-index-submenu a {
+	display: block;
+	float: left;
+	font-size: 12px;
+	margin: 0 27.5px;
+}
+/*首页菜单CSS结束*/
+/*除首页外菜单CSS开始*/
+.customer-nav {
+	position: absolute;
+	top: 10px;
+	left: 198px;
+	height: 38px;
+	width: 600px;
+	vertical-align: middle;
+}
+.customer-nav ul li {
+	float: left;
+	height: 38px;
+	padding-top: 14px;
+	list-style: none;
+}
+.customer-nav ul li a {
+	display: block;
+	line-height: 18px;
+	color: black;
+	list-style: none;
+	margin: 0 16.5px;
+	padding: 3px 12px;
+}
+.customer-nav ul li a:hover {
+	color: #b4131f;
+	text-decoration: none;
+	border-bottom: 1px solid #b4131f;
+}
+.customer-submenu {
+	position: absolute;
+	display: none;
+	padding-top: 20px;
+	top: 36px;
+	left: -77.5px;
+	height: 60px;
+	width: 1100px;
+	line-height: 30px;
+	vertical-align: middle;
+	text-align: center;
+}
+.customer-submenu a {
+	display: block;
+	float: left;
+	font-size: 12px;
+	margin: 0 27.5px;
+}
+/*除首页外菜单CSS结束*/
+.customer-width {
+	width: 1258px;
+}
+.customer-nav-menutip {
+	position: absolute;
+	top: 100px;
+	left: 101px;
+	padding-top: 38px;
+	margin-bottom: 11px;
+	height: 48px;
+	width: 1056px;
+}
+.customer-footer-height {
+	height: 179px;
+	font-size: 12px;
+}
+.customer-footer-padding {
+	padding: 32px 0;
+}
+.customer-footer-div-left {
+	width: 813px;
+	padding-left: 111px;
+	border-right: 1px solid #787878;
+}
+.customer-footer-div-right {
+	width: 440px;
+	padding-left: 126px;
+}
+.customer-scroll-height {
+	height: 183px;
+	margin: 6px -15px 7px -15px;
+}
+.customer-position-absolute {
+	position: absolute;
+	z-index: 100;
+}
+.customer-logo {
+	position: absolute;
+	top: 19px;
+	left: 131px;
+	width: 75px;
+	height: 20px;
+}
+.customer-sublogo {
+	position: absolute;
+	top: 44px;
+	left: 124px;
+}
+.customer-column-margin {
+	margin: 0 -12px;
+}
+.customer-column-margin-left {
+	margin-left: -3px;
+}
+.customer-letter-spacing {
+	letter-spacing: 1px;
+}
+.customer-nva-li-padding {
+	padding: 5px;
+}
+.customer-search {
+	position: absolute;
+	height: 32px;
+	width: 311px;
+	left: 853px;
+	top: 271px;
+	z-index: 99;
+}
+.customer-about-search {
+	position: absolute;
+	left: 838px;
+	top: 18px;
+	z-index: 9999;
+	height: 32px;
+	width: 311px;
+	border: 1px solid grey;
+	border-radius: 4px;
+}
+.customer-search-form {
+	height: 30px;
+}
+.customer-search-select-div {
+	margin-left: 11px;
+	margin-top: -1px;
+	border-color: white;
+}
+.customer-other-search-select-div {
+	margin-left: 11px;
+	margin-top: -1px;
+	border-color: #82735f;
+}
+.customer-search-select {
+	background: url("../images/select_icon_black.png") no-repeat 95% 50%;
+	padding-left: 2px;
+	padding-right: 2px;
+	width: 80px;
+	height: 32px;
+	color: white;
+	font-size: 12px;
+}
+.customer-o-search-select {
+	background: url("../images/select_icon_black.png") no-repeat 95% 50%;
+	padding-left: 2px;
+	padding-right: 2px;
+	width: 80px;
+	height: 32px;
+	color: black;
+	font-size: 12px;
+}
+#byx_search {
+	color: black;
+}
+.customer-other-search-icon-size {
+	display: block;
+	margin-top: 1px;
+	border-right: 1px solid #82735f;
+	height: 28px;
+}
+.customer-search-icon-size {
+	display: block;
+	margin-top: 1px;
+	border-right: 1px solid white;
+	height: 28px;
+}
+.customer-search-icon-size a img,
+.customer-other-search-icon-size a img {
+	padding-top: 3.5px;
+}
+.customer-search-icon {
+	margin: auto 11px;
+	height: 25px;
+	width: 27px;
+}
+.customer-email {
+	color: black;
+	text-decoration: none;
+}
+.customer-other-a {
+	color: black;
+}
+.container a {
+	color: black;
+}
+.customer-about-container {
+	position: absolute;
+	top: 159px;
+}
+#byx_about_container h1 {
+	font-size: 18px;
+}
+.customer-description {
+	margin: 0 114px;
+	/*height: 500px;*/
+}
+.customer-about-text-format {
+	line-height: 20px;
+	font-size: 12px;
+	letter-spacing: 2px;
+}
+#byx_about_container p {
+	text-indent: 2em;
+	margin: 15px 0;
+}
+#byx_search-select {
+	border-color: grey;
+}
+.customer-about-margin-top {
+	margin-top: 168px;
+}
+.customer-process-container {
+	position: absolute;
+	top: 159px;
+	width: 1258px;
+	margin-bottom: 9px;
+}
+.customer-process-container div {
+	/*margin-bottom: 6px;*/
+	margin: 0 auto 10px -1px;
+}
+.customer-watermark {
+	position: absolute;
+	top: 217px;
+	height: 120px;
+	text-align: center;
+}
+.customer-artist-container {
+	width: 1030px;
+	margin: 0 114px 10px 114px;
+}
+.customer-artist-first-col {
+	margin-right: 10px;
+}
+.customer-artist-container-col {
+	width: 510px;
+}
+.customer-artist-container-col-sink {
+	width: 510px;
+	padding-top: 168px;
+}
+.customer-artist-container-col a img,
+.customer-artist-container-col-sink a img {
+	margin-bottom: 10px;
+}
+.customer-need-more {
+	text-align: center;
+	margin-top: 90px;
+}
+.customer-artist-pic {
+	width: 182px;
+	height: 164px;
+}
+.customer-mid-container {
+	position: absolute;
+	top: 159px;
+}
+#customer-artist-introduce {
+	width: 318px;
+	padding: 0 0 0 20px;
+}
+#customer-artist-introduce h1 {
+	font-size: 18px;
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+.customer-artist-introduce-p {
+	font-size: 10px;
+	letter-spacing: 1px;
+	text-align: left;
+	margin: 2px 0 9px 0;
+}
+.customer-artist-tip-p {
+	text-indent: 2em;
+	font-size: 12px;
+	letter-spacing: 1px;
+	margin: 0;
+}
+.customer-exhibition {
+	width: 780px;
+	margin: 0 239px;
+	font-size: 12px;
+	line-height: 20px;
+}
+.customer-exhibition p {
+	text-indent: 2em;
+	letter-spacing: 1px;
+}
+.customer-exhibition h1 {
+	text-align: center;
+}
+.customer-exhibition h1,h2,
+.customer-artshow-author-tip h1,
+.customer-no-margin h2 {
+	font-size: 18px;
+	margin: 0;
+}
+.customer-exhibition-title {
+	padding: 31px 0;
+}
+.customer-text-center {
+	display: block;
+	margin-top: 36px;
+	margin-bottom: 24px;
+	text-align: center;
+}
+.customer-exhibition-pic p {
+	margin-top: 10px;
+	/*text-align: center;*/
+}
+.customer-exhibition-content {
+	margin-top: 81px;
+}
+.customer-exhibition-content h2 {
+	margin: 14px 0;
+}
+.customer-artshow-pic {
+	margin: 0 -7px 68px -7px;
+}
+.customer-artshow-author {
+	height: 164px;
+	width: 182px;
+	padding: 0;
+	margin: 0;
+}
+.customer-artshow-author-tip {
+	width: 519px;
+	margin: 0;
+	padding: 20px 130px 0 38px;
+}
+.customer-artshow-discription {
+	width: 701px;
+	margin: 32px 0 28px 0;
+}
+.customer-artshow-content {
+	/*margin: 66px 111px 0 111px;*/
+	margin: 0 111px;
+}
+.customer-no-margin {
+	margin-left: -10px;
+	margin-right: -10px;
+}
+#customer-artshow-discription-title {
+	height: 18px;
+	width: 188px;
+	border-right: 1px solid black;
+	margin: 0;
+	padding: 0 0 0 12px;
+}
+#customer-artshow-discription-sub-title {
+	height: 18px;
+	width: 519px;
+	margin: 0;
+}
+#customer-artshow-discription-title h2 {
+	display: block;
+	float: left;
+	letter-spacing: 12px;
+}
+.customer-artshow-discription p {
+	margin-top: 25px;
+	padding-right: 46px;
+}
+.customer-artshow-discription-price {
+	height: 164px;
+	width: 330px;
+	border-left: 1px solid black;
+	padding-left: 55px;
+	padding-top: 25px;
+}
+.customer-artshow-discription-price table {
+	font-size: 12px;
+}
+.customer-artshow-discription-price table tr td {
+	margin-bottom: 8px;
+}
+.customer-artshow-discription-price table tr td a {
+	color: red;
+}
+.customer-text-align-right {
+	text-align: right;
+}
+.customer-text-align-justify {
+	text-align: justify;
+}
+.customer-artshow-discription-kline {
+	width: 330px;
+	height: 330px;
+}
+.customer-artshow-other-art-text {
+	text-align: left;
+    padding: 6px 114px;
+}
+.customer-sub-title {
+	display: block;
+	float: left;
+	padding-left: 38px;
+	letter-spacing: 2px;
+}
+.customer-tobuy {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 99;
+}
+.customer-error {
+	background: #1d1d1d;
+}
+.customer-error-text {
+	text-align: center;
+	padding-top: 289.5px;
+}
+table tr td {
+	margin: 0;
+	padding: 0;
+}
+.customer-search-container {
+	margin: 0 114px;
+}
+.customer-search-left {
+	width: 683px;
+}
+.customer-search-right {
+	width: 360px;
+	padding: 10px 30px;
+	border-left: 1px solid #787878;
+}
+.customer-search-right a img {
+	margin: 10px 0;
+}
+.customer-update-container {
+	width: 1158px;
+	margin: 0 50px;
+}
+.customer-update-container div {
+	margin-left: 0;
+}
+.customer-update-title {
+	/*width: 100%;*/
+    height: 90px;
+}
+.customer-update-logo {
+	width: 90px;
+	margin-top: 30px;
+}
+.customer-update-title-name {
+	height: 60px;
+}
+.customer-update-title-name h1 {
+	letter-spacing: 2px;
+	font-size: 20px;
+}
+.customer-update-splite {
+	display: block;
+	width: 500px;
+	height: 0;
+	margin-left: 280px;
+	border: 2px solid #b4131f;
+}
+.customer-update-title-tip {
+	height: 30px;
+}
+.customer-update-menu {
+	padding: 5px;
+	height: 550px;
+	border: 1px solid grey;
+	border-radius: 4px;
+}
+.customer-update-items {
+	padding: 5px;
+	height: 550px;
+	border: 1px solid grey;
+	border-radius: 4px;
+}
+.customer-update-menu-left {
+	padding-left: 50px;
+}
+.panel-title a span {
+	display: block;
+	margin-left: 100px;
+}
+#itemsContainer iframe {
+	width: 100%;
+	height: 100%;
+}
+    </style>
+
+
+</head>
+<body>
+<div class="container customer-width">
+    <div class="row customer-width customer-position-absolute clearfix">
+        <div class="col-md-3 column">
+            <a href="#"><img class="customer-logo" src="{{ url_for('static', filename='images/logo_black.png') }}"
+                             alt="百雅轩"></a>
+            <img class="customer-sublogo" src="{{ url_for('static', filename='images/subLogo_black.png') }}"
+                 alt="让艺术走进|寻常百姓家">
+        </div>
+        <div class="col-md-9 column customer-nav">
+            <ul class="_nav">
+                <li>
+                    <a href="#">首页</a>
+                </li>
+                <li>
+                    <a href="#">动态</a>
+                    <div class="customer-submenu">
+                        <a href="byx_list.html?type=x">百雅轩动态</a>
+                        <a href="byx_list.html?type=x">艺术家资讯</a>
+                        <a href="byx_list.html?type=x">其他</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">艺术</a>
+                    <div class="customer-submenu">
+                        <a href="artlive.html?type=x&artistvisible=hidden">珂罗版</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">丝网版</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">木版</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">铜版</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">石版</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">综合版</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">艺术微喷</a>
+                        <a href="artist.html" target="_blank">艺术家</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">艺术衍生品</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">艺术走进生活</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">其他</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">活动</a>
+                    <div class="customer-submenu">
+                        <a href="byx_list.html?type=x">展览资讯</a>
+                        <a href="byx_list.html?type=x">相关活动</a>
+                        <a href="byx_list.html?type=x">其他</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">关于我们</a>
+                    <div class="customer-submenu">
+                        <a href="byx_list.html?type=x">版画制作工艺</a>
+                        <a href="about.html">关于百雅轩</a>
+                        <a href="byx_list.html?type=x">艺术家与百雅轩</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-12 column customer-nav-menutip clearfix">
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">首页</a>
+                </li>
+                <li>
+                    <a href="#">动态</a>
+                </li>
+                <li class="active">
+                    Data
+                </li>
+            </ul>
+        </div>
+        <div class="customer-about-search clearfix">
+            <form class="bs-example bs-example-form customer-search-form" role="form">
+                <div class="row">
+                    <div class="col-lg-11">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button"
+                                        class="btn btn-default dropdown-toggle customer-o-search-select customer-other-search-select-div"
+                                        data-toggle="dropdown" id="byx_search-selected" data-id="_engraving">
+                                    版画作品
+                                </button>
+                                <ul class="dropdown-menu" id="byx_search-select">
+                                    <li><a href="#" data-id="_arts">艺术品</a></li>
+                                    <li><a href="#" data-id="_artists">艺术家</a></li>
+                                    <li><a href="#" data-id="_activity">活动</a></li>
+                                    <li><a href="#" data-id="_developments">动态</a></li>
+                                </ul>
+                            </div><!-- /btn-group -->
+                            <input type="text" class="form-control" id="byx_search">
+                            <span class="input-group-addon customer-other-search-icon-size"><a href="#"><img
+                                    class="customer-search-icon"
+                                    src="{{ url_for('static', filename='images/search_icon.png') }}"></a></span>
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 --><br>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row customer-about-container clearfix" id="byx_about_container">
+        <div class="row customer-artist-container clearfix">
+            <div class="col-md-6 column customer-artist-container-col customer-artist-first-col">
+                <a href="artistlive.html?artistid=1" target="_blank"><img src="images/artist/bjs_18.png" alt="毕加索"></a>
+                <a href="artistlive.html?artistid=2" target="_blank"><img src="images/artist/cdq_17.png" alt="陈丹青"></a>
+                <a href="artistlive.html?artistid=3" target="_blank"><img src="images/artist/hmz_13.png" alt="黄苗子"></a>
+                <a href="artistlive.html?artistid=4" target="_blank"><img src="images/artist/lec_05.png" alt="罗尔纯"></a>
+            </div>
+            <div class="col-md-6 column customer-artist-container-col">
+                <a href="artistlive.html?artistid=5" target="_blank"><img src="images/artist/sjk_10.png" alt="邵晶坤"></a>
+                <a href="artistlive.html?artistid=6" target="_blank"><img src="images/artist/wgz_03.png" alt="吴冠中"></a>
+                <a href="artistlive.html?artistid=7" target="_blank"><img src="images/artist/yyp_14.png" alt="袁运甫"></a>
+                <a href="artistlive.html?artistid=8" target="_blank"><img src="images/artist/zdn_09.png" alt="祝大年"></a>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-12 customer-need-more column">
+                <a class="customer-letter-spacing" href="#">加载更多</a>
+            </div>
+        </div>
+        <div class="row customer-footer-height customer-footer-padding clearfix">
+            <div class="col-md-8 column customer-footer-div-left">
+                <table class="table">
+                    <tr>
+                        <td><h5 class="customer-letter-spacing">联系与合作</h5></td>
+                    </tr>
+                    <tr>
+                        <td>联 系 我 们：<strong>010-57626236</strong></td>
+                    </tr>
+                    <tr>
+                        <td>建 议 反 馈：<strong>010-57623018</strong></td>
+                    </tr>
+                    <tr>
+                        <td>合 作 热 线：<strong>010-57623058</strong></td>
+                    </tr>
+                    <tr>
+                        <td><strong class="customer-letter-spacing">北京百雅轩文化传播有限公司 版权所有 京ICP备14004157号<strong></strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-4 column customer-footer-div-right">
+                <table class="table">
+                    <tr>
+                        <td><h5 class="customer-letter-spacing">关注我们</h5></td>
+                    </tr>
+                    <tr>
+                        <td>新 浪 微 博 ：<strong>@百雅轩</strong></td>
+                    </tr>
+                    <tr>
+                        <td>淘 宝 店 铺 ：<a href="https://shop106802363.world.taobao.com/?spm=0.0.0.0.0h2Jd5"
+                                        target="_blank">传世细工坊</a></td>
+                    </tr>
+                    <tr>
+                        <td>官 方 Q Q &nbsp&nbsp：<strong>2149681831</strong></td>
+                    </tr>
+                    <tr>
+                        <td>微信订阅号：<strong>baiyaxuan798</strong></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{{ url_for('static', filename='js/byx-plugin.js') }}"></script>
+</body>
+</html>

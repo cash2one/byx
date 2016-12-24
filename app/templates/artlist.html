@@ -1,0 +1,21 @@
+{% extends "about_base2.html" %}
+
+{% block title %}百雅轩-艺术走进生活{% endblock %}
+
+{% block type %}艺术{% endblock %}
+
+{% block about_type %}艺术走进生活{% endblock %}
+
+{% block body %}
+
+<div class="row customer-artist-container clearfix">
+    <div class="col-md-6 column customer-artist-container-col customer-artist-first-col">
+        <a href="artshow.html?artid=x"><img src="{{ url_for('static', filename='images/artlive/sep_06.png') }}" alt="盛和大厦办公室"></a>
+        <a href="artshow.html?artid=x"><img src="{{ url_for('static', filename='images/artlive/sep_12.png') }}" alt="西嘴湾小区家装"></a>
+    </div>
+    <div class="col-md-6 column customer-artist-container-col-sink">
+        <a href="artshow.html?artid=x"><img src="{{ url_for('static', filename='images/artlive/sep_09.png') }}" alt="小胖西餐厅"></a>
+        <a href="artshow.html?artid=x"><img src="{{ url_for('static', filename='images/artlive/sep_14.png') }}" alt="仁明有限公司办公室"></a>
+    </div>
+</div>
+{% endblock %}

@@ -129,7 +129,7 @@
                 <tr>
                     <td>
                         <div class="customer-update-artist-photo">
-                            <img src="{{ url_for('static', filename='images/wgz_07.png') }}" alt="wgz">
+                            <img src="{{ url_for('static', filename='upload/' + artist.avatar) }}" alt="wgz">
                         </div>
                         <div class="">
                             <label class="customer-letter-spacing">艺术家介绍</label><br/>
@@ -144,12 +144,13 @@
                         </div>
                     </td>
                     <td>
+
                         <img class="customer-update-artist-list"
-                             src="{{ url_for('static', filename='images/artist/wgz_03.png') }}" alt="wgz">
+                             src="{{ url_for('static', filename='upload/'+artist.list_image) }}" alt="wgz">
                     </td>
                     <td>
                         <img class="customer-update-artist-slide"
-                             src="{{ url_for('static', filename='images/index_06.png') }}" alt="wgz">
+                             src="{{ url_for('static', filename='upload/'+artist.slide_image) }}" alt="wgz">
                     </td>
                     <td>
                         <button type="button" class="btn btn-default btn-sm">Delete</button>

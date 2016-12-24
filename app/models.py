@@ -38,6 +38,10 @@ class Art(db.Model):
     introduction = db.Column(db.Text)
     created = db.Column(db.DateTime)
 
+    index_slider_image = db.Column(db.Text)
+    life_image = db.Column(db.Text)
+    index_life_image = db.Column(db.Text)
+
 
 class Artist(db.Model):
     """
@@ -72,6 +76,14 @@ class User(UserMixin, db.Model):
             return unicode(self.id)
         except AttributeError:
             raise NotImplementedError("No `id` attribute - override get_id")
+
+
+class SlidePic(db.Model):
+    __tablename__ = "slidepic"
+    id = db.Column(db.Integer, primary_key=True)
+    slider = db.Column(db.String(128))
+    slider_live = db.Column(db.String(128))
+    created = db.Column(db.DateTime)
 
 
 @login_manager.user_loader

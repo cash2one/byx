@@ -47,6 +47,7 @@
 
 
 
+
     </style>
 </head>
 <body>
@@ -100,8 +101,24 @@
                 {{ form.art_enlarge_image(id='byx_art_zoomin',class='file-loading') }}
                 <hr>
                 <label class="control-label customer-letter-spacing">作品幻灯图片</label>
-                {{ form.art_slide_image(id='byx_art_slide',class='file-loading') }}
+                {{ form.art_slide_image(id='byx_art_slide',class='file-loading', multiple="") }}
                 <br/>
+
+
+                <label class="control-label pull-right">
+                    <input id="byx_slide_check" type="checkbox" class="text-right">增加首页轮播及走进生活图片
+                </label><br/>
+                <div class="customercss-slide-div clearfix">
+                    <label class="control-label customer-letter-spacing">轮播图片</label>
+                    {{ form.index_slider_image(id='byx_slider',class='file-loading') }}
+                    <hr>
+                    <label class="control-label customer-letter-spacing">走进生活</label>
+                    {{ form.life_image(id='byx_slider_live',class='file-loading', multiple="") }}
+                    <br/>
+                </div>
+
+
+
                 <label class="control-label customer-letter-spacing">作品介绍</label><br/>
                 <label class="customer-letter-spacing">作品名称:
                     {{ form.name(id='byx_art_name',class='customer-update-input-border') }}
@@ -133,7 +150,8 @@
                 </thead>
                 <tbody>
 
-                {% set type_list = {0: '珂罗版', 1: '丝网版', 2: '木版', 3: '铜版', 4: '石版', 5: '综合版', 6: '艺术微喷', 7: '艺术衍生品', 8: '艺术走进生活', 99: '其他'} %}
+                {% set type_list = {0: '珂罗版', 1: '丝网版', 2: '木版', 3: '铜版', 4: '石版', 5: '综合版', 6: '艺术微喷', 7: '艺术衍生品', 8:
+                '艺术走进生活', 99: '其他'} %}
 
                 {% for art in artlist %}
                 <tr>
@@ -145,15 +163,15 @@
                     </td>
                     <td>
                         <img class="customer-update-art-pic"
-                             src="{{ url_for('static', filename='images/art/wgz_hh.png') }}" alt="九月走进生活">
+                             src="{{ url_for('static', filename='upload/'+art.Art.art_list_image) }}" alt="九月走进生活">
                     </td>
                     <td>
                         <img class="customer-update-art-pic-zoomin"
-                             src="{{ url_for('static', filename='images/art/wgz_hh.png') }}" alt="九月走进生活">
+                             src="{{ url_for('static', filename='upload/'+art.Art.art_enlarge_image) }}" alt="九月走进生活">
                     </td>
                     <td>
                         <img class="customer-update-art-pic-slide"
-                             src="{{ url_for('static', filename='images/art/wgz_hh.png') }}" alt="九月走进生活">
+                             src="{{ url_for('static', filename='upload/'+art.Art.art_slide_image) }}" alt="九月走进生活">
                     </td>
                     <td>
                         <label class="customer-letter-spacing">作品名称:&nbsp;</label><span
@@ -175,7 +193,8 @@
 </div>
 <script>
 $(document).on('ready', function() {
-    $("#byx_art").fileinput({
+    $('.customercss-slide-div').hide();
+    $("#byx_art,#byx_art_zoomin,#byx_art_slide,#byx_slider").fileinput({
         previewFileType: "image",
         browseClass: "btn btn-success",
         browseLabel: "Pick Image",
@@ -184,9 +203,9 @@ $(document).on('ready', function() {
         removeLabel: "Delete",
         removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
         showUpload: false,
-        initialCaption: "请选择作品列表图片……"
+        initialCaption: "请选择图片……"
     });
-    $("#byx_art_zoomin").fileinput({
+    $("#byx_slider_live").fileinput({
         previewFileType: "image",
         browseClass: "btn btn-success",
         browseLabel: "Pick Image",
@@ -195,21 +214,19 @@ $(document).on('ready', function() {
         removeLabel: "Delete",
         removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
         showUpload: false,
-        initialCaption: "请选择作品放大图片……"
-    });
-    $("#byx_art_slide").fileinput({
-        previewFileType: "image",
-        browseClass: "btn btn-success",
-        browseLabel: "Pick Image",
-        browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-        removeClass: "btn btn-danger",
-        removeLabel: "Delete",
-        removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
-        showUpload: false,
-        initialCaption: "请选择作品幻灯图片……"
+        maxFileCount: 10,
+        initialCaption: "请选择图片，第一张作为首页轮播对应图片，所有将作为详情页轮播图片……"
     });
 
+    $('#byx_slide_check').click(function(){
+      if(this.checked){
+        $('.customercss-slide-div').show();
+      }else{
+        $('.customercss-slide-div').hide();
+      }
+    });
 });
+
 
 </script>
 </body>

@@ -1,4 +1,4 @@
-{% extends "about_base.html" %}
+{% extends "about_base2.html" %}
 
 {% block title %}百雅轩-艺术家及作品{% endblock %}
 
@@ -6,28 +6,33 @@
 
 {% block about_type %}艺术家{% endblock %}
 
-{% block sub_type %}吴冠中{% endblock %}
+{% block sub_type %}{{ artist[0].Artist.name }}{% endblock %}
 
 {% block body %}
 <div class="row customer-artist-container clearfix">
     <div class="col-md-3 customer-artist-pic column">
-        <img src="{{ url_for('static', filename='images/wgz_07.png') }}" alt="艺术家">
+        <img src="{{ url_for('static', filename='upload/'+artist[0].Artist.avatar) }}" height="180" width="180"
+             alt="艺术家">
     </div>
     <div class="col-md-3 column" id="customer-artist-introduce">
-        <h1>吴冠中</h1>
-        <p class="customer-artist-introduce-p">中国 江苏宜兴人</p>
+        <h1>{{ artist[0].Artist.name }}</h1>
+        <p class="customer-artist-introduce-p">{{ artist[0].Artist.location }}</p>
         <p class="customer-artist-tip-p">
-            吴冠中在50～70年代，致力于风景油画创作，并进行油画民族化的探索。他力图把欧洲油画描绘自然的直观生动性、油画色彩的丰富细腻性与中国传统艺术精神、审美理想融合到一起。从70年代起，吴冠中渐渐兼事中国画创作。他力图运用中国传统材料工具表现现代精神，并探求中国画的革新。</p>
+            {{ artist[0].Artist.introduction }}</p>
     </div>
 </div>
 <div class="row customer-artist-container clearfix">
+    {% for each in artist %}
+    {% if loop.index is not divisibleby 2 %}
     <div class="col-md-6 column customer-artist-container-col customer-artist-first-col">
-        <a href="#"><img src="{{ url_for('static', filename='images/art/wgz_mzl.png') }}" alt=""></a>
-        <a href="#"><img src="{{ url_for('static', filename='images/art/wgz_yj.png') }}" alt=""></a>
+        <a href="{{ url_for('main.artshow', id=each.id) }}"><img src="{{ url_for('static', filename='upload/' + each.art_list_image) }}" alt="{{ each.name }}" height="510" width="510"></a>
     </div>
-    <div class="col-md-6 column customer-artist-container-col-sink">
-        <a href="#"><img src="{{ url_for('static', filename='images/art/wgz_xshy.png') }}" alt=""></a>
-        <a href="#"><img src="{{ url_for('static', filename='images/art/wgz_hh.png') }}" alt=""></a>
+    {% else %}
+    <div class="col-md-6 column customer-artist-container-col-sink" style="padding-top:0px">
+        <a href="{{ url_for('main.artshow', id=each.id) }}"><img src="{{ url_for('static', filename='upload/' + each.art_list_image) }}" alt="{{ each.name}}" height="510" width="510"></a>
     </div>
+    {% endif %}
+    {% endfor %}
+
 </div>
 {% endblock %}

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>    <!-- , user-scalable:no"/> -->
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="百雅轩">
+    <meta name="description" content="艺术品投资收藏,中外文化交流,丝网版画,铜版画,石版画,木板水印版画,综合版画,珂罗版画,艺术微喷画,艺术衍生品">
+    <title>百雅轩-艺术走进生活</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/byxcss.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.bxslider.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.9.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.bxslider.js') }}"></script>
+    <script type="text/javascript">    <!-- 需动态加载 -->
+    $(function () {
+      $('#byx_k_chart').highcharts({
+        title: {
+            text: null,
+        },
+        xAxis: {
+            categories: ['1月', '2月', '3月', '4月', '5月', '6月',
+                '7月', '8月', '9月', '10月', '11月', '12月']
+        },
+        yAxis: {
+            title: {
+                text: '2016年价格(RMB)'
+            },
+            plotLines: [{
+                value: 0,
+                width: 500,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: 'RMB'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0,
+            enabled: false
+        },
+        credits: {
+        	enabled: false
+		},
+		exporting: {
+			enabled: false
+		},
+        series: [{
+            name: '九月',
+            data: [2500, 2750, 2500, 3200, 3600, 4800, 4950, 4300, 4850, 5750, 7250, 7400]
+        }]
+    });
+});
+
+
+
+    </script>
+</head>
+<body>
+<div class="container customer-width">
+    <div class="row customer-width customer-position-absolute clearfix">
+        <div class="col-md-3 column customer-nav-height">
+            <a href="#"><img class="customer-logo" src="{{ url_for('static', filename='images/logo_black.png') }}" alt="百雅轩"></a>
+            <img class="customer-sublogo" src="{{ url_for('static', filename='images/subLogo_black.png') }}" alt="让艺术走进|寻常百姓家">
+        </div>
+        <div class="col-md-9 column customer-nav">
+            <ul class="_nav">
+                <li>
+                    <a href="#">首页</a>
+                </li>
+                <li>
+                    <a href="#">动态</a>
+                    <div class="customer-submenu">
+                        <a href="byx_list.html?type=x">百雅轩动态</a>
+                        <a href="byx_list.html?type=x">艺术家资讯</a>
+                        <a href="byx_list.html?type=x">其他</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">艺术</a>
+                    <div class="customer-submenu">
+                        <a href="artlive.html?type=x&artistvisible=hidden">珂罗版</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">丝网版</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">木版</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">铜版</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">石版</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">综合版</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">艺术微喷</a>
+                        <a href="artist.html" target="_blank">艺术家</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">艺术衍生品</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">艺术走进生活</a>
+                        <a href="artlive.html?type=x&artistvisible=hidden">其他</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">活动</a>
+                    <div class="customer-submenu">
+                        <a href="byx_list.html?type=x">展览资讯</a>
+                        <a href="byx_list.html?type=x">相关活动</a>
+                        <a href="byx_list.html?type=x">其他</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">关于我们</a>
+                    <div class="customer-submenu">
+                        <a href="byx_list.html?type=x">版画制作工艺</a>
+                        <a href="about.html">关于百雅轩</a>
+                        <a href="byx_list.html?type=x">艺术家与百雅轩</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-12 column customer-nav-menutip clearfix">
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">首页</a>
+                </li>
+                <li>
+                    <a href="#">动态</a>
+                </li>
+                <li class="active">
+                    Data
+                </li>
+            </ul>
+        </div>
+        <div class="customer-about-search clearfix">
+            <form class="bs-example bs-example-form customer-search-form" role="form">
+                <div class="row">
+                    <div class="col-lg-11">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button"
+                                        class="btn btn-default dropdown-toggle customer-o-search-select customer-other-search-select-div"
+                                        data-toggle="dropdown" id="byx_search-selected" data-id="_engraving">
+                                    版画作品
+                                </button>
+                                <ul class="dropdown-menu" id="byx_search-select">
+                                    <li><a href="#" data-id="_arts">艺术品</a></li>
+                                    <li><a href="#" data-id="_artists">艺术家</a></li>
+                                    <li><a href="#" data-id="_activity">活动</a></li>
+                                    <li><a href="#" data-id="_developments">动态</a></li>
+                                </ul>
+                            </div><!-- /btn-group -->
+                            <input type="text" class="form-control" id="byx_search">
+                            <span class="input-group-addon customer-other-search-icon-size"><a href="#"><img
+                                    class="customer-search-icon" src="{{ url_for('static', filename='images/search_icon.png') }}"></a></span>
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 --><br>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row customer-mid-container customer-width clearfix" id="byx_mid_container">
+        <div class="col-md-12 column">
+            <div class="row clearfix">
+                <div class="col-md-12 column customer-artshow-pic">
+                    <div class="carousel slide" id="carousel-70934">
+                        <ol class="carousel-indicators">
+                            <li class="active" data-slide-to="0" data-target="#carousel-70934">
+                            </li>
+                            <li data-slide-to="1" data-target="#carousel-70934">
+                            </li>
+                            <li data-slide-to="2" data-target="#carousel-70934">
+                            </li>
+                            <li data-slide-to="3" data-target="#carousel-70934">
+                            </li>
+                            <li data-slide-to="4" data-target="#carousel-70934">
+                            </li>
+                            <li data-slide-to="5" data-target="#carousel-70934">
+                            </li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="{{ url_for('static', filename='images/artshow/sep_show.png') }}" alt="九月">
+                                <div class="carousel-caption">
+                                    <h4>
+                                    </h4>
+                                    <p>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <img src="{{ url_for('static', filename='images/artshow/sep_show.png') }}" alt="九月">
+                                <div class="carousel-caption">
+                                    <h4>
+                                    </h4>
+                                    <p>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix customer-artshow-content">
+                    <div class="col-md-12">
+                        <div class="row clearfix customer-no-margin">
+                            <div class="col-md-3 column customer-artshow-author">
+                                <img src="{{ url_for('static', filename='upload/' + art_detail.avatar) }}" alt="{{ art_detail.name }}" width="180" height="160">
+                            </div>
+                            <div class="col-md-6 column customer-artshow-author-tip">
+                                <h1>{{ art_detail.name }}</h1>
+                                <p class="customer-artist-introduce-p">{{ art_detail.location }}</p>
+                                <p class="customer-artist-tip-p">
+                                    {{ art_detail.introduction }}</p>
+                            </div>
+                            <div class="col-md-3 column customer-artshow-discription-price">
+                                <table class="table">
+                                    <tr>
+                                        <td class="customer-text-align-justify">签字丝网版平均交易价：</td>
+                                        <td class="customer-text-align-right"><a href="#" id="byx_contact_price">咨询热线：xxxxxxxxxx</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="customer-text-align-justify">盖章丝网版平均交易价：</td>
+                                        <td class="customer-text-align-right"><a href="#" id="byx_contact_price">咨询热线：xxxxxxxxxx</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="customer-text-align-justify">珂罗版平均交易价：</td>
+                                        <td class="customer-text-align-right"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="customer-text-align-justify">综合版平均交易价：</td>
+                                        <td class="customer-text-align-right"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="customer-text-align-justify">艺术微喷：</td>
+                                        <td class="customer-text-align-right"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row customer-no-margin clearfix">
+                            <div class="col-md-9 column customer-artshow-discription">
+                                <div class="row customer-no-margin clearfix">
+                                    <div class="col-md-3 column" id="customer-artshow-discription-title">
+                                        <h2>{{ art_detail.Art.name }}</h2>
+                                    </div>
+                                    <div class="col-md-6 column" id="customer-artshow-discription-sub-title">
+                                        <span class="customer-sub-title">九月-</span>
+                                        <span class="customer-sub-title">September</span>
+                                    </div>
+                                </div>
+                                <p class="customer-artist-tip-p">{{ art_detail.Art.introduction }}</p>
+                            </div>
+                            <div class="col-md-3 column customer-artshow-discription-kline" id="byx_k_chart">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix customer-no-margin">
+                    <div class="col-md-12 column customer-artshow-other-art-text">TA的其他艺术作品</div>
+                    <div class="col-md-12 column" id="byx_artshow_scroll">
+                        {% for each in art_list %}
+                        <div><a href="{{ url_for('main.artshow', id=each.id) }}"><img src="{{ url_for('static', filename='upload/' + each.art_list_image) }}" width="310" height="182"></a></div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row customer-footer-height customer-footer-padding customer-no-margin clearfix">
+                    <div class="col-md-8 column customer-footer-div-left">
+                        <table class="table">
+                            <tr>
+                                <td><h5 class="customer-letter-spacing">联系与合作</h5></td>
+                            </tr>
+                            <tr>
+                                <td>联 系 我 们：<strong>010-57626236</strong></td>
+                            </tr>
+                            <tr>
+                                <td>建 议 反 馈：<strong>010-57623018</strong></td>
+                            </tr>
+                            <tr>
+                                <td>合 作 热 线：<strong>010-57623058</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong class="customer-letter-spacing">北京百雅轩文化传播有限公司 版权所有
+                                    京ICP备14004157号<strong></strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4 column customer-footer-div-right">
+                        <table class="table">
+                            <tr>
+                                <td><h5 class="customer-letter-spacing">关注我们</h5></td>
+                            </tr>
+                            <tr>
+                                <td>新 浪 微 博 ：<strong>@百雅轩</strong></td>
+                            </tr>
+                            <tr>
+                                <td>淘 宝 店 铺 ：<a href="https://shop106802363.world.taobao.com/?spm=0.0.0.0.0h2Jd5"
+                                                target="_blank">传世细工坊</a></td>
+                            </tr>
+                            <tr>
+                                <td>官 方 Q Q &nbsp&nbsp：<strong>2149681831</strong></td>
+                            </tr>
+                            <tr>
+                                <td>微信订阅号：<strong>baiyaxuan798</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="customer-tobuy" href="https://shop106802363.world.taobao.com" target="_blank"><img
+                src="{{ url_for('static', filename='images/cart.png') }}"></a>
+    </div>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/highcharts.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/exporting.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/grid-light.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/byx-plugin.js') }}"></script>
+    <script type="text/javascript">
+  $(document).ready(function(){
+    $('#byx_artshow_scroll').bxSlider({
+      slideWidth: 800,
+      minSlides: 2,
+      maxSlides: 4,
+	  moveSlides: 1,
+      slideMargin: 6,
+      pager:false,
+      slideWidth: 310
+    });
+    var menuYloc = $(".customer-tobuy").offset().top;
+    var iHeight = $(".customer-tobuy").height();
+    $(window).scroll(function () {
+        var offsetTop = menuYloc + ($(window).scrollTop() / 2 - iHeight / 2) + "px";
+        $(".customer-tobuy").animate({ top: offsetTop }, { duration: 600, queue: false });
+    });
+  });
+
+
+
+    </script>
+</body>
+</html>

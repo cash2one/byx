@@ -1,14 +1,14 @@
 # coding:utf8
 from . import main
-from flask import render_template, request, redirect, url_for, flash, current_app
+from flask import render_template, request, redirect, url_for, flash, current_app, abort
 from ..models import News, User, Artist, Art
 from flask_login import current_user, login_user, login_required, logout_user
 from .forms import LoginForm, RegisterForm, ChangePasswordForm, SlidePicForm, ArtistForm, ArtForm, NewsForm
 from werkzeug.security import check_password_hash, generate_password_hash
-from werkzeug.utils import secure_filename
 from .. import db
 import os
 import time
+from .utils import random_file_name
 
 
 # todo
@@ -33,22 +33,43 @@ def about_tech():
 
 @main.route('/artist.html')
 def artist():
-    return render_template('artistlist.html')
+    artistlist = Artist.query.all()
+    return render_template('artistlist.html', artistlist=artistlist)
 
 
-@main.route('/artistlive.html')
-def artistlive():
-    return render_template('artistlive.html')
+@main.route('/artistlive/<id>.html')
+def artistlive(id):
+    artistlist = Artist.query.filter(Artist.id == id).join(Art, Artist.id == Art.artist_id).add_columns(
+        Art.art_list_image, Art.id, Art.name).all()
+    if not artistlist:
+        abort(404)
+    return render_template('artistlive.html', artist=artistlist)
+
+@main.route('/artlist.html')
+def artlist():
+
+    return render_template('artlist.html')
 
 
-@main.route('/artlive.html')
-def artlive():
-    return render_template('artlive.html')
+@main.route('/artlive/<id>.html')
+def artlive(id):
+    artlive = Art.query.filter(Art.id == id).filter(Art.index_life_image != '').join(Artist,
+                                                                                     Art.artist_id == Artist.id).add_columns(
+        Artist.name, Artist.avatar).first_or_404()
+    life_images = [x for x in artlive.Art.life_image.split(';') if x]
+    return render_template('artlive.html', artlive=artlive, life_images=life_images)
 
 
-@main.route('/artshow.html')
-def artshow():
-    return render_template('artshow.html')
+@main.route('/artshow/<id>.html')
+def artshow(id):
+    art_detail = Art.query.filter(Art.id == id).join(Artist, Art.artist_id == Artist.id).add_columns(Artist.name,
+                                                                                                     Artist.location,
+                                                                                                     Artist.introduction,
+                                                                                                     Artist.avatar
+                                                                                                     ).first_or_404()
+    artist_id = art_detail.Art.artist_id
+    art_list = Art.query.filter(Art.artist_id == artist_id).filter(Art.id != id).all()
+    return render_template('artshow2.html', art_detail=art_detail, art_list=art_list)
 
 
 @main.route('/exhibition.html')
@@ -59,6 +80,11 @@ def exhibition():
         return render_template('exhibition.html', news=news)
     else:
         print 'liebiao'
+
+
+@main.route('/list.html')
+def list_page():
+    pass
 
 
 @main.route('/update.html', methods=['GET', 'POST'])
@@ -72,14 +98,15 @@ def update():
 def sliderpic():
     form = SlidePicForm()
     if form.validate_on_submit():
-        filename1 = secure_filename(form.slider.data.filename)
-        filename2 = secure_filename(form.slider_live.data.filename)
+        filename1 = random_file_name(form.slider.data.filename)
+        filename2 = random_file_name(form.slider_live.data.filename)
+
         file_path1 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename1)
         file_path2 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename2)
         form.slider.data.save(file_path1)
         form.slider_live.data.save(file_path2)
+
         return redirect(url_for("main.sliderpic"))
-        # pass
     else:
         flash_errors(form)
     return render_template('sliderpic.html', form=form)
@@ -97,9 +124,9 @@ def artistupdate():
         name = form.name.data
         introduction = form.introduction.data
         pinyin = form.pinyin.data
-        filename1 = secure_filename(form.avatar.data.filename)
-        filename2 = secure_filename(form.slide_image.data.filename)
-        filename3 = secure_filename(form.list_image.data.filename)
+        filename1 = random_file_name(form.avatar.data.filename)
+        filename2 = random_file_name(form.slide_image.data.filename)
+        filename3 = random_file_name(form.list_image.data.filename)
 
         file_path1 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename1)
         file_path2 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename2)
@@ -108,11 +135,12 @@ def artistupdate():
         form.avatar.data.save(file_path1)
         form.slide_image.data.save(file_path2)
         form.list_image.data.save(file_path3)
+        created = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
         artist = Artist(location=location, name=name, pinyin=pinyin,
                         avatar=filename1, introduction=introduction,
                         slide_image=filename2,
-                        list_image=filename3)
+                        list_image=filename3, created=created)
         db.session.add(artist)
         db.session.commit()
         return redirect(url_for("main.artistupdate"))
@@ -136,22 +164,71 @@ def artupdate():
         type = form.type.data
         artist_id = form.artist_id.data
 
-        filename1 = secure_filename(form.art_list_image.data.filename)
-        filename2 = secure_filename(form.art_enlarge_image.data.filename)
-        filename3 = secure_filename(form.art_slide_image.data.filename)
+        # filename1 = random_file_name(form.art_list_image.data.filename)
+        filename2 = random_file_name(form.art_enlarge_image.data.filename)
 
-        file_path1 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename1)
+        list_filename = ''
+        list_image = request.files.getlist('art_list_image')
+        if list_image:
+            for each in list_image:
+                list_image_filename = random_file_name(each.filename)
+                list_image_file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], list_image_filename)
+                each.save(list_image_file_path)
+                list_image_filename_s = list_image_filename + ';'
+                list_filename += list_image_filename_s
+
+
+        filename_list = ''
+        images = request.files.getlist("art_slide_image")
+        if images:
+            for each in images:
+                m_filename = random_file_name(each.filename)
+                m_file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], m_filename)
+                each.save(m_file_path)
+                m_filename_s = m_filename + ';'
+                filename_list += m_filename_s
+
+        # 走进生活
+        index_images = request.files.getlist("life_image")
+        if index_images:
+            index_filename = ''
+            for index, each in enumerate(index_images):
+                if index == 0:
+                    index_life_image_filename = random_file_name(each.filename)
+                    index_life_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], index_life_image_filename)
+                    each.save(index_life_image_path)
+                    index_filename_s = index_life_image_filename + ';'
+                    index_filename += index_filename_s
+                else:
+                    life_image_filename = random_file_name(each.filename)
+                    life_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], life_image_filename)
+                    each.save(life_image_path)
+                    index_filename_s = life_image_filename + ';'
+                    index_filename += index_filename_s
+        else:
+            index_filename = ''
+            index_life_image_filename = ''
+
+        # file_path1 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename1)
         file_path2 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename2)
-        file_path3 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename3)
+        # file_path3 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename3)
 
-        form.art_list_image.data.save(file_path1)
+        if form.index_slider_image.data:
+            filename4 = random_file_name(form.index_slider_image.data.filename)
+            file_path4 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename4)
+            form.index_slider_image.data.save(file_path4)
+        else:
+            filename4 = ''
+
+        # form.art_list_image.data.save(file_path1)
         form.art_enlarge_image.data.save(file_path2)
-        form.art_slide_image.data.save(file_path3)
+        # form.art_slide_image.data.save(file_path3)
         created = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
         art = Art(name=name, introduction=introduction, subtitle=subtitle,
-                  art_list_image=filename1, art_enlarge_image=filename2, art_slide_image=filename3,
-                  type=type, created=created, artist_id=artist_id)
+                  art_list_image=list_filename, art_enlarge_image=filename2, art_slide_image=filename_list,
+                  type=type, created=created, artist_id=artist_id,
+                  index_slider_image=filename4, life_image=index_filename, index_life_image=index_life_image_filename)
         db.session.add(art)
         db.session.commit()
         return redirect(url_for("main.artupdate"))
@@ -176,8 +253,8 @@ def newsupdate():
         content = form.content.data
         template_content = form.template_content.data
 
-        filename1 = secure_filename(form.news_list_image.data.filename)
-        filename2 = secure_filename(form.news_detail_image.data.filename)
+        filename1 = random_file_name(form.news_list_image.data.filename)
+        filename2 = random_file_name(form.news_detail_image.data.filename)
 
         file_path1 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename1)
         file_path2 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename2)
@@ -193,10 +270,10 @@ def newsupdate():
         db.session.add(news)
         db.session.commit()
         return redirect(url_for("main.newsupdate"))
-
-
     else:
         flash_errors(form)
+    # todo
+    # 管理界面
     return render_template('newsupdate.html', form=form)
 
 
@@ -275,3 +352,8 @@ def flash_errors(form):
         for error in errors:
             print(getattr(form, field).label.text, error)
             flash(u'%s - %s' % (getattr(form, field).label.text, error), 'error')
+
+
+@main.route('/test')
+def test():
+    return render_template('artist2.html')
