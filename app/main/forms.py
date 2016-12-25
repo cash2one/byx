@@ -47,7 +47,7 @@ class ArtistForm(Form):
 
 class ArtForm(Form):
     artist_id = SelectField(u'艺术家', coerce=int, validators=[DataRequired()])
-    type = RadioField(u'作品类型', coerce=int, validators=[DataRequired()])
+    type = RadioField(u'作品类型', coerce=int)
     art_list_image = FileField(u'作品列表图片', validators=[DataRequired()])
     art_enlarge_image = FileField(u'作品放大图片', validators=[DataRequired()])
     art_slide_image = FileField(u'作品幻灯图片', validators=[DataRequired()])
@@ -68,7 +68,7 @@ class ArtForm(Form):
 
 
 class NewsForm(Form):
-    category = SelectField(u'所属分类', coerce=int, validators=[DataRequired()])
+    category = SelectField(u'所属分类', coerce=int)
     news_list_image = FileField(u'动态列表图片', validators=[DataRequired()])
     news_detail_image = FileField(u'动态列表图片', validators=[DataRequired()])
     title = StringField(u'标题', validators=[DataRequired()])

@@ -77,9 +77,9 @@
                 <li>
                     <a href="#">动态</a>
                     <div class="customer-submenu">
-                        <a href="byx_list.html?type=x">百雅轩动态</a>
-                        <a href="byx_list.html?type=x">艺术家资讯</a>
-                        <a href="byx_list.html?type=x">其他</a>
+                        <a href="{{ url_for('main.byx_list', branch=0) }}">百雅轩动态</a>
+                        <a href="{{ url_for('main.byx_list', branch=1) }}">艺术家资讯</a>
+                        <a href="{{ url_for('main.byx_list', branch=2) }}">其他</a>
                     </div>
                 </li>
                 <li>
@@ -101,17 +101,17 @@
                 <li>
                     <a href="#">活动</a>
                     <div class="customer-submenu">
-                        <a href="byx_list.html?type=x">展览资讯</a>
-                        <a href="byx_list.html?type=x">相关活动</a>
-                        <a href="byx_list.html?type=x">其他</a>
+                        <a href="{{ url_for('main.byx_list', branch=3) }}">展览资讯</a>
+                        <a href="{{ url_for('main.byx_list', branch=4) }}">相关活动</a>
+                        <a href="{{ url_for('main.byx_list', branch=5) }}">其他</a>
                     </div>
                 </li>
                 <li>
                     <a href="#">关于我们</a>
                     <div class="customer-submenu">
-                        <a href="byx_list.html?type=x">版画制作工艺</a>
-                        <a href="about.html">关于百雅轩</a>
-                        <a href="byx_list.html?type=x">艺术家与百雅轩</a>
+                        <a href="{{ url_for('main.byx_list', branch=6) }}">版画制作工艺</a>
+                        <a href="{{ url_for('main.about') }}">关于百雅轩</a>
+                        <a href="{{ url_for('main.byx_list', branch=7) }}">艺术家与百雅轩</a>
                     </div>
                 </li>
             </ul>

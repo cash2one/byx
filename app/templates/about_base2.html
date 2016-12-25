@@ -579,46 +579,46 @@ table tr td {
         <div class="col-md-9 column customer-nav">
             <ul class="_nav">
                 <li>
-                    <a href="#">首页</a>
+                    <a href="{{ url_for('main.index') }}">首页</a>
                 </li>
                 <li>
                     <a href="#">动态</a>
                     <div class="customer-submenu">
-                        <a href="byx_list.html?type=x">百雅轩动态</a>
-                        <a href="byx_list.html?type=x">艺术家资讯</a>
-                        <a href="byx_list.html?type=x">其他</a>
+                        <a href="{{ url_for('main.byx_list', branch=0) }}">百雅轩动态</a>
+                        <a href="{{ url_for('main.byx_list', branch=1) }}">艺术家资讯</a>
+                        <a href="{{ url_for('main.byx_list', branch=2) }}">其他</a>
                     </div>
                 </li>
                 <li>
                     <a href="#">艺术</a>
                     <div class="customer-submenu">
-                        <a href="artlive.html?type=x&artistvisible=hidden">珂罗版</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">丝网版</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">木版</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">铜版</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">石版</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">综合版</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">艺术微喷</a>
+                        <a href="{{ url_for('main.artlives', type=0) }}">珂罗版</a>
+                        <a href="{{ url_for('main.artlives', type=1) }}">丝网版</a>
+                        <a href="{{ url_for('main.artlives', type=2) }}">木版</a>
+                        <a href="{{ url_for('main.artlives', type=3) }}">铜版</a>
+                        <a href="{{ url_for('main.artlives', type=4) }}">石版</a>
+                        <a href="{{ url_for('main.artlives', type=5) }}">综合版</a>
+                        <a href="{{ url_for('main.artlives', type=6) }}">艺术微喷</a>
                         <a href="artist.html" target="_blank">艺术家</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">艺术衍生品</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">艺术走进生活</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">其他</a>
+                        <a href="{{ url_for('main.artlives', type=7) }}">艺术衍生品</a>
+                        <a href="{{ url_for('main.artlives', type=8) }}">艺术走进生活</a>
+                        <a href="{{ url_for('main.artlives', type=99) }}">其他</a>
                     </div>
                 </li>
                 <li>
                     <a href="#">活动</a>
                     <div class="customer-submenu">
-                        <a href="byx_list.html?type=x">展览资讯</a>
-                        <a href="byx_list.html?type=x">相关活动</a>
-                        <a href="byx_list.html?type=x">其他</a>
+                        <a href="{{ url_for('main.byx_list', branch=3) }}">展览资讯</a>
+                        <a href="{{ url_for('main.byx_list', branch=4) }}">相关活动</a>
+                        <a href="{{ url_for('main.byx_list', branch=5) }}">其他</a>
                     </div>
                 </li>
                 <li>
                     <a href="#">关于我们</a>
                     <div class="customer-submenu">
-                        <a href="byx_list.html?type=x">版画制作工艺</a>
-                        <a href="about.html">关于百雅轩</a>
-                        <a href="byx_list.html?type=x">艺术家与百雅轩</a>
+                        <a href="{{ url_for('main.byx_list', branch=6) }}">版画制作工艺</a>
+                        <a href="{{ url_for('main.about') }}">关于百雅轩</a>
+                        <a href="{{ url_for('main.byx_list', branch=7) }}">艺术家与百雅轩</a>
                     </div>
                 </li>
             </ul>
@@ -626,7 +626,7 @@ table tr td {
         <div class="col-md-12 column customer-nav-menutip clearfix">
             <ul class="breadcrumb">
                 <li>
-                    <a href="#">首页</a>
+                    <a href="{{ url_for('main.index') }}">首页</a>
                 </li>
                 <li>
                     <a href="#">{% block type %}关于我们{% endblock %}</a>

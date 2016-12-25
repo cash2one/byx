@@ -1,0 +1,26 @@
+{% extends "about_base2.html" %}
+
+{% block title %}百雅轩-艺术家及作品{% endblock %}
+
+{% block type %}艺术{% endblock %}
+
+{% block about_type %}{{ art_type.type_name }}{% endblock %}
+
+
+{% block body %}
+
+<div class="row customer-artist-container clearfix">
+    {% for each in artist %}
+    {% if loop.index is not divisibleby 2 %}
+    <div class="col-md-6 column customer-artist-container-col customer-artist-first-col">
+        <a href="{{ url_for('main.artshow', id=each.id) }}"><img src="{{ url_for('static', filename='upload/' + each.art_list_image) }}" alt="{{ each.name }}" height="510" width="510"></a>
+    </div>
+    {% else %}
+    <div class="col-md-6 column customer-artist-container-col-sink" style="padding-top:0px">
+        <a href="{{ url_for('main.artshow', id=each.id) }}"><img src="{{ url_for('static', filename='upload/' + each.art_list_image) }}" alt="{{ each.name}}" height="510" width="510"></a>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+</div>
+{% endblock %}

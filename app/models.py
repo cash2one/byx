@@ -86,6 +86,29 @@ class SlidePic(db.Model):
     created = db.Column(db.DateTime)
 
 
+class Category(db.Model):
+    __tablename__ = 'category'
+    id = db.Column(db.Integer, primary_key=True)
+    parent_id = db.Column(db.Integer)
+    son_id = db.Column(db.Integer)
+    parent_name = db.Column(db.String(45))
+    son_name = db.Column(db.String(45))
+
+
+class Branch(db.Model):
+    __tablename__ = 'branch'
+    id = db.Column(db.Integer, primary_key=True)
+    branch_id = db.Column(db.Integer)
+    branch_name = db.Column(db.String(45))
+
+
+class ArtType(db.Model):
+    __tablename__ = 'art_type'
+    id = db.Column(db.Integer, primary_key=True)
+    type_id = db.Column(db.Integer)
+    type_name = db.Column(db.String(45))
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))

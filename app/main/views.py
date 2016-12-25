@@ -1,7 +1,7 @@
 # coding:utf8
 from . import main
 from flask import render_template, request, redirect, url_for, flash, current_app, abort
-from ..models import News, User, Artist, Art
+from ..models import News, User, Artist, Art, Branch, ArtType
 from flask_login import current_user, login_user, login_required, logout_user
 from .forms import LoginForm, RegisterForm, ChangePasswordForm, SlidePicForm, ArtistForm, ArtForm, NewsForm
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -18,7 +18,8 @@ from .utils import random_file_name
 
 @main.route('/')
 def index():
-    return render_template('index.html')
+    artistlist = Artist.query.all()
+    return render_template('index2.html', artistlist=artistlist)
 
 
 @main.route('/about.html')
@@ -26,9 +27,23 @@ def about():
     return render_template('about_1.html')
 
 
-@main.route('/about_tech.html')
-def about_tech():
-    return render_template('about_2.html')
+@main.route('/byx_list.html')
+def byx_list():
+    branch_id = request.args.get('branch', 0, type=int)
+
+    branch = Branch.query.filter(Branch.branch_id == branch_id).first_or_404()
+    newslist = News.query.filter(News.category == branch_id).all()
+    return render_template('byx_list.html', newslist=newslist, branch=branch)
+
+
+@main.route('/byx_details.html')
+def byx_detail():
+    detail_id = request.args.get('detail_id', 1, type=int)
+    branch_id = request.args.get('branch', 0, type=int)
+    print detail_id
+    print branch_id
+    news = News.query.filter(News.id == detail_id).filter(News.category == branch_id).first_or_404()
+    return render_template('byx_details.html', news=news)
 
 
 @main.route('/artist.html')
@@ -44,6 +59,7 @@ def artistlive(id):
     if not artistlist:
         abort(404)
     return render_template('artistlive.html', artist=artistlist)
+
 
 @main.route('/artlist.html')
 def artlist():
@@ -61,6 +77,13 @@ def artlive(id):
     return render_template('artlive.html', artlive=artlive, life_images=life_images)
 
 
+@main.route('/artlives.html')
+def artlives():
+    type = request.args.get('type', 0, type=int)
+    art_type = ArtType.query.filter(ArtType.type_id == type).first_or_404()
+    artlist = Art.query.filter(Art.type == type).all()
+    return render_template('artlives.html', artist=artlist, art_type=art_type)
+
 @main.route('/artshow/<int:id>.html')
 def artshow(id):
     art_detail = Art.query.filter(Art.id == id).join(Artist, Art.artist_id == Artist.id).add_columns(Artist.name,
@@ -71,21 +94,6 @@ def artshow(id):
     artist_id = art_detail.Art.artist_id
     art_list = Art.query.filter(Art.artist_id == artist_id).filter(Art.id != id).all()
     return render_template('artshow2.html', art_detail=art_detail, art_list=art_list)
-
-
-@main.route('/exhibition.html')
-def exhibition():
-    id = request.args.get('id', '')
-    if id:
-        news = News.query.filter_by(id=id).first()
-        return render_template('exhibition.html', news=news)
-    else:
-        print 'liebiao'
-
-
-@main.route('/list.html')
-def list_page():
-    pass
 
 
 @main.route('/update.html', methods=['GET', 'POST'])
@@ -159,7 +167,6 @@ def delete_artist(id):
     db.session.delete(have_artist)
     db.session.commit()
     return redirect(request.referrer or url_for('main.artistupdate'))
-
 
 
 @main.route('/artupdate.html', methods=["GET", "POST"])
@@ -250,14 +257,12 @@ def artupdate():
     return render_template('artupdate.html', form=form, artlist=artlist)
 
 
-
 @main.route('/art/delete/<int:id>', methods=['GET', 'POST'])
 def delete_art(id):
     have_art = Art.query.filter_by(id=id).first_or_404()
     db.session.delete(have_art)
     db.session.commit()
     return redirect(request.referrer or url_for('main.artupdate'))
-
 
 
 @main.route('/newsupdate.html', methods=['GET', 'POST'])
