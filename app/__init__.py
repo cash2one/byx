@@ -8,6 +8,7 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 login_manager.session_protection = 'basic'
 login_manager.login_view = 'main.login'
+login_manager.login_message = u""
 
 
 def create_app(config_name):

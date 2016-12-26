@@ -1,9 +1,9 @@
 # coding:utf8
 from . import main
-from flask import render_template, request, redirect, url_for, flash, current_app, abort
+from flask import render_template, request, redirect, url_for, flash, current_app, jsonify
 from ..models import News, User, Artist, Art, Branch, ArtType
 from flask_login import current_user, login_user, login_required, logout_user
-from .forms import LoginForm, RegisterForm, ChangePasswordForm, SlidePicForm, ArtistForm, ArtForm, NewsForm
+from .forms import LoginForm, RegisterForm, ChangePasswordForm, ArtistForm, ArtForm, NewsForm, PriceForm
 from werkzeug.security import check_password_hash, generate_password_hash
 from .. import db
 import os
@@ -31,7 +31,6 @@ def about():
 def byx_list():
     branch_id = request.args.get('branch', 0, type=int)
 
-
     branch = Branch.query.filter(Branch.branch_id == branch_id).first_or_404()
     newslist = News.query.filter(News.category == branch_id).all()
     return render_template('byx_list.html', newslist=newslist, branch=branch)
@@ -53,11 +52,11 @@ def artist():
 
 @main.route('/artistlive/<int:id>.html')
 def artistlive(id):
+    artist = Artist.query.filter(Artist.id == id).first_or_404()
+
     artistlist = Artist.query.filter(Artist.id == id).join(Art, Artist.id == Art.artist_id).add_columns(
         Art.art_list_image, Art.id, Art.name).all()
-    if not artistlist:
-        abort(404)
-    return render_template('artistlive.html', artist=artistlist)
+    return render_template('artistlive.html', artistlist=artistlist, artist=artist)
 
 
 @main.route('/artlist.html')
@@ -83,6 +82,7 @@ def artlives():
     artlist = Art.query.filter(Art.type == type).all()
     return render_template('artlives.html', artist=artlist, art_type=art_type)
 
+
 @main.route('/artshow/<int:id>.html')
 def artshow(id):
     art_detail = Art.query.filter(Art.id == id).join(Artist, Art.artist_id == Artist.id).add_columns(Artist.name,
@@ -101,23 +101,24 @@ def update():
     return render_template('update.html')
 
 
-@main.route('/sliderpic.html', methods=['GET', 'POST'])
-@login_required
-def sliderpic():
-    form = SlidePicForm()
-    if form.validate_on_submit():
-        filename1 = random_file_name(form.slider.data.filename)
-        filename2 = random_file_name(form.slider_live.data.filename)
-
-        file_path1 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename1)
-        file_path2 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename2)
-        form.slider.data.save(file_path1)
-        form.slider_live.data.save(file_path2)
-
-        return redirect(url_for("main.sliderpic"))
-    else:
-        flash_errors(form)
-    return render_template('sliderpic.html', form=form)
+# 首页轮播
+# @main.route('/sliderpic.html', methods=['GET', 'POST'])
+# @login_required
+# def sliderpic():
+#     form = SlidePicForm()
+#     if form.validate_on_submit():
+#         filename1 = random_file_name(form.slider.data.filename)
+#         filename2 = random_file_name(form.slider_live.data.filename)
+#
+#         file_path1 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename1)
+#         file_path2 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename2)
+#         form.slider.data.save(file_path1)
+#         form.slider_live.data.save(file_path2)
+#
+#         return redirect(url_for("main.sliderpic"))
+#     else:
+#         flash_errors(form)
+#     return render_template('sliderpic.html', form=form)
 
 
 @main.route('/artistupdate.html', methods=['GET', 'POST'])
@@ -311,10 +312,15 @@ def delete_news(id):
     return redirect(request.referrer or url_for('main.newsupdate'))
 
 
-@main.route('/priceupdate.html')
+@main.route('/priceupdate.html', methods=['GET', 'POST'])
 @login_required
 def priceupdate():
-    return render_template('priceupdate.html')
+    form = PriceForm()
+    if form.validate_on_submit():
+        pass
+    else:
+        flash_errors(form)
+    return render_template('priceupdate.html', form=form)
 
 
 @main.route('/changepwd.html', methods=['GET', 'POST'])
@@ -376,18 +382,41 @@ def logout():
     return redirect(url_for('main.login'))
 
 
-# @main.app_errorhandler(404)
-# def page_not_found(e):
-#     return render_template('error.html'), 404
+@main.app_errorhandler(404)
+def page_not_found(e):
+    return render_template('error.html'), 404
 
 
 def flash_errors(form):
     for field, errors in form.errors.items():
         for error in errors:
-            print(getattr(form, field).label.text, error)
+            if error == u'This field is required.':
+                error = u'未填或未选择'
             flash(u'%s - %s' % (getattr(form, field).label.text, error), 'error')
 
 
 @main.route('/test')
 def test():
     return render_template('artist2.html')
+
+
+# api
+
+@main.route('/price_search', methods=['GET', 'POST'])
+@login_required
+def price_search():
+    artist_id = request.args.get('artist_id', None, type=int)
+    art_name = request.args.get('art_name', None)
+    type_id = request.args.get('type', None, type=int)
+    if artist_id and art_name and type_id:
+        result = Artist.query.filter(Artist.id == artist_id).join(Art, Artist.id == Art.artist_id).filter(
+            Art.name.like(u'%{}%'.format(art_name))).filter(Art.type == type_id).add_columns(Art.name, Art.type, Art.art_list_image, Art.id).all()
+        if result:
+            rawl_html = ''
+            for each in result:
+                print type(each.name)
+                rawl_html += u'<div class="col-sm-6 col-md-3">'+u'<div class="thumbnail"><img src="/static/upload/'+ each.art_list_image+u'" alt="缩略图"><div class="caption"><h4>'+each.name+u'</h4><p>'+each.Artist.name+u'</p><p>'+str(each.type)+u'</p><p><label class="checkbox-inline">'+u'<input type="radio" name="art_id" value="'+ str(each.id) +u'">选取</label></p></div></div></div>'
+            return jsonify({'status': 1, 'message': rawl_html})
+        else:
+            return jsonify({'status': 0, 'message': u'无结果'})
+    return jsonify({'status': 0, 'message': u'参数未填全'})

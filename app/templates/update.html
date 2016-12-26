@@ -45,14 +45,13 @@
                             <h4 class="panel-title glyphicon glyphicon-transfer">
                                 <a class="customer-letter-spacing" data-toggle="collapse" data-parent="#accordion"
                                    href="#collapseOne">
-                                    <span class="badge pull-right">5</span>
+                                    <span class="badge pull-right">4</span>
                                     数据维护
                                 </a>
                             </h4>
                         </div>
                         <div id="collapseOne" class="panel-collapse collapse in">
                             <div class="panel-body customer-update-menu-left">
-                                <p><a class="customer-letter-spacing" href="#">首页轮播</a></p>
                                 <p><a class="customer-letter-spacing" href="#">艺术家</a></p>
                                 <p><a class="customer-letter-spacing" href="#">作品</a></p>
                                 <p><a class="customer-letter-spacing" href="#">动态信息及展览</a></p>
@@ -105,9 +104,6 @@
     $('.panel-body p a').click(function(){
       var menutext = $(this).text();
       switch (menutext){
-        case("首页轮播"):
-          $("#itemsContainer iframe").attr("src","{{ url_for('main.sliderpic') }}");
-          break;
         case("艺术家"):
           $("#itemsContainer iframe").attr("src","{{ url_for('main.artistupdate') }}");
           break;

@@ -6,23 +6,23 @@
 
 {% block about_type %}艺术家{% endblock %}
 
-{% block sub_type %}{{ artist[0].Artist.name }}{% endblock %}
+{% block sub_type %}{{ artist.name }}{% endblock %}
 
 {% block body %}
 <div class="row customer-artist-container clearfix">
     <div class="col-md-3 customer-artist-pic column">
-        <img src="{{ url_for('static', filename='upload/'+artist[0].Artist.avatar) }}" height="180" width="180"
+        <img src="{{ url_for('static', filename='upload/'+artist.avatar) }}" height="162" width="180"
              alt="艺术家">
     </div>
     <div class="col-md-3 column" id="customer-artist-introduce">
-        <h1>{{ artist[0].Artist.name }}</h1>
-        <p class="customer-artist-introduce-p">{{ artist[0].Artist.location }}</p>
+        <h1>{{ artist.name }}</h1>
+        <p class="customer-artist-introduce-p">{{ artist.location }}</p>
         <p class="customer-artist-tip-p">
-            {{ artist[0].Artist.introduction }}</p>
+            {{ artist.introduction }}</p>
     </div>
 </div>
 <div class="row customer-artist-container clearfix">
-    {% for each in artist %}
+    {% for each in artistlist %}
     {% if loop.index is not divisibleby 2 %}
     <div class="col-md-6 column customer-artist-container-col customer-artist-first-col">
         <a href="{{ url_for('main.artshow', id=each.id) }}"><img src="{{ url_for('static', filename='upload/' + each.art_list_image) }}" alt="{{ each.name }}" height="510" width="510"></a>

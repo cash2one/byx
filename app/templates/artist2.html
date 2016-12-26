@@ -574,7 +574,7 @@ table tr td {
 <div class="container customer-width">
     <div class="row customer-width customer-position-absolute clearfix">
         <div class="col-md-3 column">
-            <a href="#"><img class="customer-logo" src="{{ url_for('static', filename='images/logo_black.png') }}"
+            <a href="{{ url_for('main.index') }}"><img class="customer-logo" src="{{ url_for('static', filename='images/logo_black.png') }}"
                              alt="百雅轩"></a>
             <img class="customer-sublogo" src="{{ url_for('static', filename='images/subLogo_black.png') }}"
                  alt="让艺术走进|寻常百姓家">
@@ -582,7 +582,7 @@ table tr td {
         <div class="col-md-9 column customer-nav">
             <ul class="_nav">
                 <li>
-                    <a href="#">首页</a>
+                    <a href="{{ url_for('main.index') }}">首页</a>
                 </li>
                 <li>
                     <a href="#">动态</a>
