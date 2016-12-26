@@ -55,8 +55,8 @@ class ArtForm(Form):
     subtitle = StringField(u'副标题', validators=[DataRequired()])
     introdution = TextAreaField(u'简介', validators=[DataRequired()])
 
-    index_slider_image = FileField(u'首页轮播图片', validators=[DataRequired()])
-    life_image = FileField(u'走进生活图片', validators=[DataRequired()])
+    index_slider_image = FileField(u'首页轮播图片')
+    life_image = FileField(u'走进生活图片')
 
     submit = SubmitField(u'点击保存')
 
@@ -76,7 +76,7 @@ class NewsForm(Form):
     overview = TextAreaField(u'概述', validators=[DataRequired()])
     image_illustrate = StringField(u'图片说明', validators=[DataRequired()])
     content = TextAreaField(u'详细内容', validators=[DataRequired()])
-    template_content = TextAreaField(u'模版内容', validators=[DataRequired()])
+    template_content = TextAreaField(u'模版内容')
     submit = SubmitField(u'点击保存')
 
     def __init__(self, *args, **kwargs):

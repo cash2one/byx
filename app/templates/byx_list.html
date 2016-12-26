@@ -76,7 +76,7 @@
         <div class="col-md-12 column customer-nav-menutip clearfix">
             <ul class="breadcrumb">
                 <li>
-                    <a href="#">首页</a>
+                    <a href="{{ url_for('main.index') }}">首页</a>
                 </li>
                 <li>
                     <a href="#">{{ branch.branch_name }}</a>
@@ -118,23 +118,15 @@
         <div class="col-md-12 column">
             {% for news in newslist %}
             <div class="row clearfix">
-                <a href="byx_details.html?typeid=x"><img
+                <a href="{{ url_for('main.byx_detail', detail_id=news.id, branch=branch.branch_id) }}"><img
                         src="{{ url_for('static', filename='upload/' + news.news_list_image) }}"
                         alt="珂罗版的制作工艺" width="1258" height="500"></a>
                 <div class="row customer-watermark clearfix">
-                    <!--<span>珂罗版的制作工艺</span>-->
-                    <!--<span></span>-->
-                    <!--<span>Collotype Process</span>-->
                 </div>
             </div>
             {% endfor %}
 
         </div>
-        <!--<div class="row clearfix">-->
-        <!--<div class="col-md-12 customer-need-more column">-->
-        <!--<a class="customer-letter-spacing" href="#">加载更多</a>-->
-        <!--</div>-->
-        <!--</div>-->
         <div class="row customer-footer-height customer-footer-padding customer-about-margin-top clearfix">
             <div class="col-md-8 column customer-footer-div-left">
                 <table class="table">

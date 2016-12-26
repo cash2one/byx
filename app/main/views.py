@@ -31,6 +31,7 @@ def about():
 def byx_list():
     branch_id = request.args.get('branch', 0, type=int)
 
+
     branch = Branch.query.filter(Branch.branch_id == branch_id).first_or_404()
     newslist = News.query.filter(News.category == branch_id).all()
     return render_template('byx_list.html', newslist=newslist, branch=branch)
@@ -40,8 +41,6 @@ def byx_list():
 def byx_detail():
     detail_id = request.args.get('detail_id', 1, type=int)
     branch_id = request.args.get('branch', 0, type=int)
-    print detail_id
-    print branch_id
     news = News.query.filter(News.id == detail_id).filter(News.category == branch_id).first_or_404()
     return render_template('byx_details.html', news=news)
 

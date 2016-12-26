@@ -28,7 +28,7 @@
         <div class="col-md-9 column customer-nav">
             <ul class="_nav">
                 <li>
-                    <a href="#">首页</a>
+                    <a href="{{ url_for('main.index') }}">首页</a>
                 </li>
                 <li>
                     <a href="#">动态</a>
@@ -41,17 +41,17 @@
                 <li>
                     <a href="#">艺术</a>
                     <div class="customer-submenu">
-                        <a href="artlive.html?type=x&artistvisible=hidden">珂罗版</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">丝网版</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">木版</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">铜版</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">石版</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">综合版</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">艺术微喷</a>
+                        <a href="{{ url_for('main.artlives', type=0) }}">珂罗版</a>
+                        <a href="{{ url_for('main.artlives', type=1) }}">丝网版</a>
+                        <a href="{{ url_for('main.artlives', type=2) }}">木版</a>
+                        <a href="{{ url_for('main.artlives', type=3) }}">铜版</a>
+                        <a href="{{ url_for('main.artlives', type=4) }}">石版</a>
+                        <a href="{{ url_for('main.artlives', type=5) }}">综合版</a>
+                        <a href="{{ url_for('main.artlives', type=6) }}">艺术微喷</a>
                         <a href="artist.html" target="_blank">艺术家</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">艺术衍生品</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">艺术走进生活</a>
-                        <a href="artlive.html?type=x&artistvisible=hidden">其他</a>
+                        <a href="{{ url_for('main.artlives', type=7) }}">艺术衍生品</a>
+                        <a href="{{ url_for('main.artlives', type=8) }}">艺术走进生活</a>
+                        <a href="{{ url_for('main.artlives', type=99) }}">其他</a>
                     </div>
                 </li>
                 <li>
