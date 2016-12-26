@@ -38,3 +38,5 @@ nosetests.xml
 .idea
 
 upload
+.DS_Store
+app/.DS_Store
