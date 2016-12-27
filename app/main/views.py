@@ -11,6 +11,7 @@ import time
 from .utils import random_file_name
 from sqlalchemy import or_
 
+
 # todo
 # http://stackoverflow.com/questions/18600031/changing-the-active-class-of-a-link-with-the-twitter-bootstrap-css-in-python-fla
 # 图片格式判断
@@ -19,7 +20,8 @@ from sqlalchemy import or_
 @main.route('/')
 def index():
     artistlist = Artist.query.all()
-    return render_template('index2.html', artistlist=artistlist)
+    life_list = Art.query.filter(Art.type == 8).filter(Art.life_image != '').filter(Art.index_life_image != '').all()
+    return render_template('index2.html', artistlist=artistlist, life_list=life_list)
 
 
 @main.route('/about.html')
@@ -101,26 +103,6 @@ def update():
     return render_template('update.html')
 
 
-# 首页轮播
-# @main.route('/sliderpic.html', methods=['GET', 'POST'])
-# @login_required
-# def sliderpic():
-#     form = SlidePicForm()
-#     if form.validate_on_submit():
-#         filename1 = random_file_name(form.slider.data.filename)
-#         filename2 = random_file_name(form.slider_live.data.filename)
-#
-#         file_path1 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename1)
-#         file_path2 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename2)
-#         form.slider.data.save(file_path1)
-#         form.slider_live.data.save(file_path2)
-#
-#         return redirect(url_for("main.sliderpic"))
-#     else:
-#         flash_errors(form)
-#     return render_template('sliderpic.html', form=form)
-
-
 @main.route('/artistupdate.html', methods=['GET', 'POST'])
 @login_required
 def artistupdate():
@@ -157,7 +139,7 @@ def artistupdate():
     else:
         flash_errors(form)
 
-    artistlist = Artist.query.all()
+    artistlist = Artist.query.order_by(Artist.created.desc()).all()
     return render_template('artistupdate.html', form=form, artistlist=artistlist)
 
 
@@ -178,65 +160,75 @@ def artupdate():
         name = form.name.data
         introduction = form.introdution.data
         subtitle = form.subtitle.data
-        type = form.type.data
+        type_id = form.type.data
         artist_id = form.artist_id.data
 
-        filename1 = random_file_name(form.art_list_image.data.filename)
-        filename2 = random_file_name(form.art_enlarge_image.data.filename)
+        art_list_image_filename = random_file_name(form.art_list_image.data.filename)
+        art_enlarge_image_filename = random_file_name(form.art_enlarge_image.data.filename)
+        art_slide_image_filename = random_file_name(form.art_slide_image.data.filename)
 
+        art_list_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], art_list_image_filename)
+        art_enlarge_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], art_enlarge_image_filename)
+        art_slide_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], art_slide_image_filename)
 
-        filename_list = ''
-        images = request.files.getlist("art_slide_image")
-        if images:
-            for each in images:
-                m_filename = random_file_name(each.filename)
-                m_file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], m_filename)
-                each.save(m_file_path)
-                m_filename_s = m_filename + ';'
-                filename_list += m_filename_s
+        form.art_list_image.data.save(art_list_image_path)
+        form.art_enlarge_image.data.save(art_enlarge_image_path)
+        form.art_slide_image.data.save(art_slide_image_path)
 
         # 走进生活
-        index_images = request.files.getlist("life_image")
-        if index_images:
-            index_filename = ''
-            index_life_image_filenam_s = ''
-            for index, each in enumerate(index_images):
-                if index == 0:
-                    index_life_image_filename = random_file_name(each.filename)
-                    index_life_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], index_life_image_filename)
-                    each.save(index_life_image_path)
-                    index_filename_s = index_life_image_filename + ';'
-                    index_filename += index_filename_s
-                    index_life_image_filenam_s += index_filename_s
-                else:
-                    life_image_filename = random_file_name(each.filename)
-                    life_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], life_image_filename)
-                    each.save(life_image_path)
-                    index_filename_s = life_image_filename + ';'
-                    index_filename += index_filename_s
-        else:
-            index_filename = ''
-            index_life_image_filenam_s = ''
+        if form.life_image.data:
+            index_images = request.files.getlist("life_image")
+            if index_images:
+                life_image_filename = ''
+                for each in index_images:
+                    print '1'
+                    print each.filename
 
-        file_path1 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename1)
-        file_path2 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename2)
+                    each_life_image_filename = random_file_name(each.filename)
+                    print each_life_image_filename
+                    each_life_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], each_life_image_filename)
+                    each.save(each_life_image_path)
+                    life_image_filename += each_life_image_filename + ';'
+                print 'iiiiiiiiiii'
+                print life_image_filename
+                print 'iiiiiiiiiii'
+                if life_image_filename:
+                    print '2'
+                    index_life_image_filename = life_image_filename.split(';')[0]
+                    life_image_filename = ';'.join(life_image_filename.split(';')[1:])
+                else:
+                    print '2'
+                    life_image_filename = ''
+                    index_life_image_filename = ''
+        else:
+            print '4'
+            life_image_filename = ''
+            index_life_image_filename = ''
+
 
         if form.index_slider_image.data:
-            filename4 = random_file_name(form.index_slider_image.data.filename)
-            file_path4 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename4)
-            form.index_slider_image.data.save(file_path4)
+            index_slider_image_filename = random_file_name(form.index_slider_image.data.filename)
+            index_slider_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], index_slider_image_filename)
+            form.index_slider_image.data.save(index_slider_image_path)
         else:
-            filename4 = ''
+            index_slider_image_filename = ''
 
-        form.art_list_image.data.save(file_path1)
-        form.art_enlarge_image.data.save(file_path2)
-        # form.art_slide_image.data.save(file_path3)
+        print "+++++++++"
+        print index_life_image_filename
+        print life_image_filename
+        print index_slider_image_filename
+        print "+++++++++"
+
+
         created = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
         art = Art(name=name, introduction=introduction, subtitle=subtitle,
-                  art_list_image=filename1, art_enlarge_image=filename2, art_slide_image=filename_list,
-                  type=type, created=created, artist_id=artist_id,
-                  index_slider_image=filename4, life_image=index_filename, index_life_image=index_life_image_filenam_s)
+                  art_list_image=art_list_image_filename, art_enlarge_image=art_enlarge_image_filename,
+                  art_slide_image=art_slide_image_filename,
+                  type=type_id, created=created, artist_id=artist_id,
+                  index_slider_image=index_slider_image_filename,
+                  life_image=life_image_filename,
+                  index_life_image=index_life_image_filename)
         db.session.add(art)
         db.session.commit()
         return redirect(url_for("main.artupdate"))
@@ -401,12 +393,16 @@ def price_search():
     type_id = request.args.get('type', None, type=int)
     if artist_id and art_name and type_id:
         result = Artist.query.filter(Artist.id == artist_id).join(Art, Artist.id == Art.artist_id).filter(
-            Art.name.like(u'%{}%'.format(art_name))).filter(Art.type == type_id).add_columns(Art.name, Art.type, Art.art_list_image, Art.id).all()
+            Art.name.like(u'%{}%'.format(art_name))).filter(Art.type == type_id).add_columns(Art.name, Art.type,
+                                                                                             Art.art_list_image,
+                                                                                             Art.id).all()
         if result:
             rawl_html = ''
             for each in result:
                 print type(each.name)
-                rawl_html += u'<div class="col-sm-6 col-md-3">'+u'<div class="thumbnail"><img src="/static/upload/'+ each.art_list_image+u'" alt="缩略图"><div class="caption"><h4>'+each.name+u'</h4><p>'+each.Artist.name+u'</p><p>'+str(each.type)+u'</p><p><label class="checkbox-inline">'+u'<input type="radio" name="art_id" value="'+ str(each.id) +u'">选取</label></p></div></div></div>'
+                rawl_html += u'<div class="col-sm-6 col-md-3">' + u'<div class="thumbnail"><img src="/static/upload/' + each.art_list_image + u'" alt="缩略图"><div class="caption"><h4>' + each.name + u'</h4><p>' + each.Artist.name + u'</p><p>' + str(
+                    each.type) + u'</p><p><label class="checkbox-inline">' + u'<input type="radio" name="art_id" value="' + str(
+                    each.id) + u'">选取</label></p></div></div></div>'
             return jsonify({'status': 1, 'message': rawl_html})
         else:
             return jsonify({'status': 0, 'message': u'无结果'})
@@ -448,8 +444,3 @@ def search():
         return render_template('search.html', search_list=search_list)
 
     return render_template('search.html')
-
-
-
-
-

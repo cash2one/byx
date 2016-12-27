@@ -14,7 +14,6 @@ class News(db.Model):
     title = db.Column(db.Text)  # 标题
     overview = db.Column(db.Text)  # 概述
     content = db.Column(db.Text)  # 内容
-    # author = db.Column(db.Text)
     source = db.Column(db.Text)  # 来源
     created = db.Column(db.DateTime)
     image_illustrate = db.Column(db.Text)  # 图片概述
@@ -27,20 +26,19 @@ class Art(db.Model):
     """
     __tablename__ = 'art'
     id = db.Column(db.Integer, primary_key=True)
-    artist_id = db.Column(db.Integer)
-    name = db.Column(db.Text)
-    # taobao_id = db.Column(db.Integer)
-    type = db.Column(db.Integer)
-    art_list_image = db.Column(db.Text)
-    art_enlarge_image = db.Column(db.Text)
-    art_slide_image = db.Column(db.Text)
+    artist_id = db.Column(db.Integer)  # 对应的艺术家id
+    name = db.Column(db.Text)  # 作品名称
+    type = db.Column(db.Integer)  # 作品类型
+    art_list_image = db.Column(db.Text)  # 作品列表图片
+    art_enlarge_image = db.Column(db.Text)  # 作品放大图片，用于作品详情页无"走进生活"图时的上部图，单张
+    art_slide_image = db.Column(db.Text)  # 作品幻灯图片，用于"TA的其他作品"
     subtitle = db.Column(db.Text)
     introduction = db.Column(db.Text)
     created = db.Column(db.DateTime)
 
-    index_slider_image = db.Column(db.Text)
-    life_image = db.Column(db.Text)
-    index_life_image = db.Column(db.Text)
+    index_slider_image = db.Column(db.Text)  # 首页轮播图片
+    life_image = db.Column(db.Text)  # 走进生活图片，即详情页上部轮播
+    index_life_image = db.Column(db.Text)  # 首页轮播图片对应的走进生活的图片，取的是走进生活第一张
 
 
 class Artist(db.Model):

@@ -43,11 +43,6 @@
           width: 51px;
         }
 
-
-
-
-
-
     </style>
 </head>
 <body>
@@ -101,7 +96,7 @@
                 {{ form.art_enlarge_image(id='byx_art_zoomin',class='file-loading') }}
                 <hr>
                 <label class="control-label customer-letter-spacing">作品幻灯图片</label>
-                {{ form.art_slide_image(id='byx_art_slide',class='file-loading', multiple="") }}
+                {{ form.art_slide_image(id='byx_art_slide',class='file-loading') }}
                 <br/>
 
 
@@ -116,7 +111,6 @@
                     {{ form.life_image(id='byx_slider_live',class='file-loading', multiple="") }}
                     <br/>
                 </div>
-
 
 
                 <label class="control-label customer-letter-spacing">作品介绍</label><br/>
@@ -182,7 +176,10 @@
                             class="customer-letter-spacing">{{ art.Art.introduction }}</span><br/>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-default btn-sm" onclick="if (confirm('确定要删除此作品？')) { location.href = '{{ url_for('main.delete_art', id=art.Art.id) }}'; }">Delete</button>
+                        <button type="button" class="btn btn-default btn-sm"
+                                onclick="if (confirm('确定要删除此作品？')) { location.href = '{{ url_for('main.delete_art', id=art.Art.id) }}'; }">
+                            Delete
+                        </button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -226,6 +223,7 @@ $(document).on('ready', function() {
       }
     });
 });
+
 
 
 </script>
