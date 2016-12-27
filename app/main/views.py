@@ -9,7 +9,7 @@ from .. import db
 import os
 import time
 from .utils import random_file_name
-
+from sqlalchemy import or_
 
 # todo
 # http://stackoverflow.com/questions/18600031/changing-the-active-class-of-a-link-with-the-twitter-bootstrap-css-in-python-fla
@@ -184,16 +184,6 @@ def artupdate():
         filename1 = random_file_name(form.art_list_image.data.filename)
         filename2 = random_file_name(form.art_enlarge_image.data.filename)
 
-        # list_filename = ''
-        # list_image = request.files.getlist('art_list_image')
-        # if list_image:
-        #     for each in list_image:
-        #         list_image_filename = random_file_name(each.filename)
-        #         list_image_file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], list_image_filename)
-        #         each.save(list_image_file_path)
-        #         list_image_filename_s = list_image_filename + ';'
-        #         list_filename += list_image_filename_s
-
 
         filename_list = ''
         images = request.files.getlist("art_slide_image")
@@ -209,6 +199,7 @@ def artupdate():
         index_images = request.files.getlist("life_image")
         if index_images:
             index_filename = ''
+            index_life_image_filenam_s = ''
             for index, each in enumerate(index_images):
                 if index == 0:
                     index_life_image_filename = random_file_name(each.filename)
@@ -216,6 +207,7 @@ def artupdate():
                     each.save(index_life_image_path)
                     index_filename_s = index_life_image_filename + ';'
                     index_filename += index_filename_s
+                    index_life_image_filenam_s += index_filename_s
                 else:
                     life_image_filename = random_file_name(each.filename)
                     life_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], life_image_filename)
@@ -224,11 +216,10 @@ def artupdate():
                     index_filename += index_filename_s
         else:
             index_filename = ''
-            index_life_image_filename = ''
+            index_life_image_filenam_s = ''
 
         file_path1 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename1)
         file_path2 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename2)
-        # file_path3 = os.path.join(current_app.config['UPLOAD_FOLDER'], filename3)
 
         if form.index_slider_image.data:
             filename4 = random_file_name(form.index_slider_image.data.filename)
@@ -245,7 +236,7 @@ def artupdate():
         art = Art(name=name, introduction=introduction, subtitle=subtitle,
                   art_list_image=filename1, art_enlarge_image=filename2, art_slide_image=filename_list,
                   type=type, created=created, artist_id=artist_id,
-                  index_slider_image=filename4, life_image=index_filename, index_life_image=index_life_image_filename)
+                  index_slider_image=filename4, life_image=index_filename, index_life_image=index_life_image_filenam_s)
         db.session.add(art)
         db.session.commit()
         return redirect(url_for("main.artupdate"))
@@ -420,3 +411,45 @@ def price_search():
         else:
             return jsonify({'status': 0, 'message': u'无结果'})
     return jsonify({'status': 0, 'message': u'参数未填全'})
+
+
+@main.route('/search.html', methods=['GET', 'POST'])
+def search():
+    type = request.args.get('type', 1, type=int)
+    keyword = request.args.get('keyword', '')
+    if type and keyword:
+        if type == 1:
+            search_list = Art.query.filter(
+                or_(
+                    Art.name.like(u'%{}%'.format(keyword)),
+                    Art.subtitle.like(u'%{}%'.format(keyword)),
+                    Art.introduction.like(u'%{}%'.format(keyword)),
+                )
+            ).all()
+        elif type == 2:
+            search_list = Artist.query.filter(
+                or_(
+                    Artist.introduction.like(u'%{}%'.format(keyword)),
+                    Artist.location.like(u'%{}%'.format(keyword)),
+                    Artist.pinyin.like(u'%{}%'.format(keyword)),
+                )
+            ).all()
+        elif type == 3 or type == 4:
+            search_list = News.query.filter(
+                or_(
+                    News.title.like(u'%{}%'.format(keyword)),
+                    News.content.like(u'%{}%'.format(keyword)),
+                    News.overview.like(u'%{}%'.format(keyword)),
+                    News.image_illustrate.like(u'%{}%'.format(keyword)),
+                )
+            ).all()
+        else:
+            search_list = ''
+        return render_template('search.html', search_list=search_list)
+
+    return render_template('search.html')
+
+
+
+
+

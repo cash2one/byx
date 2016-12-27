@@ -11,7 +11,7 @@
 <div class="row customer-artist-container clearfix">
     {% for artist in artistlist %}
     <div class="col-md-6 column customer-artist-container-col">
-        <a href="{{ url_for('main.artistlive', id=artist.id) }}"><img src="{{ url_for('static', filename='upload/' + artist.list_image) }}" alt="{{ artist.name }}" height="327" width="505"></a>
+        <a href="{{ url_for('main.artistlive', id=artist.id) }}"><img src="{{ url_for('static', filename='upload/' + artist.list_image) }}" alt="{{ artist.name }}" height="327" width="500"></a>
     </div>
     {% endfor %}
 </div>
