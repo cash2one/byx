@@ -35,6 +35,8 @@
           margin-left: 90px;
         }
 
+
+
     </style>
 </head>
 <body>
@@ -65,23 +67,77 @@
                 <label class="control-label customer-letter-spacing">作品筛选</label>
                 <div> <!--筛选条件-->
                     <label class="control-label customer-letter-spacing">艺术家&nbsp;</label>
-                    {{ form.artist_id(class="btn btn-default dropdown-toggle", id="byx_update_art_artist") }}
-                    <!--<input class="customer-update-input-border" type="text" id="byx_update_artist_filter">-->
+                    <select class="btn btn-default dropdown-toggle" id="byx_update_art_artist" name="artist_id">
+                        {% for each in artist_list %}
+                        <option value="{{ each.id }}">{{ each.name }}</option>
+                        {% endfor %}
+                    </select>
                     <br/><br/>
                     <label class="control-label">请选择作品类型</label>
                     <div id="tyype">
-                        {% for subfield in form.type %}
+
                         <label class="checkbox-inline">
-                            {{ subfield }}{{ subfield.label }}
-                            {% if loop.index > 6 %}
-                            <br/>
-                            {% endif %}
+                            <input id="type-0" name="type" type="radio" value="0"><label for="type-0">珂罗版</label>
+
                         </label>
-                        {% endfor %}
+
+                        <label class="checkbox-inline">
+                            <input id="type-1" name="type" type="radio" value="1"><label for="type-1">丝网版</label>
+
+                        </label>
+
+                        <label class="checkbox-inline">
+                            <input id="type-2" name="type" type="radio" value="2"><label for="type-2">木版</label>
+
+                        </label>
+
+                        <label class="checkbox-inline">
+                            <input id="type-3" name="type" type="radio" value="3"><label for="type-3">铜版</label>
+
+                        </label>
+
+                        <label class="checkbox-inline">
+                            <input id="type-4" name="type" type="radio" value="4"><label for="type-4">石版</label>
+
+                        </label>
+
+                        <label class="checkbox-inline">
+                            <input id="type-5" name="type" type="radio" value="5"><label for="type-5">综合版</label>
+
+                        </label>
+
+                        <label class="checkbox-inline">
+                            <input id="type-6" name="type" type="radio" value="6"><label for="type-6">艺术微喷</label>
+
+                            <br/>
+
+                        </label>
+
+                        <label class="checkbox-inline">
+                            <input id="type-7" name="type" type="radio" value="7"><label for="type-7">艺术衍生品</label>
+
+                            <br/>
+
+                        </label>
+
+                        <label class="checkbox-inline">
+                            <input id="type-8" name="type" type="radio" value="8"><label for="type-8">艺术走进生活</label>
+
+                            <br/>
+
+                        </label>
+
+                        <label class="checkbox-inline">
+                            <input id="type-9" name="type" type="radio" value="99"><label for="type-9">其他</label>
+
+                            <br/>
+
+                        </label>
+
                     </div>
                     <br/>
                     <label class="control-label customer-letter-spacing">作品名称&nbsp;</label>
-                    {{ form.art_name(class="customer-update-input-border", id="byx_update_art_filter") }}
+                    <input class="customer-update-input-border" id="byx_update_art_filter" name="art_name" type="text" value="">
                     <button class="btn btn-default glyphicon glyphicon-filter" type="button" id="byx_price_btn_filter">
                         点击筛选
                     </button>
@@ -91,15 +147,17 @@
                     {% for subfiled in form.art_id %}
                     <div class="col-sm-6 col-md-3">
                         <div class="thumbnail">
-                            <img src="/static/images/art/wgz_xshy.png" alt="缩略图">
+                            {% set label = subfiled.label.text.split('-') %}
+                            <img src="{{ url_for('static', filename='upload/' + label[3]) }}" alt="缩略图">
                             <div class="caption">
-                                {% set a = subfiled.label %}
-                                <h4>{{ a[0] }}</h4>
-                                <p>{{ subfiled.label }}</p>
-                                <p>{{ a[1] }}</p>
+
+                                <h4>{{ label[0] }}</h4>
+                                <p>{{ label[1] }}</p>
+                                <p>{{ label[2] }}</p>
                                 <p>
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="byx_art_select">选取
+                                        {{ subfiled }}
+                                        选取
                                     </label>
                                 </p>
                             </div>
@@ -170,31 +228,44 @@
         </div>
     </div>
 </div>
+<!--<script type="text/javascript">-->
+<!--$(document).ready(function() {-->
+<!--$("#byx_price_btn_filter").click(function() {-->
+<!--$.ajax({-->
+<!--type: "GET",-->
+<!--url: "{{ url_for('main.price_search') }}",-->
+<!--data: {-->
+<!--'art_name': $('#byx_update_art_filter').val(),-->
+<!--'artist_id': $('#byx_update_art_artist option:selected').val(),-->
+<!--'type': $('#tyype input:checked').val(),-->
+<!--},-->
+<!--success: function(data) {-->
+<!--if (data.status) {-->
+<!--$('.result').html(data.message);-->
+<!--} else {-->
+<!--$('.result').empty();-->
+<!--alert(data.message);-->
+<!--}-->
+<!--},-->
+<!--error: function(data) {-->
+<!--alert(data.message);-->
+<!--},-->
+<!--});-->
+<!--});-->
+<!--});-->
+<!--</script>-->
 <script type="text/javascript">
-$(document).ready(function() {
-    $("#byx_price_btn_filter").click(function() {
-        $.ajax({
-            type: "GET",
-            url: "{{ url_for('main.price_search') }}",
-            data: {
-                'art_name': $('#byx_update_art_filter').val(),
-                'artist_id': $('#byx_update_art_artist option:selected').val(),
-                'type': $('#tyype input:checked').val(),
-            },
-            success: function(data) {
-                if (data.status) {
-                    $('.result').html(data.message);
-                } else {
-                    $('.result').empty();
-                    alert(data.message);
-                }
-            },
-            error: function(data) {
-                alert(data.message);
-            },
-        });
-    });
-});
+$(document).ready(function(){
+	$("#byx_price_btn_filter").click(function(){
+			var arts_name = $('#byx_update_art_filter').val();
+			var type_id = $('#tyype input:checked').val() || -1;
+			var artists_id = $('#byx_update_art_artist option:selected').val();
+
+			var search_url = "{{ url_for('main.priceupdate') }}" + "?arts_name=" + arts_name + '&type_id=' + type_id + '&artists_id=' + artists_id
+			// var search_url = "{{ url_for('main.priceupdate') }}" + "?artists_id=" + artists_id
+			window.location.href= search_url;
+	})
+})
 
 </script>
 

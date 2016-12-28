@@ -181,30 +181,19 @@ def artupdate():
             if index_images:
                 life_image_filename = ''
                 for each in index_images:
-                    print '1'
-                    print each.filename
-
                     each_life_image_filename = random_file_name(each.filename)
-                    print each_life_image_filename
                     each_life_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], each_life_image_filename)
                     each.save(each_life_image_path)
                     life_image_filename += each_life_image_filename + ';'
-                print 'iiiiiiiiiii'
-                print life_image_filename
-                print 'iiiiiiiiiii'
                 if life_image_filename:
-                    print '2'
                     index_life_image_filename = life_image_filename.split(';')[0]
                     life_image_filename = ';'.join(life_image_filename.split(';')[1:])
                 else:
-                    print '2'
                     life_image_filename = ''
                     index_life_image_filename = ''
         else:
-            print '4'
             life_image_filename = ''
             index_life_image_filename = ''
-
 
         if form.index_slider_image.data:
             index_slider_image_filename = random_file_name(form.index_slider_image.data.filename)
@@ -212,13 +201,6 @@ def artupdate():
             form.index_slider_image.data.save(index_slider_image_path)
         else:
             index_slider_image_filename = ''
-
-        print "+++++++++"
-        print index_life_image_filename
-        print life_image_filename
-        print index_slider_image_filename
-        print "+++++++++"
-
 
         created = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
@@ -298,12 +280,23 @@ def delete_news(id):
 @main.route('/priceupdate.html', methods=['GET', 'POST'])
 @login_required
 def priceupdate():
-    form = PriceForm()
+    arts_name = request.args.get('arts_name', '')
+    type_id = request.args.get('type_id', -1, type=int)
+    artists_id = request.args.get('artists_id', -1, type=int)
+
+    form = PriceForm(type_id, artists_id, arts_name)
     if form.validate_on_submit():
-        pass
+        art_id = form.art_id.data
+        price = form.price.data
+        sale_time = form.sale_time.data
+
+        print art_id, price, sale_time
+
+
     else:
         flash_errors(form)
-    return render_template('priceupdate.html', form=form)
+    artist_list = Artist.query.all()
+    return render_template('priceupdate.html', form=form, artist_list=artist_list)
 
 
 @main.route('/changepwd.html', methods=['GET', 'POST'])

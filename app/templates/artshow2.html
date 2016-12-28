@@ -264,7 +264,7 @@
                     <div class="col-md-12 column customer-artshow-other-art-text">TA的其他艺术作品</div>
                     <div class="col-md-12 column" id="byx_artshow_scroll">
                         {% for each in art_list %}
-                        <div><a href="{{ url_for('main.artshow', id=each.id) }}"><img src="{{ url_for('static', filename='upload/' + each.art_list_image) }}" width="310" height="182"></a></div>
+                        <div><a href="{{ url_for('main.artshow', id=each.id) }}"><img src="{{ url_for('static', filename='upload/' + each.art_slide_image) }}" width="310" height="182"></a></div>
                         {% endfor %}
                     </div>
                 </div>

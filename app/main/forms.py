@@ -6,6 +6,8 @@ from wtforms import StringField, PasswordField, SubmitField, FileField, TextArea
     FloatField, IntegerField
 from wtforms.validators import DataRequired, EqualTo, Optional
 from ..models import Artist, Art
+from sqlalchemy import text
+import time
 
 
 class LoginForm(Form):
@@ -57,7 +59,7 @@ class ArtForm(Form):
     introdution = TextAreaField(u'作品简介', validators=[DataRequired()])
 
     index_slider_image = FileField(u'首页轮播图片')
-    life_image = FileField(u'走进生活图片') # 多图
+    life_image = FileField(u'走进生活图片')  # 多图
 
     submit = SubmitField(u'点击保存')
 
@@ -88,18 +90,39 @@ class NewsForm(Form):
 
 
 class PriceForm(Form):
-    artist_id = SelectField(u'艺术家', coerce=int, validators=[Optional()])
-    type = RadioField(u'作品类型', coerce=int, validators=[Optional()])
-    art_name = StringField(u'作品名称')
     sale_time = StringField(u'售卖日期', validators=[DataRequired()])
     price = FloatField(u'售卖单价', validators=[DataRequired()])
-    art_id = RadioField(u'作品', validators=[DataRequired()])
+    art_id = RadioField(u'作品', coerce=int, validators=[DataRequired()])
     submit = SubmitField(u'点击保存')
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, type_id, artists_id, arts_name, *args, **kwargs):
         super(PriceForm, self).__init__(*args, **kwargs)
-        self.artist_id.choices = [(i.id, i.name) for i in Artist.query.all()]
-        self.type.choices = [(0, u'珂罗版'), (1, u'丝网版'), (2, u'木版'), (3, u'铜版'), (4, u'石版'), (5, u'综合版'),
-                             (6, u'艺术微喷'), (7, u'艺术衍生品'), (8, u'艺术走进生活'), (99, u'其他')]
-        # self.art_id.choices = [(i.Art.id, i.Art.name, i.Art.type, i.Art.art_list_image, i.name) for i in Art.query.join(Art.artist_id == Artist.id).add_columns(Artist.name).all()]
-        self.art_id.choices = [(i.id, (i.name, i.art_list_image)) for i in Art.query.all()]
+        self.type_list = {0: u'珂罗版', 1: u'丝网版', 2: u'木版', 3: u'铜版', 4: u'石版', 5: u'综合版', 6: u'艺术微喷', 7: u'艺术衍生品',
+                          8: u'艺术走进生活', 99: u'其他'}
+
+        self.artists_id = artists_id
+        self.arts_name = arts_name
+        self.type_id = type_id
+
+        self.art_id.choices = self.get_art()
+
+    def get_art(self):
+        s = []
+        if self.artists_id == -1 and self.type_id == -1 and not self.arts_name:
+            return s
+        for i in Art.query.join(Artist, Art.artist_id == Artist.id).filter(
+                        Art.artist_id == self.artists_id if int(self.artists_id) != -1 else text('')).filter(
+                Art.name.like(u'%{}%'.format(self.arts_name)) if self.arts_name else text('')).filter(
+                    Art.type == self.type_id if int(self.type_id) != -1 else text('')).add_columns(
+            Artist.name).all():
+            type_name = self.type_list.get(i.Art.type)
+            ss = u'%s-%s-%s-%s' % (i.name, type_name, i.Art.name, i.Art.art_list_image)
+            s.append((i.Art.id, ss))
+        return s
+
+    def validate_sale_time(self, field):
+        try:
+            time.strptime(field.data, "%Y-%m-%d")
+        except ValueError:
+            raise ValueError(u'时间格式错误')
+
