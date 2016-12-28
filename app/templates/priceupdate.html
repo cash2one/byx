@@ -199,30 +199,34 @@
                 </tr>
                 </thead>
                 <tbody>
+
+
+                {% for each in price_list %}
                 <tr>
                     <td>
-                        <span class="customer-letter-spacing">洪荒</span>
+                        <span class="customer-letter-spacing">{{ each.art_name }}</span>
                     </td>
                     <td>
-                        <span class="customer-letter-spacing">珂罗版</span>
+                        <span class="customer-letter-spacing">{{ ART_TYPE_LIST.get(each.type)}}</span>
                     </td>
                     <td>
-                        <span class="customer-letter-spacing">吴冠中</span>
+                        <span class="customer-letter-spacing">{{ each.artist_name }}</span>
                     </td>
                     <td>
                         <img class="customer-update-art-pic"
-                             src="{{ url_for('static', filename='images/art/wgz_hh.png') }}" alt="作品">
+                             src="{{ url_for('static', filename='upload/' + each.art_list_image) }}" alt="作品">
                     </td>
                     <td>
-                        <span class="customer-letter-spacing">2016-12-5</span>
+                        <span class="customer-letter-spacing">{{  each.Price.sale_time }}</span>
                     </td>
                     <td>
-                        <span class="customer-letter-spacing">36,000.00元</span>
+                        <span class="customer-letter-spacing">{{ each.Price.art_price }}元</span>
                     </td>
                     <td>
                         <button type="button" class="btn btn-default btn-sm">Delete</button>
                     </td>
                 </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </div>

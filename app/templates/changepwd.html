@@ -11,6 +11,10 @@
           type="text/css">
     <!-- CSS -->
     <link href="{{ url_for('static', filename='css/app.min.1.css') }}" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
+    <script src="{{ url_for('static', filename='js/html5shiv.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/respond.js') }}"></script>
+    <![endif]-->
 </head>
 <body class="login-content" data-ng-controller="loginCtrl as lctrl">
 <div class="lc-block" id="l-login" data-ng-class="{'toggled':lctrl.login === 1}">

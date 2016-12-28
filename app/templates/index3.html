@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" , user-scalable:no
+    "/>
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="百雅轩">
+    <meta name="description" content="艺术品投资收藏,中外文化交流,丝网版画,铜版画,石版画,木板水印版画,综合版画,珂罗版画,艺术微喷画,艺术衍生品">
+    <title>百雅轩</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/byxcss.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.bxslider.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.9.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+
+    <!--[if lt IE 9]>
+    <script src="{{ url_for('static', filename='js/html5shiv.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/respond.js') }}"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="container customer-width">
+    <div class="row customer-width customer-position-absolute clearfix">
+        <div class="col-md-3 column">
+            <a href="index.html" target="_self"><img class="customer-logo"
+                                                     src="{{ url_for('static', filename='images/logo.png') }}"
+                                                     alt="百雅轩"></a>
+            <img class="customer-sublogo" src="{{ url_for('static', filename='images/subLogo.png') }}"
+                 alt="让艺术走进|寻常百姓家">
+        </div>
+        <div class="col-md-9 column customer-index-nav">
+            <ul class="_nav">
+                <li>
+                    <a href="{{ url_for('main.index') }}">首页</a>
+                </li>
+                <li>
+                    <a href="#">动态</a>
+                    <div class="customer-submenu">
+                        <a href="{{ url_for('main.byx_list', branch=0) }}">百雅轩动态</a>
+                        <a href="{{ url_for('main.byx_list', branch=1) }}">艺术家资讯</a>
+                        <a href="{{ url_for('main.byx_list', branch=2) }}">其他</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">艺术</a>
+                    <div class="customer-submenu">
+                        <a href="{{ url_for('main.artlives', type=0) }}">珂罗版</a>
+                        <a href="{{ url_for('main.artlives', type=1) }}">丝网版</a>
+                        <a href="{{ url_for('main.artlives', type=2) }}">木版</a>
+                        <a href="{{ url_for('main.artlives', type=3) }}">铜版</a>
+                        <a href="{{ url_for('main.artlives', type=4) }}">石版</a>
+                        <a href="{{ url_for('main.artlives', type=5) }}">综合版</a>
+                        <a href="{{ url_for('main.artlives', type=6) }}">艺术微喷</a>
+                        <a href="artist.html" target="_blank">艺术家</a>
+                        <a href="{{ url_for('main.artlives', type=7) }}">艺术衍生品</a>
+                        <a href="{{ url_for('main.artlives', type=8) }}">艺术走进生活</a>
+                        <a href="{{ url_for('main.artlives', type=99) }}">其他</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">活动</a>
+                    <div class="customer-submenu">
+                        <a href="{{ url_for('main.byx_list', branch=3) }}">展览资讯</a>
+                        <a href="{{ url_for('main.byx_list', branch=4) }}">相关活动</a>
+                        <a href="{{ url_for('main.byx_list', branch=5) }}">其他</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">关于我们</a>
+                    <div class="customer-submenu">
+                        <a href="{{ url_for('main.byx_list', branch=6) }}">版画制作工艺</a>
+                        <a href="{{ url_for('main.about') }}">关于百雅轩</a>
+                        <a href="{{ url_for('main.byx_list', branch=7) }}">艺术家与百雅轩</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="customer-search myboder">
+            <form class="bs-example bs-example-form customer-search-form" role="form">
+                <div class="row clearfix">
+                    <div class="col-lg-11">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button"
+                                        class="btn btn-default dropdown-toggle customer-search-select customer-search-select-div"
+                                        data-toggle="dropdown" id="byx_search-selected" data-id="_engraving">
+                                    艺术品
+                                </button>
+                                <ul class="dropdown-menu" id="byx_search-select">
+                                    <li><a href="#" data-id="_arts">艺术品</a></li>
+                                    <li><a href="#" data-id="_artists">艺术家</a></li>
+                                    <li><a href="#" data-id="_activity">活动</a></li>
+                                    <li><a href="#" data-id="_developments">动态</a></li>
+                                </ul>
+                            </div><!-- /btn-group -->
+                            <input type="text" class="form-control">
+                            <span class="input-group-addon customer-search-icon-size"><a href="search.html"><img
+                                    class="customer-search-icon"
+                                    src="{{ url_for('static', filename='images/search_icon_red.png') }}"></a></span>
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 --><br>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-8 column customer-column-margin customer-column-margin-left">
+            <div class="carousel slide" data-ride="carousel" id="byx_carousel">
+                <ol class="carousel-indicators">
+                    {% for each in life_list %}
+                    {% if loop.index0 == 0 %}
+                    <li class="active" data-slide-to="{{ loop.index0 }}" data-target="#byx_carousel">
+                    </li>
+                    {% else %}
+                    <li data-slide-to="{{ loop.index0 }}" data-target="#byx_carousel">
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for each in life_list %}
+                    {% if loop.index0 ==0 %}
+                    <div class="item active">
+                        <a href="byx_details.html?detailsid=1" target="_blank"><img alt="九月" data="/static/upload/{{ each.index_life_image}}" src="{{ url_for('static', filename='upload/' + each.index_slider_image) }}" width="808" height="434" /></a>
+                        <div class="carousel-caption">
+                            <h4>
+                                <!-- 文字说明标题 -->
+                            </h4>
+                            <p>
+                                <!-- 文字说明 -->
+                            </p>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="item">
+                        <a href="byx_details.html?detailsid=1" target="_blank"><img alt="九月" data="/static/upload/{{ each.index_life_image}}" src="{{ url_for('static', filename='upload/' + each.index_slider_image) }}" width="808" height="434" /></a>
+                        <div class="carousel-caption">
+                            <h4>
+                                <!-- 文字说明标题 -->
+                            </h4>
+                            <p>
+                                <!-- 文字说明 -->
+                            </p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 column customer-column-margin ">
+            <a href="artshow.html?artid=1" target="_blank"><img alt="九月走进生活"
+                                                                src="{{ url_for('static', filename='upload/' + life_list[0].index_life_image) }}"
+                                                                id="byx_live" width="444" height="434" /></a>
+        </div>
+    </div>
+    <div class="row customer-scroll-height clearfix">
+        <div class="bxy-slide">
+            {% for artist in artistlist %}
+            <div><a href="{{ url_for('main.artistlive', id=artist.id) }}" target="_blank"><img
+                    src="{{ url_for('static', filename='upload/'+artist.slide_image) }}" width="310" height="183"></a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row customer-footer-height customer-footer-padding clearfix">
+        <div class="col-md-8 column customer-footer-div-left">
+            <table class="table">
+                <tr>
+                    <td><h5 class="customer-letter-spacing">联系与合作</h5></td>
+                </tr>
+                <tr>
+                    <td>联 系 我 们：<strong>010-57626236</strong></td>
+                </tr>
+                <tr>
+                    <td>建 议 反 馈：<strong>010-57623018</strong></td>
+                </tr>
+                <tr>
+                    <td>合 作 热 线：<strong>010-57623058</strong></td>
+                </tr>
+                <tr>
+                    <td><strong class="customer-letter-spacing">北京百雅轩文化传播有限公司 版权所有 京ICP备14004157号<strong></strong></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-4 column customer-footer-div-right">
+            <table class="table">
+                <tr>
+                    <td><h5 class="customer-letter-spacing">关注我们</h5></td>
+                </tr>
+                <tr>
+                    <td>新 浪 微 博 ：<strong>@百雅轩</strong></td>
+                </tr>
+                <tr>
+                    <td>淘 宝 店 铺 ：<a href="https://shop106802363.world.taobao.com/?spm=0.0.0.0.0h2Jd5" target="_blank">传世细工坊</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>官 方 Q Q &nbsp&nbsp：<strong>2149681831</strong></td>
+                </tr>
+                <tr>
+                    <td>微信订阅号：<strong>baiyaxuan798</strong></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.bxslider.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/byx-plugin.js') }}"></script>
+</body>
+</html>

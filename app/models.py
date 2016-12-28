@@ -107,6 +107,14 @@ class ArtType(db.Model):
     type_name = db.Column(db.String(45))
 
 
+class Price(db.Model):
+    __tablename__ = 'price'
+    id = db.Column(db.Integer, primary_key=True)
+    art_id = db.Column(db.Integer)
+    sale_time = db.Column(db.String(45))
+    art_price = db.Column(db.String(45))
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))

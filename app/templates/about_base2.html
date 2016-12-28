@@ -17,6 +17,11 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.9.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.bxslider.js') }}"></script>
+
+    <!--[if lt IE 9]>
+    <script src="{{ url_for('static', filename='js/html5shiv.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/respond.js') }}"></script>
+    <![endif]-->
     <style>
 
 body {
@@ -567,14 +572,18 @@ table tr td {
 	width: 100%;
 	height: 100%;
 }
+
     </style>
 </head>
 <body>
 <div class="container customer-width">
     <div class="row customer-width customer-position-absolute clearfix">
         <div class="col-md-3 column">
-            <a href="{{ url_for('main.index') }}"><img class="customer-logo" src="{{ url_for('static', filename='images/logo_black.png') }}" alt="百雅轩"></a>
-            <img class="customer-sublogo" src="{{ url_for('static', filename='images/subLogo_black.png') }}" alt="让艺术走进|寻常百姓家">
+            <a href="{{ url_for('main.index') }}"><img class="customer-logo"
+                                                       src="{{ url_for('static', filename='images/logo_black.png') }}"
+                                                       alt="百雅轩"></a>
+            <img class="customer-sublogo" src="{{ url_for('static', filename='images/subLogo_black.png') }}"
+                 alt="让艺术走进|寻常百姓家">
         </div>
         <div class="col-md-9 column customer-nav">
             <ul class="_nav">
@@ -659,7 +668,8 @@ table tr td {
                             </div><!-- /btn-group -->
                             <input type="text" class="form-control" id="byx_search">
                             <span class="input-group-addon customer-other-search-icon-size"><a href="#"><img
-                                    class="customer-search-icon" src="{{ url_for('static', filename='images/search_icon.png') }}"></a></span>
+                                    class="customer-search-icon"
+                                    src="{{ url_for('static', filename='images/search_icon.png') }}"></a></span>
                         </div><!-- /input-group -->
                     </div><!-- /.col-lg-6 --><br>
                 </div>

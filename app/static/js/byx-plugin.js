@@ -20,6 +20,14 @@
             $("._nav .customer-submenu").hide();
         }
     );
+    //首页轮播与走进生活切换
+    $('#byx_carousel').carousel({
+      interval: 3000
+    }).on('slid.bs.carousel', function (e) {
+      var $this = $(e.relatedTarget).find("img");
+      var slidePic = $this.attr("data");
+      $('#byx_live').attr('src',slidePic);
+    });
     //首页换灯
     $('.bxy-slide').bxSlider({
       slideWidth: 310,

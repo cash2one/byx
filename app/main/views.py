@@ -1,7 +1,7 @@
 # coding:utf8
 from . import main
 from flask import render_template, request, redirect, url_for, flash, current_app, jsonify
-from ..models import News, User, Artist, Art, Branch, ArtType
+from ..models import News, User, Artist, Art, Branch, ArtType, Price
 from flask_login import current_user, login_user, login_required, logout_user
 from .forms import LoginForm, RegisterForm, ChangePasswordForm, ArtistForm, ArtForm, NewsForm, PriceForm
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -12,16 +12,16 @@ from .utils import random_file_name
 from sqlalchemy import or_
 
 
-# todo
-# http://stackoverflow.com/questions/18600031/changing-the-active-class-of-a-link-with-the-twitter-bootstrap-css-in-python-fla
-# 图片格式判断
-
 
 @main.route('/')
 def index():
     artistlist = Artist.query.all()
-    life_list = Art.query.filter(Art.type == 8).filter(Art.life_image != '').filter(Art.index_life_image != '').all()
-    return render_template('index2.html', artistlist=artistlist, life_list=life_list)
+
+    # 首页轮播取最多6个倒序
+    life_list = Art.query.filter(Art.type == 8).filter(Art.index_slider_image != '').filter(
+        Art.index_life_image != '').order_by(Art.created.desc()).limit(6).all()
+
+    return render_template('index3.html', artistlist=artistlist, life_list=life_list)
 
 
 @main.route('/about.html')
@@ -287,16 +287,18 @@ def priceupdate():
     form = PriceForm(type_id, artists_id, arts_name)
     if form.validate_on_submit():
         art_id = form.art_id.data
-        price = form.price.data
+        art_price = form.price.data
         sale_time = form.sale_time.data
-
-        print art_id, price, sale_time
-
-
+        price = Price(art_id=art_id, art_price=art_price, sale_time=sale_time)
+        db.session.add(price)
+        db.session.commit()
+        return redirect(url_for("main.priceupdate"))
     else:
         flash_errors(form)
     artist_list = Artist.query.all()
-    return render_template('priceupdate.html', form=form, artist_list=artist_list)
+    price_list = Price.query.join(Art, Price.art_id == Art.id).join(Artist, Art.artist_id == Artist.id).add_columns(
+        Art.name.label('art_name'), Artist.name.label('artist_name'), Art.type, Art.art_list_image).all()
+    return render_template('priceupdate.html', form=form, artist_list=artist_list, price_list=price_list)
 
 
 @main.route('/changepwd.html', methods=['GET', 'POST'])
