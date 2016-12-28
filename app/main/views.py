@@ -10,7 +10,7 @@ import os
 import time
 from .utils import random_file_name
 from sqlalchemy import or_
-
+import datetime
 
 
 @main.route('/')
@@ -94,6 +94,10 @@ def artshow(id):
                                                                                                      ).first_or_404()
     artist_id = art_detail.Art.artist_id
     art_list = Art.query.filter(Art.artist_id == artist_id).filter(Art.id != id).all()
+    # todo
+    price_list = [{'art_price': i.art_price, 'sale_time': i.sale_time} for i in
+                  Price.query.filter(Price.art_id == id).all()]
+    price_list.sort(key=lambda x: datetime.datetime.strptime(x['sale_time'], '%Y-%m-%d'))
     return render_template('artshow2.html', art_detail=art_detail, art_list=art_list)
 
 
@@ -295,10 +299,19 @@ def priceupdate():
         return redirect(url_for("main.priceupdate"))
     else:
         flash_errors(form)
+
     artist_list = Artist.query.all()
     price_list = Price.query.join(Art, Price.art_id == Art.id).join(Artist, Art.artist_id == Artist.id).add_columns(
         Art.name.label('art_name'), Artist.name.label('artist_name'), Art.type, Art.art_list_image).all()
     return render_template('priceupdate.html', form=form, artist_list=artist_list, price_list=price_list)
+
+
+@main.route('/price/delete/<int:id>', methods=['GET', 'POST'])
+def delete_price(id):
+    have_price = Price.query.filter_by(id=id).first_or_404()
+    db.session.delete(have_price)
+    db.session.commit()
+    return redirect(request.referrer or url_for('main.priceupdate'))
 
 
 @main.route('/changepwd.html', methods=['GET', 'POST'])

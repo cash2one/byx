@@ -26,7 +26,10 @@
     }).on('slid.bs.carousel', function (e) {
       var $this = $(e.relatedTarget).find("img");
       var slidePic = $this.attr("data");
+      var lifeHref = $this.attr("data-href");
+      console.log(lifeHref);
       $('#byx_live').attr('src',slidePic);
+      $('#byx_live').parents('a').attr('href',lifeHref);
     });
     //首页换灯
     $('.bxy-slide').bxSlider({

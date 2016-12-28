@@ -127,7 +127,7 @@
                     {% for each in life_list %}
                     {% if loop.index0 ==0 %}
                     <div class="item active">
-                        <a href="byx_details.html?detailsid=1" target="_blank"><img alt="九月" data="/static/upload/{{ each.index_life_image}}" src="{{ url_for('static', filename='upload/' + each.index_slider_image) }}" width="808" height="434" /></a>
+                        <a href="byx_details.html?detailsid=1" target="_blank"><img alt="九月" data="/static/upload/{{ each.index_life_image}}" data-href="{{ url_for('main.artshow', id=each.id) }}" src="{{ url_for('static', filename='upload/' + each.index_slider_image) }}" width="808" height="434" /></a>
                         <div class="carousel-caption">
                             <h4>
                                 <!-- 文字说明标题 -->
@@ -139,7 +139,7 @@
                     </div>
                     {% else %}
                     <div class="item">
-                        <a href="byx_details.html?detailsid=1" target="_blank"><img alt="九月" data="/static/upload/{{ each.index_life_image}}" src="{{ url_for('static', filename='upload/' + each.index_slider_image) }}" width="808" height="434" /></a>
+                        <a href="byx_details.html?detailsid=1" target="_blank"><img alt="九月" data="/static/upload/{{ each.index_life_image}}" data-href="{{ url_for('main.artshow', id=each.id) }}" src="{{ url_for('static', filename='upload/' + each.index_slider_image) }}" width="808" height="434" /></a>
                         <div class="carousel-caption">
                             <h4>
                                 <!-- 文字说明标题 -->
@@ -155,7 +155,7 @@
             </div>
         </div>
         <div class="col-md-4 column customer-column-margin ">
-            <a href="artshow.html?artid=1" target="_blank"><img alt="九月走进生活"
+            <a href="{{ url_for('main.artshow', id=life_list[0].id) }}" target="_blank"><img alt="九月走进生活"
                                                                 src="{{ url_for('static', filename='upload/' + life_list[0].index_life_image) }}"
                                                                 id="byx_live" width="444" height="434" /></a>
         </div>
@@ -198,7 +198,7 @@
                     <td>新 浪 微 博 ：<strong>@百雅轩</strong></td>
                 </tr>
                 <tr>
-                    <td>淘 宝 店 铺 ：<a href="https://shop106802363.world.taobao.com/?spm=0.0.0.0.0h2Jd5" target="_blank">传世细工坊</a>
+                    <td>淘 宝 店 铺 ：<a href="https://shop106802363.world.taobao.com" target="_blank">传世细工坊</a>
                     </td>
                 </tr>
                 <tr>
