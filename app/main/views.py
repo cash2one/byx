@@ -423,6 +423,7 @@ def search():
     keyword = request.args.get('keyword', '')
     if type and keyword:
         if type == 1:
+            # search_list = Art.objects.filter(Q)
             search_list = Art.query.filter(
                 or_(
                     Art.name.like(u'%{}%'.format(keyword)),
